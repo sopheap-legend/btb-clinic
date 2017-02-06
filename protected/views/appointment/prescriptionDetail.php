@@ -173,7 +173,7 @@ $('.search-form form').submit(function(){
                                                 <?php if($amount_change<=0) {?>
                                                 <?php echo '៛'.number_format($payment['actual_amount'], 2, '.', ','); ?>
                                                 <?php }else{ ?>
-                                                <?php echo '៛'.number_format($amount_change_khr_round, 2, '.', ','); ?>
+                                                <?php echo '៛'.number_format(($payment['actual_amount']-$amount_change_khr_round), 2, '.', ','); ?>
                                                 <?php } ?>
                                             </span>
                                         </td>

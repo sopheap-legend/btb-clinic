@@ -817,9 +817,6 @@ class AppointmentController extends Controller
             $data['medicine']=$medicine;
             $data['visit_id']=$visit_id;
             $data['medicine_selected_items'] = Yii::app()->treatmentCart->getMedicine();
-            //print_r($data['medicine_selected_items']); die();
-            Yii::app()->clientScript->scriptMap['jquery-ui.css'] = false; 
-            Yii::app()->clientScript->scriptMap['box.css'] = false; 
 
             if (Yii::app()->request->isAjaxRequest) {
                 $cs = Yii::app()->clientScript;
@@ -1074,7 +1071,7 @@ class AppointmentController extends Controller
         $data['amount_change_khr_round']=Yii::app()->treatmentCart->get_kh_change();
         if($data['count_item']>0)
         {
-            $chk_bill = Bill::model()->find("visit_id=:visit_id",array(":visit_id"=>$visit_id));
+            $chk_bill = Bill::model()->find("visit_id=:visit_id AND STATUS NOT IN (0,1)",array(":visit_id"=>$visit_id));
             if(empty($chk_bill))
             {
                 $data['count_payment'] = $count_payment;
@@ -1180,6 +1177,8 @@ class AppointmentController extends Controller
                     'bootstrap.min.js' => false,
                     'bootstrap.notify.js' => false,
                     'bootstrap.bootbox.min.js' => false,
+                    'jquery.ba-bbq.min.js'=>false,
+                    'jquery.yiigridview.js'=>false,
                 );
 
                 Yii::app()->clientScript->scriptMap['jquery-ui.css'] = false; 
@@ -1224,6 +1223,8 @@ class AppointmentController extends Controller
                     'bootstrap.min.js' => false,
                     'bootstrap.notify.js' => false,
                     'bootstrap.bootbox.min.js' => false,
+                    'jquery.ba-bbq.min.js'=>false,
+                    'jquery.yiigridview.js'=>false,
                 );
 
                 Yii::app()->clientScript->scriptMap['jquery-ui.css'] = false; 
@@ -1353,7 +1354,7 @@ class AppointmentController extends Controller
         }
     }  
 
-        public function actionEmptytreatment()
+    public function actionEmptytreatment()
     {
         Yii::app()->treatmentCart->clearAll();
     }
