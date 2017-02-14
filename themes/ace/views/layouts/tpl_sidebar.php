@@ -49,6 +49,64 @@
                     ),
                 )
             ),
+            array('label'=>'<span class="menu-text">' . strtoupper(Yii::t('app', 'Report')) .'</span>', 'icon'=>'menu-icon fa fa-signal', 'url'=>Yii::app()->urlManager->createUrl('report/reporttab'),
+                'active'=>$this->id =='report',
+                'visible'=> Yii::app()->user->checkAccess('report.index') || Yii::app()->user->checkAccess('invoice.index') || Yii::app()->user->checkAccess('invoice.print') || Yii::app()->user->checkAccess('invoice.delete') || Yii::app()->user->checkAccess('invoice.update') ,
+                'items'=>array(
+                    /*array('label'=> Yii::t('app','Sale Invoice'),'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/SaleInvoice'),
+                        'active'=>$this->id .'/'. $this->action->id =='report/SaleInvoice',
+                        'visible'=> Yii::app()->user->checkAccess('invoice.index') || Yii::app()->user->checkAccess('invoice.print') || Yii::app()->user->checkAccess('invoice.delete') || Yii::app()->user->checkAccess('invoice.update')
+                    ),
+                    array('label'=> Yii::t('app','Sale Daily'), 'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/SaleDaily'),
+                        'active'=>$this->id .'/'. $this->action->id =='report/SaleDaily',
+                        'visible'=> Yii::app()->user->checkAccess('report.index')
+                    ),
+                    array('label'=> Yii::t('app','Sale Hourly'), 'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/SaleHourly'),
+                        'active'=>$this->id .'/'. $this->action->id =='report/SaleHourly',
+                        'visible'=> Yii::app()->user->checkAccess('report.index')
+                    ),
+                    array('label'=> Yii::t('app','Sale Summary'), 'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/SaleSummary'),
+                        'active'=>$this->id .'/'. $this->action->id =='report/SaleSummary',
+                        'visible'=> Yii::app()->user->checkAccess('report.index')
+                    ),
+                    array('label'=> Yii::t('app','Sale By Sale Rep'), 'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/SaleSumBySaleRep'),
+                        'active'=>$this->id .'/'. $this->action->id =='report/SaleSumBySaleRep',
+                        'visible'=> Yii::app()->user->checkAccess('report.index')
+                    ),
+                    array('label'=> Yii::t('app','Sale Weekly By Customer'), 'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/SaleWeeklyByCustomer'),
+                        'active'=>$this->id .'/'. $this->action->id =='report/SaleWeeklyByCustomer',
+                        'visible'=> Yii::app()->user->checkAccess('report.index')
+                    ),
+                    array('label'=> Yii::t('app','Outstanding Balance'), 'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/outstandingInvoice'),
+                        'active'=>$this->id .'/'. $this->action->id =='report/outstandingInvoice',
+                        'visible'=> Yii::app()->user->checkAccess('report.index')
+                    ),
+                    array('label'=> Yii::t('app','Profit Daily Sum'),'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/ProfitDailySum'),
+                        'active'=>$this->id .'/'. $this->action->id =='report/ProfitDailySum',
+                        'visible'=> Yii::app()->user->checkAccess('report.profit')
+                    ),
+                    array('label'=> Yii::t('app','Payment Receive'),'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/PaymentReceiveByEmployee'),
+                        'active'=>$this->id .'/'. $this->action->id =='report/PaymentReceiveByEmployee',
+                        'visible'=> Yii::app()->user->checkAccess('report.index')
+                    ),
+                    array('label'=> Yii::t('app','Best Selling Item'),'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/TopItem'),
+                        'active'=>$this->id .'/'. $this->action->id =='report/TopItem',
+                        'visible'=> Yii::app()->user->checkAccess('report.index')
+                    ),*/
+                    array('label'=> Yii::t('app','Sale Item Summary'),'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/SaleItemSummary'),
+                        'active'=>$this->id .'/'. $this->action->id =='report/SaleItemSummary',
+                        'visible'=> Yii::app()->user->checkAccess('report.index')
+                    ),
+                    array('label'=> Yii::t('app','Item Expiry'), 'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/itemExpiry'),
+                        'active'=>$this->id .'/'. $this->action->id =='report/itemExpiry',
+                        'visible'=> Yii::app()->user->checkAccess('report.index')  || Yii::app()->settings->get('item', 'itemExpireDate')=='1'
+                    ),
+                    /*array('label'=> Yii::t('app','Inventory'), 'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/Inventory'),
+                        'active'=>$this->id .'/'. $this->action->id =='report/Inventory',
+                        'visible'=> Yii::app()->user->checkAccess('report.index')
+                    ),*/
+                )),
+
             array('label'=>'<span class="menu-text">' . strtoupper(Yii::t('menu','Transaction')) .'</span>', 'icon'=>'menu-icon fa fa-desktop','url'=>Yii::app()->urlManager->createUrl('receivingItem/index'),'active'=>$this->id .'/'. $this->action->id=='receivingItem/index',
                 'visible'=> Yii::app()->user->checkAccess('maintask.transaction'),
                 'items'=>array(

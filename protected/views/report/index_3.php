@@ -1,19 +1,18 @@
 <?php
 /*
 |-----------------------------------------------------
-| Report Template
+| Report Template III
 |-----------------------------------------------------
 |
-| Header as date range
+| First Header as tab categories
 | Content as grid
 |
 */
 ?>
 
-<?php $this->renderPartial('partial/' . $header_view, array(
+<?php $this->renderPartial('partial/_header_3', array(
     'report' => $report,
-    'advance_search' => $advance_search,
-    'header_tab' => $header_tab, // Using for tab style
+    'header_tab' => $header_tab,
 )); ?>
 
 <br />
@@ -23,7 +22,7 @@
 
 <div id="report_grid">
 
-    <?php $this->renderPartial('partial/' . $grid_view, array(
+    <?php $this->renderPartial('partial/_grid', array(
         'report' => $report,
         'data_provider' => $data_provider ,
         'grid_columns' => $grid_columns,
@@ -33,7 +32,5 @@
 
 </div>
 
-<?php $this->renderPartial('partial/_js',array(
+<?php $this->renderPartial('partial/_js_3',array(
 ));?>
-
-<?php $this->widget( 'ext.modaldlg.EModalDlg' ); ?>

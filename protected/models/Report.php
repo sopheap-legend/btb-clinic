@@ -18,7 +18,6 @@
  */
 class Report extends CFormModel
 {
-
     public $search;
     public $amount;
     public $quantity;
@@ -27,6 +26,13 @@ class Report extends CFormModel
     public $sale_id;
     public $receive_id;
     public $employee_id;
+    public $search_id;
+
+    public $name;
+    public $supplier;
+    public $unit_price;
+    public $cost_price;
+    public $reorder_level;
     
     private $item_active = '1';
     private $active_status = '1';
@@ -361,6 +367,58 @@ class Report extends CFormModel
         }
 
         return $result;
+    }
+
+    public function itemExpiry($filter)
+    {
+        $sql = "SELECT name,total_qty,quantity,expire_date,n_month_expire
+                FROM v_item_expire
+                WHERE n_month_expire <= :month_to_expire
+                ORDER BY n_month_expire";
+
+        $rawData = Yii::app()->db->createCommand($sql)->queryAll(true, array(':month_to_expire' => $filter));
+
+        $dataProvider = new CArrayDataProvider($rawData, array(
+            'keyField' => 'name',
+            'sort' => array(
+                'attributes' => array(
+                    'name',
+                ),
+            ),
+            'pagination' => false,
+        ));
+
+        return $dataProvider; // Return as array object
+    }
+
+    public function saleItemSummary()
+    {
+        $sql="SELECT item_name,CONCAT_WS(' - ', from_date, to_date) date_report,
+                round(sub_total,2) sub_total,round(quantity,0) quantity,NULL profit
+                FROM(
+                    SELECT medicine_name item_name,MIN(DATE_FORMAT(t2.visit_date,'%d-%m-%Y')) from_date, MAX(DATE_FORMAT(t2.visit_date,'%d-%m-%Y')) to_date,
+                    SUM(quantity) quantity,SUM(quantity*unit_price*exchange_rate) sub_total
+                    FROM v_medicine_payment t1
+                    INNER JOIN visit t2 ON t1.visit_id=t2.visit_id
+                    WHERE t2.visit_date>=STR_TO_DATE(:from_date,'%d-%m-%Y')  
+                    AND t2.visit_date<DATE_ADD(STR_TO_DATE(:to_date,'%d-%m-%Y'),INTERVAL 1 DAY) 
+                    GROUP BY medicine_name
+                )AS l1";
+
+        $rawData = Yii::app()->db->createCommand($sql)->queryAll(true, array(':from_date' => $this->from_date, ':to_date' => $this->to_date));
+
+        $dataProvider = new CArrayDataProvider($rawData, array(
+            //'id'=>'saleinvoice',
+            'keyField' => 'item_name',
+            'sort' => array(
+                'attributes' => array(
+                    'date_report',
+                ),
+            ),
+            'pagination' => false,
+        ));
+
+        return $dataProvider; // Return as array object
     }
 
 }

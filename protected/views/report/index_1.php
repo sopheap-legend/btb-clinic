@@ -1,19 +1,18 @@
 <?php
 /*
 |-----------------------------------------------------
-| Report Template
+| Report Template I
 |-----------------------------------------------------
 |
-| Header as date range
+| Header as search box
 | Content as grid
 |
 */
 ?>
 
-<?php $this->renderPartial('partial/' . $header_view, array(
+<?php $this->renderPartial('partial/_header_1', array(
     'report' => $report,
-    'advance_search' => $advance_search,
-    'header_tab' => $header_tab, // Using for tab style
+    'hint_text' => isset($hint_text) ? $hint_text : Yii::t('app','Search'),
 )); ?>
 
 <br />
@@ -23,7 +22,7 @@
 
 <div id="report_grid">
 
-    <?php $this->renderPartial('partial/' . $grid_view, array(
+    <?php $this->renderPartial('partial/_grid', array(
         'report' => $report,
         'data_provider' => $data_provider ,
         'grid_columns' => $grid_columns,
@@ -35,5 +34,3 @@
 
 <?php $this->renderPartial('partial/_js',array(
 ));?>
-
-<?php $this->widget( 'ext.modaldlg.EModalDlg' ); ?>
