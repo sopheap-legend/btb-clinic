@@ -101,10 +101,10 @@
                         'active'=>$this->id .'/'. $this->action->id =='report/itemExpiry',
                         'visible'=> Yii::app()->user->checkAccess('report.index')  || Yii::app()->settings->get('item', 'itemExpireDate')=='1'
                     ),
-                    /*array('label'=> Yii::t('app','Inventory'), 'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/Inventory'),
+                    array('label'=> Yii::t('app','Inventory'), 'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/Inventory'),
                         'active'=>$this->id .'/'. $this->action->id =='report/Inventory',
                         'visible'=> Yii::app()->user->checkAccess('report.index')
-                    ),*/
+                    ),
                 )),
 
             array('label'=>'<span class="menu-text">' . strtoupper(Yii::t('menu','Transaction')) .'</span>', 'icon'=>'menu-icon fa fa-desktop','url'=>Yii::app()->urlManager->createUrl('receivingItem/index'),'active'=>$this->id .'/'. $this->action->id=='receivingItem/index',

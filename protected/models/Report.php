@@ -421,4 +421,66 @@ class Report extends CFormModel
         return $dataProvider; // Return as array object
     }
 
+    public function inventory($filter)
+    {
+
+        if ($this->search_id !== '') {
+            $sql ="SELECT t1.id,t1.name,t3.name category_name,t1.unit_quantity quantity,t1.cost_price,t1.unit_price,t1.reorder_level,GROUP_CONCAT(DISTINCT t2.company_name) supplier
+                   FROM item t1 LEFT JOIN v_item_supplier t2
+                        ON t2.item_id=t1.id LEFT JOIN category t3 on t3.id = t1.category_id
+                   WHERE (t1.name like :search_id or t3.name like :search_id)
+                   GROUP BY t1.id,t1.name,t1.quantity,t1.cost_price,t1.unit_price,t1.reorder_level,t3.name";
+
+            $search_str = $this->search_id . '%';
+
+            $rawData = Yii::app()->db->createCommand($sql)->queryAll(true,array(':status' => Yii::app()->params['active_status'], ':search_id' => $search_str));
+        } else {
+
+            $condition = $this->inventoryFilter($filter);
+            $sql ="SELECT t1.id,t1.name,t3.name category_name,t1.unit_quantity quantity,t1.cost_price,t1.unit_price,t1.reorder_level,GROUP_CONCAT(DISTINCT t2.company_name) supplier
+                   FROM item t1 LEFT JOIN v_item_supplier t2
+                        ON t2.item_id=t1.id LEFT JOIN category t3 on t3.id = t1.category_id
+                   $condition
+                   GROUP BY t1.id,t1.name,t1.quantity,t1.cost_price,t1.unit_price,t1.reorder_level,t3.name";
+
+            $rawData = Yii::app()->db->createCommand($sql)->queryAll(true,array());
+
+        }
+        //echo $sql;
+        $dataProvider = new CArrayDataProvider($rawData, array(
+            'keyField' => 'id',
+            'sort' => array(
+                'attributes' => array(
+                    'quantity','name','category_name'
+                ),
+            ),
+            'pagination' => false,
+        ));
+
+        return $dataProvider; // Return as array object
+    }
+
+    protected function inventoryFilter($filter)
+    {
+        switch ($filter) {
+            case 'all':
+                $condition = '';
+                break;
+            case 'low':
+                $condition = 'WHERE IFNULL(reorder_level,0)>unit_quantity';
+                break;
+            case 'outstock':
+                $condition = 'WHERE round(unit_quantity,0)=0';
+                break;
+            case 'onstock':
+                $condition = 'WHERE unit_quantity>0';
+                break;
+            case 'negative':
+                $condition = 'WHERE unit_quantity<0';
+                break;
+        }
+
+        return $condition;
+    }
+
 }

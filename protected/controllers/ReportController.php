@@ -19,7 +19,8 @@ class ReportController extends Controller
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'RevenueTab','itemExpiry','SaleItemSummary'),
+                'actions' => array('create', 'update', 'RevenueTab',
+                                    'itemExpiry','SaleItemSummary','Inventory'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -68,6 +69,25 @@ class ReportController extends Controller
         $data['data_provider'] = $data['report']->saleItemSummary();
 
         $this->renderView($data);
+    }
+
+    public function actionInventory($filter = 'all')
+    {
+        //$this->canViewReport();
+
+        $grid_id = 'rpt-inventory-grid';
+        $title = 'Inventory';
+
+        $data = $this->commonData($grid_id,$title,'show','_header_3');
+        $data['filter'] = $filter;
+
+        $data['header_tab'] = ReportColumn::getInventoryHeaderTab($filter);
+        $data['grid_columns'] = ReportColumn::getInventoryColumns();
+
+        $data['data_provider'] = $data['report']->Inventory($filter);
+
+        $this->renderView($data);
+
     }
 
     protected function renderView($data, $view_name='index')

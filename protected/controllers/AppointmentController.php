@@ -548,7 +548,8 @@ class AppointmentController extends Controller
                             {
                                 //if($model->validate())
                                 //{
-                                    $actual_amount = $_POST['Appointment']['actual_amount'];
+                                    //$actual_amount = $_POST['Appointment']['actual_amount'];
+                                    $actual_amount = preg_replace('/[^0-9.]/s', '', $_POST['Appointment']['actual_amount']);
                                     //echo $actual_amount; die();
                                     $this->actioncompletedConsult($_GET['visit_id'],$_GET['patient_id'],$actual_amount);
                                 //}
@@ -1144,8 +1145,20 @@ class AppointmentController extends Controller
             $rst = VAppointmentState::model()->find("visit_id=:visit_id",array(':visit_id'=>$visit_id));
             $data['patient_name'] = $rst->patient_name;
             $data['visit_id'] = $visit_id;
-            if(isset($_POST['Appointment']['kh_payment_amount'])){$kh_payment_amount=$_POST['Appointment']['kh_payment_amount'];}
-            if(isset($_POST['Appointment']['us_payment_amount'])){$us_payment_amount=$_POST['Appointment']['us_payment_amount'];}
+
+            //$ll = floatval ($_POST['Appointment']['kh_payment_amount']);
+            //if(is_numeric($ll)){echo "Hello";}
+
+            if(isset($_POST['Appointment']['kh_payment_amount']))
+            {
+                $kh_payment_amount=preg_replace('/[^0-9.]/s', '', $_POST['Appointment']['kh_payment_amount']);
+                //$kh_payment_amount=$_POST['Appointment']['kh_payment_amount'];
+            }
+            if(isset($_POST['Appointment']['us_payment_amount']))
+            {
+                $us_payment_amount=preg_replace('/[^0-9]/s', '', $_POST['Appointment']['us_payment_amount']);
+                //$us_payment_amount=$_POST['Appointment']['us_payment_amount'];
+            }
             
             //Yii::app()->treatmentCart->addPayment($visit_id,$data['actual_amount']);
             $count_payment=0;
@@ -1236,52 +1249,54 @@ class AppointmentController extends Controller
     }
     
     public function actionCompleteSale($visit_id)
-    {  
-        $sale_id = Payment::model()->CompleteSale($visit_id);
+    {
+        $data['amount_change']=Yii::app()->treatmentCart->get_us_change();
+        $data['amount_change_khr_round']=Yii::app()->treatmentCart->get_kh_change();
 
         $clinic_info = Clinic::model()->find();
         $employee_id = RbacUser::model()->findByPk(Yii::app()->user->getId());
         $employee = Employee::model()->get_doctorName($employee_id->employee_id);
 
-        $cust_info=Appointment::model()->generateInvoice($visit_id); 
+        $cust_info=Appointment::model()->generateInvoice($visit_id);
         $patient_id = Appointment::model()->find("visit_id=:visit_id",array(':visit_id'=>$visit_id));
         $rs = VSearchPatient::model()->find("patient_id=:patient_id",array(':patient_id'=>$patient_id->patient_id));
 
-        $data['cust_fullname'] =  $rs->fullname;
-        //$data['cust_fullname'] =  'Hello';
-        $data['employee'] = $employee->doctor_name;
-        $data['cust_info'] = $cust_info;
-        $data['sale_id'] = $sale_id;
-        $data['discount'] = 0;
-        $data['amount_change']=Yii::app()->treatmentCart->get_us_change();
-        $data['amount_change_khr_round']=Yii::app()->treatmentCart->get_kh_change();
-        
-        $data['clinic_name']=$clinic_info->clinic_name;
-        $data['clinic_address']= $clinic_info->clinic_address;
-        $data['clinic_mobile'] = $clinic_info->mobile;
-        
-        $data['colspan'] = Yii::app()->settings->get('sale','discount')=='hidden' ? '2' : '3';
-        $subtotal = 0;
-        foreach ($cust_info as $id => $item) 
-        {
-            $subtotal+=round($item['price'] * $item['quantity'] - $item['price'] * $item['quantity'] * $item['discount'] / 100, 2, PHP_ROUND_HALF_DOWN);
-        }
-        $data['sub_total'] = $subtotal;
-        $data['total_discount'] = 0;
-        $data['discount_amount']=0;
-        $total=0;
-        foreach ($cust_info as $id => $item) 
-        {
-            $total+=round($item['price'] * $item['quantity']*$item['exchange_rate'] - $item['price'] * $item['quantity'] *$item['exchange_rate']* $item['discount'] / 100, 2, PHP_ROUND_HALF_DOWN);
-        }
-        $data['total']=$total - $total*$data['discount_amount']/100;
-        $data['actual_amount'] = Appointment::model()->get_actual_amount($visit_id);
-        
-        $data['amount_change']=Yii::app()->treatmentCart->get_us_change();
-        $data['amount_change_khr_round']=Yii::app()->treatmentCart->get_kh_change();
-        
         if($data['amount_change']<=0)
         {
+            $sale_id = Payment::model()->CompleteSale($visit_id);
+
+            $data['cust_fullname'] =  $rs->fullname;
+            //$data['cust_fullname'] =  'Hello';
+            $data['employee'] = $employee->doctor_name;
+            $data['cust_info'] = $cust_info;
+            $data['sale_id'] = $sale_id;
+            $data['discount'] = 0;
+
+            $data['clinic_name']=$clinic_info->clinic_name;
+            $data['clinic_address']= $clinic_info->clinic_address;
+            $data['clinic_mobile'] = $clinic_info->mobile;
+
+            $data['colspan'] = Yii::app()->settings->get('sale','discount')=='hidden' ? '2' : '3';
+            $subtotal = 0;
+            foreach ($cust_info as $id => $item)
+            {
+                $subtotal+=round($item['price'] * $item['quantity'] - $item['price'] * $item['quantity'] * $item['discount'] / 100, 2, PHP_ROUND_HALF_DOWN);
+            }
+            $data['sub_total'] = $subtotal;
+            $data['total_discount'] = 0;
+            $data['discount_amount']=0;
+            $total=0;
+            foreach ($cust_info as $id => $item)
+            {
+                $total+=round($item['price'] * $item['quantity']*$item['exchange_rate'] - $item['price'] * $item['quantity'] *$item['exchange_rate']* $item['discount'] / 100, 2, PHP_ROUND_HALF_DOWN);
+            }
+            $data['total']=$total - $total*$data['discount_amount']/100;
+            $data['actual_amount'] = Appointment::model()->get_actual_amount($visit_id);
+
+            $data['amount_change']=Yii::app()->treatmentCart->get_us_change();
+            $data['amount_change_khr_round']=Yii::app()->treatmentCart->get_kh_change();
+        
+
             $this->layout = '//layouts/column_receipt';            
             $this->render('_receipt', $data);
             Yii::app()->treatmentCart->clearAll();
