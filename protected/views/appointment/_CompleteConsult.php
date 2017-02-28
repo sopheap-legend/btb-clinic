@@ -160,7 +160,7 @@ Yii::app()->clientScript->registerScript('update_medicine', "
                 if(data.status=='success')
                 {
                     $('#select_medicine_form').html(data.div_medicine_form);
-                    $('#Item_id').select2('val', 'All');
+                    $('#Item_id').select2('val', '');
                 }    
             }
         });
@@ -230,7 +230,7 @@ Yii::app()->clientScript->registerScript('update_treament', "
                 if(data.status=='success')
                 {
                     $('#select_treatment_form').html(data.div_treatment_form);
-                    $('#Treatment_id').select2('val', 'All');  //clear select2 value http://bit.ly/1Gttc7X
+                    $('#Treatment_id').select2('val', '');  //clear select2 value http://bit.ly/1Gttc7X
                 }    
             }
         });
