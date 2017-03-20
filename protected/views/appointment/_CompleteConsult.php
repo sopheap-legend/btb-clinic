@@ -35,16 +35,17 @@
         <?php echo $form->textAreaControlGroup($visit, 'sympton',
             array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
 
-        <?php echo $form->textAreaControlGroup($visit, 'assessment',
-            array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
+        <!-- Request to remove from Samnag -->
+        <?php //echo $form->textAreaControlGroup($visit, 'assessment', array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
     </div>
 
     <div class="col-sm-6">
         <!--<h4 class="header blue bolder smaller"><i class="ace-icon fa fa-key blue"></i><?php //echo Yii::t('app','Treatment Result') ?></h4>--->
 
-        <?php echo $form->textAreaControlGroup($visit, 'observation',
-            array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
-        <?php echo $form->textAreaControlGroup($visit, 'plan', array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
+        <?php echo $form->textAreaControlGroup($visit, 'observation', array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
+
+        <!-- Visit -->
+        <?php //echo $form->textAreaControlGroup($visit, 'plan', array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
     </div>
     
     <div class="col-sm-12">

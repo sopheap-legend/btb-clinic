@@ -98,6 +98,9 @@ class AppointmentController extends Controller
             // Uncomment the following line if AJAX validation is needed
             // $this->performAjaxValidation($model);
 
+
+            $model->title='General Check Up';
+
             if(!Yii::app()->user->checkAccess('appointment.create'))
             {
                 throw new CHttpException(400,'You are not authorized to perform this action.');
@@ -117,7 +120,7 @@ class AppointmentController extends Controller
                         $model->end_date=date('Y-m-d');
                         $model->start_time=$_POST['Appointment']['start_time'];
                         $model->end_time=$_POST['Appointment']['end_time'];
-                        $model->title=$_POST['Appointment']['title'];
+                        //$model->title=$_POST['Appointment']['title'];
                         $model->patient_id=$_POST['Patient']['patient_id'];
                         $model->user_id=$_POST['RbacUser']['id'];
                         $model->status='Waiting';

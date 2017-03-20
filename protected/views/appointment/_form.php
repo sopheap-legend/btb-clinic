@@ -90,7 +90,7 @@
                 Appointment::model()->get_combo_doctor(), array()) ?> </div>
     </div>
 
-    <?php echo $form->textFieldControlGroup($model, 'title', array('span' => 5, 'maxlength' => 150)); ?>
+    <?php //echo $form->textFieldControlGroup($model, 'title', array('span' => 5, 'maxlength' => 150)); ?>
 
     <?php echo $form->textField($model, 'start_time', array('span' => 5, 'style' => 'display:none')); ?>
 

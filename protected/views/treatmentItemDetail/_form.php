@@ -1,9 +1,3 @@
-<?php
-/* @var $this TreatmentItemDetailController */
-/* @var $model TreatmentItemDetail */
-/* @var $form TbActiveForm */
-?>
-
 <div class="form">
 <?php $this->widget('bootstrap.widgets.TbAlert', array(
         'block'=>true, // display a larger alert block?
