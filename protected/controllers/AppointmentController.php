@@ -452,7 +452,9 @@ class AppointmentController extends Controller
             //---****Loop medicine into session****---//
             /*if(empty($medicine_selected))
             {*/
+
             $tbl_medicine = $medicine->get_tbl_medicine($_GET['visit_id']);
+            //print_r(Yii::app()->treatmentCart->getMedicine());
             foreach ($tbl_medicine as $value) {
                 Yii::app()->treatmentCart->addMedicine($value['id'],$value['unit_price'],$value['quantity'],
                                         $value['dosage'],$value['duration_id'],$value['frequency'],
@@ -539,8 +541,8 @@ class AppointmentController extends Controller
                         Visit::model()->updateByPk($_GET['visit_id'],array(
                                         'sympton'=>$_POST['Visit']['sympton'],
                                         'observation'=>$_POST['Visit']['observation'],
-                                        'assessment'=>$_POST['Visit']['assessment'],
-                                        'plan'=>$_POST['Visit']['plan'],
+                                        'assessment'=>@$_POST['Visit']['assessment'],
+                                        'plan'=>@$_POST['Visit']['plan'],
                                     )
                                 );
                         /*if(!empty($_POST['Visit']['sympton']) || !empty($_POST['Visit']['observation']) || !empty($_POST['Visit']['assessment']) ||!empty($_POST['Visit']['plan']))

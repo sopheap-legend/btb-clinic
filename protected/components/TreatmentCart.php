@@ -73,22 +73,22 @@ class TreatmentCart extends CApplicationComponent
         return true;
     }
     
-    public function addMedicine($medicine_id,$price = null,$quantity = 1,$dosage = 1,$duration =  1,$frequency =  null,$instruction_id =  1,$comment = null,$consuming_time_id = 1)
+    public function addMedicine($medicine_id,$price = null,$quantity = 1,$dosage = '',$duration =  1,$frequency =  null,$instruction_id = '',$comment = null,$consuming_time_id = '')
     {
         $this->setSession(Yii::app()->session);
         //Get all items in the cart so far...
         $items = $this->getMedicine();
-        
-        $consuming = ConsumingTime::model()->findByPk($consuming_time_id);
 
         //$model = Item::model()->findbyPk($item_id);
         $models = Item::model()->get_selected_medicine($medicine_id);
-        
+
         if (!$models) {
             return false;
         }
 
-        foreach ($models as $k => $model) {            
+        foreach ($models as $k => $model) {
+            $consuming_time_id=$consuming_time_id!=''?$consuming_time_id:$model["consuming_time_id"];
+            $consuming = ConsumingTime::model()->findByPk($consuming_time_id);
             $item_data = array((int)$medicine_id =>
                 array(
                     'id' => $model["id"],
@@ -96,13 +96,15 @@ class TreatmentCart extends CApplicationComponent
                     'price' => $price!= null ? round($price, $this->getDecimalPlace()) : round($model["unit_price"], $this->getDecimalPlace()),
                     //'quantity' => $dosage*$duration*$consuming->multiple,
                     'quantity'=>  round($quantity),
-                    'dosage' => $dosage,
+                    'dosage' => $dosage !='' ? $dosage:$model["dosage"],
                     'duration' => $duration,
                     'frequency' => $frequency,
-                    'instruction_id' => $instruction_id,
+                    'instruction_id' => $instruction_id!='' ? $instruction_id:$model["instruction_id"],
                     'comment' => $comment,
                     'consuming_time_id' => $consuming_time_id,
                     'cons_multiple' => $consuming->multiple,
+                    'measurement' => $model["measurement"],
+                    'category_name' => $model["category_name"]
                 )
             );
         }
@@ -150,20 +152,26 @@ class TreatmentCart extends CApplicationComponent
     public function editMedicine($medicine_id, $quantity, $price,$dosage,$duration,$frequency,$instruction_id,$comment,$consuming_time_id)
     {
         $medicines = $this->getMedicine();
-        if (isset($medicines[$medicine_id])) {        
-            if($consuming_time_id!=null)
+        if (isset($medicines[$medicine_id])) {
+            if($medicines[$medicine_id]['category_name']=='Tablet' || $medicines[$medicine_id]['category_name']=='Parcel' || $medicines[$medicine_id]['category_name']=='Ampul')
             {
-                $consuming = ConsumingTime::model()->findByPk($consuming_time_id);
-                $multiple = $consuming->multiple;
-                $quan_cal=($medicines[$medicine_id]['dosage']) * ($medicines[$medicine_id]['duration']) * $multiple;
-            }else
-            {
-                $multiple=$medicines[$medicine_id]['cons_multiple'];
-                $quan_cal=$multiple * ($medicines[$medicine_id]['dosage']) * ($medicines[$medicine_id]['duration']);
-            }
+                if($consuming_time_id!=null)
+                {
+                    $consuming = ConsumingTime::model()->findByPk($consuming_time_id);
+                    $multiple = $consuming->multiple;
+                    $quan_cal=($medicines[$medicine_id]['dosage']) * ($medicines[$medicine_id]['duration']) * $multiple;
+                }else
+                {
+                    $multiple=$medicines[$medicine_id]['cons_multiple'];
+                    $quan_cal=$multiple * ($medicines[$medicine_id]['dosage']) * ($medicines[$medicine_id]['duration']);
+                }
 
-            if($dosage!=null){$quan_cal=$dosage*($medicines[$medicine_id]['duration']) * $multiple;}
-            if($duration!=null){$quan_cal=$medicines[$medicine_id]['dosage']*$duration*$multiple;}
+                if($dosage!=null){$quan_cal=$dosage*($medicines[$medicine_id]['duration']) * $multiple;}
+                if($duration!=null){$quan_cal=$medicines[$medicine_id]['dosage']*$duration*$multiple;}
+            }else{
+                $quan_cal= $medicines[$medicine_id]['quantity'];
+                $multiple=1;
+            }
 
             $medicines[$medicine_id]['quantity'] = $quantity !=null ? $quantity : $quan_cal;
             $medicines[$medicine_id]['price'] = $price !=null ? round($price, $this->getDecimalPlace()) : $medicines[$medicine_id]['price'];

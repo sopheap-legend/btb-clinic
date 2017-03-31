@@ -142,7 +142,8 @@ $('.search-form form').submit(function(){
                 ),
                  * 
                 */
-                array('name'=>'quantity',
+                array('name'=>'unit_quantity',
+                    'header'=>'quantity',
                     //'headerHtmlOptions'=>array('class'=>'hidden-480 hidden-xs hidden-md'),
                     //'htmlOptions'=>array('class' => 'hidden-480 hidden-xs hidden-md'),  
                 ),

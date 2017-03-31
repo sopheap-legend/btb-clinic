@@ -18,7 +18,9 @@
     foreach ($bloodtest_fee as $val)
     {
         $total_amount +=$val['unit_price']*$val['exchange_rate'];
-    } 
+    }
+
+    //print_r($medicine_selected_items);
 ?>
 <?php //print_r($medicine_selected_items); die(); ?>
 <table class="table table-hover table-condensed">
@@ -31,7 +33,7 @@
             <th>Duration</th>
             <!--<th>Frequency</th>-->
             <th>Instruction</th>
-            <th>Comment</th>
+            <!--<th>Comment</th>-->
             <th>Price</th>
             <th>Quantity</th>
             <th>Total</th>
@@ -39,7 +41,7 @@
         </tr>
     </thead>
     <tbody id="medicine_contents">
-        <?php //print_r($medicine_selected_items); ?>        
+        <?php //print_r($medicine_selected_items); ?>
         <?php foreach ($medicine_selected_items as $id => $item): ?>
         <?php $item_id=$item['id']; ?>
         <tr>
@@ -66,11 +68,13 @@
                         'htmlOptions'=>array('class'=>'line_item_form'),
                     ));
                 ?>
-                <?php echo $form->textField($medicine, "dosage", array('value' => $item['dosage'],'class' => 'input-small numeric input-grid', 'id' => "dosage_$item_id", 'placeholder' => 'Dosage', 'data-id' => "$item_id", 'maxlength' => 50,)); ?>
-                <?php $this->endWidget(); ?>  
+                <div class="input-group">
+                <?php echo $form->textField($medicine, "dosage", array('value' => $item['dosage'],'class' => 'input-small numeric input-grid', 'id' => "dosage_$item_id", 'placeholder' => 'Dosage', 'data-id' => "$item_id", 'maxlength' => 20,'aria-describedby'=>"basic-addon3")); ?>
+                <span class="input-group-addon" id="basic-addon3">/<?php echo $item['measurement']; ?></span>
+                </div>
+                <?php $this->endWidget(); ?>
             </td>
-            
-            <td>                
+            <td>
                 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                         'method'=>'post',
                         'action' => Yii::app()->createUrl('appointment/EditMedicine?medicine_id='.$item_id.'&visit_id='.$visit_id),
@@ -79,7 +83,7 @@
                 ?>                  
                 <?php $medicine->consuming_time_id = $item['consuming_time_id']?>
                 <?php echo $form->dropDownList($medicine,'consuming_time_id',
-                         CHtml::listData(ConsumingTime::model()->findall(), 'id', 'consuming_time'),array('class' => 'input-small numeric input-grid','style'=>"width:150px;")); ?>
+                         CHtml::listData(ConsumingTime::model()->findall(), 'id', 'consuming_time'),array('class' => 'input-small numeric input-grid','style'=>"width:180px;")); ?>
                 <?php $this->endWidget(); ?> 
             </td>
             
@@ -115,21 +119,9 @@
                 ?>
                 <?php $medicine->instruction_id = $item['instruction_id']?>
                 <?php echo $form->dropDownList($medicine,'instruction_id',
-                         CHtml::listData(Instruction::model()->findall(), 'id', 'description_khmer'),array('class' => 'input-small numeric input-grid','style'=>"width:200px;")); ?>
+                         CHtml::listData(Instruction::model()->findall(), 'id', 'description_khmer'),array('class' => 'input-small numeric input-grid','style'=>"width:180px;")); ?>
                 <?php $this->endWidget(); ?>  
             </td>
-            <td>
-                <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-                        'method'=>'post',
-                        'action' => Yii::app()->createUrl('appointment/EditMedicine?medicine_id='.$item_id.'&visit_id='.$visit_id),
-                        'htmlOptions'=>array('class'=>'line_item_form'),
-                    ));
-                ?>
-                <?php //$item['comment']='dfdfd'; ?>
-                <?php echo $form->textField($medicine, "comment", array('value' => $item['comment'], 'class' => 'input-small numeric input-grid','id' => "comment_$item_id", 'placeholder' => 'comment', 'data-id' => "$item_id", 'maxlength' => 200,'style'=>"width:100px;")); ?>
-                <?php $this->endWidget(); ?>  
-            </td>
-            
             <td>
                 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                         'method'=>'post',

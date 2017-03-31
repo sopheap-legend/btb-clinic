@@ -54,8 +54,8 @@ class Item extends CActiveRecord
     //public $whole_cost_price;
     //public $unit_quantity;
 
-    private $_active_status = '1';
-    private $_inactive_status = '0';
+    public $_active_status = '1';
+    public $_inactive_status = '0';
 
     /**
      * Returns the static model of the specified AR class.
@@ -203,12 +203,12 @@ class Item extends CActiveRecord
         //$criteria->params[':t'] = $this->name;
         //$criteria->params[':d'] = $this->name;
 
-        $criteria->condition = 'status=:active_status and (name LIKE :name OR item_number like :name)';
+        /*$criteria->condition = 'status=:active_status and (name LIKE :name OR item_number like :name)';
         $criteria->params = array(
             ':active_status' => Yii::app()->params['active_status'],
             ':name' => '%' . $this->name . '%',
             ':item_number' => $this->name . '%'
-        );
+        );*/
 
         //$criteria->addSearchCondition('status',$this->_active_status);
 
@@ -316,7 +316,8 @@ class Item extends CActiveRecord
         return Yii::app()->db->createCommand($sql)->queryAll(true, array(
                 ':item_name' => $item_name,
                 ':item_number' => $item_number,
-                ':status' => $this->_active_status
+                ':status' => 1
+                //':status' => $this->_active_status
             )
         );
     }
@@ -578,8 +579,9 @@ class Item extends CActiveRecord
 
     public function get_selected_medicine($id)
     {
-        $sql = "SELECT id,name,unit_price,quantity,null dosage,
-                null duration,null frequency,null instruction,null comment FROM item WHERE id=$id";
+        $sql = "SELECT id,name,unit_price,quantity,dosage,measurement,category_name,
+                null duration,null frequency,instruction_id,consuming_time_id,null comment 
+                FROM v_item WHERE id=$id";
 
         $cmd = Yii::app()->db->createCommand($sql);
         //$cmd->bindParam(':patient_id', $patient_id, PDO::PARAM_INT);
