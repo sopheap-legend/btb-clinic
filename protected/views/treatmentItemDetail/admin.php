@@ -35,7 +35,13 @@
         <?php $this->renderPartial('_search',array(
             'model'=>$model,
         )); ?>    
-        </div><!-- search-form -->        
+        </div><!-- search-form -->
+        <?php echo TbHtml::linkButton(Yii::t( 'app', 'Add New' ),array(
+            'color'=>TbHtml::BUTTON_COLOR_PRIMARY,
+            'size'=>TbHtml::BUTTON_SIZE_SMALL,
+            'icon'=>'glyphicon-plus white',
+            'url'=>$this->createUrl('create'),
+        )); ?>
         <?php if(Yii::app()->user->hasFlash('success')):?>
             <?php $this->widget('bootstrap.widgets.TbAlert'); ?>
         <?php endif; ?>

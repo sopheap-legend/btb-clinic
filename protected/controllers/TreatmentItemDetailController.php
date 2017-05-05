@@ -63,19 +63,22 @@ class TreatmentItemDetailController extends Controller
 	public function actionCreate()
 	{
 		$model=new TreatmentItemDetail;
+		$labGroup = new TreatmentGroup;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if (isset($_POST['TreatmentItemDetail'])) {
 			$model->attributes=$_POST['TreatmentItemDetail'];
+			$model->t_group_id = $_POST['TreatmentGroup']['id'];
+			$model->caption = $_POST['TreatmentItemDetail']['caption'];
 			if ($model->save()) {
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin','id'=>$model->id));
 			}
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
+			'model'=>$model,'group'=>$labGroup,
 		));
 	}
 
@@ -87,19 +90,24 @@ class TreatmentItemDetailController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		$groupID = TreatmentItemDetail::model()->find('id=:id', array(':id' => (int) $id));
+		$labGroup = TreatmentGroup::model()->find('id=:id', array(':id' => (int) $groupID->t_group_id));
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
+		//print_r($_POST);
+		//die();
 		if (isset($_POST['TreatmentItemDetail'])) {
 			$model->attributes=$_POST['TreatmentItemDetail'];
+			$model->t_group_id = $_POST['TreatmentGroup']['id'];
+			$model->caption = $_POST['TreatmentItemDetail']['caption'];
 			if ($model->save()) {
 				$this->redirect(array('admin','id'=>$model->id));
 			}
 		}
 
 		$this->render('update',array(
-			'model'=>$model,
+			'model'=>$model,'group'=>$labGroup
 		));
 	}
 
@@ -216,7 +224,7 @@ class TreatmentItemDetailController extends Controller
                                                 'hormones', 'coagulation', 'serology', 
                                                 'micro_biology', 'blood_biochemistry', 'urology', 
                                                 'bacteriology');
-                   // print_r($_POST);
+                    //print_r($_POST);
                     foreach ($lab_items as $lab_item) {
                         if (!empty($_POST['TreatmentItemDetail'][$lab_item])) {
                             foreach ($_POST['TreatmentItemDetail'][$lab_item] as $itemId) { 
@@ -235,7 +243,16 @@ class TreatmentItemDetailController extends Controller
                             }
                         }
                         //print_r($_POST['TreatmentItemDetail'][$lab_item]);
-                    } 
+                    }
+					//Update cross form from consultant
+					if (!empty($_POST['Visit']['sympton']) || !empty($_POST['Visit']['observation']))
+					{
+						$visit = Visit::model()->findByPk($visit_id);
+						$visit->sympton=@$_POST['Visit']['sympton'];
+						$visit->observation=@$_POST['Visit']['observation'];
+						$visit->update(array('sympton','observation'));
+					}
+					
                     $transaction->commit();
                 }  catch (Exception $e){
                     $transaction->rollback();

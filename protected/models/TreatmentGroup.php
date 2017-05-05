@@ -30,7 +30,7 @@ class TreatmentGroup extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('treatment_id, group_name', 'required'),
+			array('treatment_id, group_name, id', 'required'),
 			array('treatment_id', 'numerical', 'integerOnly'=>true),
 			array('group_name', 'length', 'max'=>100),
 			// The following rule is used by search().
@@ -58,7 +58,7 @@ class TreatmentGroup extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id' => 'Group',
 			'treatment_id' => 'Treatment',
 			'group_name' => 'Group Name',
 		);

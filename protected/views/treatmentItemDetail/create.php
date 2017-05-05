@@ -2,19 +2,19 @@
 /* @var $this TreatmentItemDetailController */
 /* @var $model TreatmentItemDetail */
 ?>
-
 <?php
-$this->breadcrumbs=array(
-	'Treatment Item Details'=>array('index'),
-	'Create',
-);
 
-$this->menu=array(
-	array('label'=>'List TreatmentItemDetail', 'url'=>array('index')),
-	array('label'=>'Manage TreatmentItemDetail', 'url'=>array('admin')),
+$this->breadcrumbs=array(
+	'Lab Details'=>array('admin'),
+	'Create',
 );
 ?>
 
-<h1>Create TreatmentItemDetail</h1>
+<?php $box = $this->beginWidget('yiiwheels.widgets.box.WhBox', array(
+	'title' => Yii::t('app','New Patient'),
+	'headerIcon' => 'ace-icon fa fa-user',
+	'htmlHeaderOptions'=>array('class'=>'widget-header-flat widget-header-small'),
+	'content' => $this->renderPartial('_form', array('model'=>$model,'group'=>$group), true),
+)); ?>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->endWidget(); ?>

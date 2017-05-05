@@ -13,7 +13,7 @@ $this->breadcrumbs=array(
               'title' => Yii::t('app','Update Treatment'),
               'headerIcon' => 'ace-icon fa fa-user',
               'htmlHeaderOptions'=>array('class'=>'widget-header-flat widget-header-small'),
-              'content' => $this->renderPartial('_form', array('model'=>$model,), true),
+              'content' => $this->renderPartial('_form', array('model'=>$model,'group'=>$group), true),
  )); ?>  
 
 <?php $this->endWidget(); ?>
