@@ -26,9 +26,8 @@
                 ),
             ));*/
     ?>
-<i class="ace-icon fa fa fa-medkit nav-search-icon"></i>
-
-<?php 
+<div class="input-group select2-bootstrap-prepend">
+<?php
 $this->widget('yiiwheels.widgets.select2.WhSelect2', array(
     'asDropDownList' => false,
     'model'=> $medicine, 
@@ -38,6 +37,7 @@ $this->widget('yiiwheels.widgets.select2.WhSelect2', array(
             'placeholder' => Yii::t('app','Select Medicine'),
             'multiple'=>false,
             'width' => '350px',
+            'id'=>'select2-single-append',
             //'tokenSeparators' => array(',', ' '),
             'allowClear'=>true,
             'minimumInputLength'=>1,
@@ -79,6 +79,8 @@ $this->widget('yiiwheels.widgets.select2.WhSelect2', array(
             //'htmlOptions'=>array('id'=>'search_item_id'),
     )));
 ?>
+<span class="input-group-addon"><i class="ace-icon fa fa fa-medkit nav-search-icon"></i></span>
+</div>
 <!--</span>
 </form>-->
 

@@ -399,6 +399,8 @@ class AppointmentController extends Controller
 
     public function actionDoctorConsult()
     {
+        $this->layout = '//layouts/column_sale';
+        
         $model = new Appointment;
         $patient = new Patient;
         $visit = Visit::model()->findByPk($_GET['visit_id']);

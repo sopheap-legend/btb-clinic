@@ -265,7 +265,7 @@ Yii::app()->clientScript->registerScript('completedConsult', "
 
 <script language="JavaScript" type="text/javascript">
     $(document).ready(function () {
-        $('.nav-list').on('click', 'a', function (e) {
+        $('#sidebar-menu').on('click', 'a', function (e) {
             e.preventDefault();
             a_href = $(this).attr("href");
             var ans = confirm("You have unsaved changes, are you sure that you want to leave? All of your changes will be lost.");

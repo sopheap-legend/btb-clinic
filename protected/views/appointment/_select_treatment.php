@@ -1,4 +1,4 @@
-<i class="ace-icon fa fa fa-h-square "></i>
+<div class="input-group select2-bootstrap-prepend">
 <?php 
 $this->widget('yiiwheels.widgets.select2.WhSelect2', array(
     'asDropDownList' => false,
@@ -8,6 +8,7 @@ $this->widget('yiiwheels.widgets.select2.WhSelect2', array(
             'placeholder' => Yii::t('app','Select Treatment'),
             'multiple'=>false,
             'width' => '350px',
+            'id'=>'select2-single-append',
             //'tokenSeparators' => array(',', ' '),
             'allowClear'=>true,
             //'minimumInputLength'=>1,
@@ -53,5 +54,7 @@ $this->widget('yiiwheels.widgets.select2.WhSelect2', array(
             }',
     )));
 ?>
+<span class="input-group-addon"><i class="ace-icon fa fa fa-h-square "></i></span>
+</div>
 
 
