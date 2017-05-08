@@ -1080,6 +1080,7 @@ class AppointmentController extends Controller
         if($data['count_item']>0)
         {
             $chk_bill = Bill::model()->find("visit_id=:visit_id AND STATUS NOT IN (0,1)",array(":visit_id"=>$visit_id));
+            //$chk_bill='';
             if(empty($chk_bill))
             {
                 $data['count_payment'] = $count_payment;

@@ -483,4 +483,50 @@ class Report extends CFormModel
         return $condition;
     }
 
+    public function saleInvoice()
+    {
+        if ($this->search_id !== '')
+        {
+
+        }else{
+            $sql="SELECT l2.visit_id,vs.visit_date,
+            (SELECT client_name FROM(SELECT patient_id,t2.first_name client_name FROM patient t1 INNER JOIN contact t2 ON t1.contact_id=t2.id)AS pt WHERE pt.patient_id=b.patient_id) client_name,
+            (SELECT user_name FROM rbac_user usr WHERE usr.id=b.user_id) employee_name,
+            round(total) total,b.status
+            FROM (
+                SELECT visit_id,SUM(amount) total
+                FROM 
+                (
+                    SELECT medicine_id id,medicine_name item,visit_id,quantity,quantity*unit_price*exchange_rate amount,'medicine' flag 
+                    FROM v_medicine_payment 
+                    UNION ALL
+                    SELECT id,treatment,visit_id,1 quantity,amount*exchange_rate,'treatment' flag
+                    FROM v_bill_payment
+                    UNION ALL
+                    SELECT id,lab_item_name,visit_id,1 quantity,IFNULL(unit_price,0)*exchange_rate unit_price,'bloodtest' flag
+                    FROM v_bloodtest_payment
+                )AS l1
+                GROUP BY visit_id
+            )AS l2
+            INNER JOIN visit vs ON l2.visit_id=vs.visit_id
+            INNER JOIN bill b ON b.visit_id=vs.visit_id
+            WHERE visit_date>=str_to_date(:from_date,'%d-%m-%Y')
+            AND visit_date<=date_add(str_to_date(:to_date,'%d-%m-%Y'),INTERVAL 1 DAY)";
+
+            $rawData = Yii::app()->db->createCommand($sql)->queryAll(true, array(':from_date' => $this->from_date, ':to_date' => $this->to_date));
+        }
+
+        $dataProvider = new CArrayDataProvider($rawData, array(
+            'keyField' => 'visit_id',
+            'sort' => array(
+                'attributes' => array(
+                    'visit_id', 'visit_date',
+                ),
+            ),
+            'pagination' => false,
+        ));
+
+        return $dataProvider; // Return as array object
+    }
+
 }

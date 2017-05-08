@@ -8,7 +8,7 @@ $this->widget('yiiwheels.widgets.select2.WhSelect2', array(
             'placeholder' => Yii::t('app','Select Treatment'),
             'multiple'=>false,
             'width' => '350px',
-            'id'=>'select2-single-append',
+            //'id'=>'select2-single-append',
             //'tokenSeparators' => array(',', ' '),
             'allowClear'=>true,
             //'minimumInputLength'=>1,

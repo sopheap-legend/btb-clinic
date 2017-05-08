@@ -20,7 +20,7 @@ class ReportController extends Controller
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('create', 'update', 'RevenueTab',
-                                    'itemExpiry','SaleItemSummary','Inventory'),
+                                    'itemExpiry','SaleItemSummary','Inventory','SaleInvoice'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -106,6 +106,24 @@ class ReportController extends Controller
         } else {
             $this->render($view_name, $data);
         }
+    }
+
+    public function actionSaleInvoice()
+    {
+
+        /*if (!Yii::app()->user->checkAccess('invoice.index') || !Yii::app()->user->checkAccess('invoice.print') || !Yii::app()->user->checkAccess('invoice.delete') || !Yii::app()->user->checkAccess('invoice.update')) {
+            throw new CHttpException(403, 'You are not authorized to perform this action');
+        }*/
+
+        $grid_id = 'rpt-sale-invoice-grid';
+        $title = 'Sale Invoice';
+
+        $data = $this->commonData($grid_id,$title,'show');
+
+        $data['grid_columns'] = ReportColumn::getSaleInvoiceColumns();
+        $data['data_provider'] = $data['report']->saleInvoice();
+
+        $this->renderView($data);
     }
 
     protected function commonData($grid_id,$title,$advance_search=null,$header_view='_header',$grid_view='_grid')
