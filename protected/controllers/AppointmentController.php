@@ -1258,6 +1258,8 @@ class AppointmentController extends Controller
     
     public function actionCompleteSale($visit_id)
     {
+        //Yii::app()->language;
+        Yii::app()->setLanguage('kh');
         $data['amount_change']=Yii::app()->treatmentCart->get_us_change();
         $data['amount_change_khr_round']=Yii::app()->treatmentCart->get_kh_change();
 
@@ -1267,13 +1269,14 @@ class AppointmentController extends Controller
 
         $cust_info=Appointment::model()->generateInvoice($visit_id);
         $patient_id = Appointment::model()->find("visit_id=:visit_id",array(':visit_id'=>$visit_id));
-        $rs = VSearchPatient::model()->find("patient_id=:patient_id",array(':patient_id'=>$patient_id->patient_id));
+        $data['Patient_info'] = VSearchPatient::model()->find("patient_id=:patient_id",array(':patient_id'=>$patient_id->patient_id));
+        $data['visit_info'] = Visit::model()->findByPk($visit_id);
 
         if($data['amount_change']<=0)
         {
             $sale_id = Payment::model()->CompleteSale($visit_id);
 
-            $data['cust_fullname'] =  $rs->fullname;
+            $data['cust_fullname'] =  $data['Patient_info']->fullname;
             //$data['cust_fullname'] =  'Hello';
             $data['employee'] = $employee->doctor_name;
             $data['cust_info'] = $cust_info;

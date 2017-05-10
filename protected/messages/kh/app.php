@@ -279,5 +279,22 @@ return array(
     'Select Customer (Optional)'=> 'ជ្រើសរើសអតិថិជន',
     'Type Customer name / Phone number'=> 'បញ្ចូលឈ្មោះអតិថិជនឬលេខទូរស័ព្ទ',
     'Input data type is invalid' => 'ទិន្នន័យដែលបានបញ្ចូលមិនត្រឹមត្រូវ',
+    //for clinic lang
+    'Patient name' => 'ឈ្មោះអ្នកជម្ងឺ/Patient Name',
+    'Sex' => ' ភេទ/Sex',
+    'Age' =>'អាយុ/Age',
+    'National label' =>'សញ្ជាតិ/National',
+    'National' =>' ខ្មែរ',
+    'Address' =>'អាស័យដ្ឋានបច្ចុប្បន្ន',
+    'Diagnosis' =>'រោគវិនិច្ឆ័យ/Diagnosis',
+    'Visit' => 'បានអញ្ចើញមកពិនិត្យ ព្យាបាលនៅ ',
+    'Service' => 'និង បានទទួលសេវាដូចជា៖',
+    'Discription' => 'បរិយាយ/Discription',
+    'Quantity' => 'ចំនួន/Quantity',
+    'Unit Price' => 'តម្លៃរាយ/Unit Price',
+    'Total Price' => 'តម្លៃសរុប/Total Price',
+    'Other' => 'ផ្សេងៗ/Other',
+    'Event Date' =>'កាលបរិច្ឆេទ',
+    'Invoice Label' => 'វិក័យប័ត្រ​​​​​​​​​​​​​​​​​​​​​​​​​​​​​/Invoice',
 );
 ?>
