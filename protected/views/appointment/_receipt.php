@@ -186,9 +186,9 @@ if (isset($error_message))
                         $discount_amt=$discount_arr[0];
                         $discount_symbol=$discount_arr[1];
                         if ($discount_symbol=='$') {
-                            $total_item=number_format($item['price']*$item['quantity']*$item['exchange_rate']-$discount_amt,Yii::app()->shoppingCart->getDecimalPlace());
+                            $total_item=($item['price']*$item['quantity']*$item['exchange_rate'])-$discount_amt;
                         } else {
-                            $total_item=number_format($item['price']*$item['quantity']*$item['exchange_rate']-$item['price']*$item['quantity']*$item['exchange_rate']*$discount_amt/100,Yii::app()->shoppingCart->getDecimalPlace());
+                            $total_item=($item['price']*$item['quantity']*$item['exchange_rate'])-(($item['price']*$item['quantity']*$item['exchange_rate']*$discount_amt)/100);
                         }
                     ?>
                     <tr>                
@@ -196,7 +196,7 @@ if (isset($error_message))
                         <!--<td class="center"><?php //echo TbHtml::encode(number_format($item['price'],Yii::app()->shoppingCart->getDecimalPlace())); ?></td>-->
                         <td class="center"><?php echo TbHtml::encode(round($item['quantity']),2); ?></td>
                         <td class="center"><?php echo TbHtml::encode(number_format($item['price']*$item['exchange_rate'],0, '.', ',')); ?></td>
-                        <td class="center"><?php echo TbHtml::encode(number_format(@$total_item,0, '.', ',')); ?>
+                        <td class="center"><?php echo TbHtml::encode(number_format(@floatval($total_item),0, '.', ',')); ?>
                         <td class="center"><?php //echo TbHtml::encode($item['duration']); ?></td>
                         <!--<td class="center"><?php //echo TbHtml::encode($item['consuming_time']); ?></td>
                         <td class="center"><?php //echo TbHtml::encode($item['instruction']); ?></td>
@@ -302,10 +302,10 @@ if (isset($error_message))
 </div>
 
 
-<script>
+<!--<script>
 $(window).bind("load", function() {
     setTimeout(window.location.href='Prescription',5000); 
     window.print();
     return true;
 });    
-</script>
+</script>-->

@@ -471,7 +471,7 @@ class Appointment extends CActiveRecord
                         null dosage,null duration,null frequency,null instruction,null remarks,'treatment' flag
                         FROM v_bill_payment where visit_id=$visit_id
                         UNION ALL
-                        SELECT id,lab_item_name,visit_id,1 quantity,unit_price,exchange_rate,
+                        SELECT id,lab_item_name,visit_id,1 quantity,ifnull(unit_price,0) unit_price,exchange_rate,
                         null dosage,null doration,null frequency,null instruction,null remarks,'bloodtest' flag
                         from v_bloodtest_payment where visit_id=$visit_id
                 )t1 INNER JOIN visit t2

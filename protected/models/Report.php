@@ -508,8 +508,8 @@ class Report extends CFormModel
                 )AS l1
                 GROUP BY visit_id
             )AS l2
-            INNER JOIN visit vs ON l2.visit_id=vs.visit_id
-            INNER JOIN bill b ON b.visit_id=vs.visit_id
+            INNER JOIN visit vs ON l2.visit_id=vs.visit_id 
+            INNER JOIN bill b ON b.visit_id=vs.visit_id and b.status=2
             WHERE visit_date>=str_to_date(:from_date,'%d-%m-%Y')
             AND visit_date<=date_add(str_to_date(:to_date,'%d-%m-%Y'),INTERVAL 1 DAY)";
 
