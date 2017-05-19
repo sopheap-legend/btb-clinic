@@ -1296,12 +1296,17 @@ class AppointmentController extends Controller
             $data['sub_total'] = $subtotal;
             $data['total_discount'] = 0;
             $data['discount_amount']=0;
-            $total=0;
+            //$total=0;
+            $total_us=0;
+            $total_kh=0;
             foreach ($cust_info as $id => $item)
             {
-                $total+=round($item['price'] * $item['quantity']*$item['exchange_rate'] - $item['price'] * $item['quantity'] *$item['exchange_rate']* $item['discount'] / 100, 2, PHP_ROUND_HALF_DOWN);
+                $total_kh+=round($item['price'] * $item['quantity']*$item['exchange_rate'] - $item['price'] * $item['quantity'] *$item['exchange_rate']* $item['discount'] / 100, 2, PHP_ROUND_HALF_DOWN);
+                $total_us+=round($item['price'] * $item['quantity'] - $item['price'] * $item['quantity'] * $item['discount'] / 100, 2, PHP_ROUND_HALF_DOWN);
             }
-            $data['total']=$total - $total*$data['discount_amount']/100;
+            //$data['total']=$total - $total*$data['discount_amount']/100;
+            $data['total_kh']=$total_kh;
+            $data['total_us']=$total_us;
             $data['actual_amount'] = Appointment::model()->get_actual_amount($visit_id);
 
             $data['amount_change']=Yii::app()->treatmentCart->get_us_change();
@@ -1317,7 +1322,7 @@ class AppointmentController extends Controller
             
             $model = new Appointment;
             //$rst = VAppointmentState::model()->find("visit_id=:visit_id",array(':visit_id'=>$visit_id));
-            $data['patient_name'] = $rs->fullname;
+            //$data['patient_name'] = $rs->fullname;
             
             $data['model'] = new Appointment('showBillDetail');
             $data['count_item'] = $model->countBill($visit_id);

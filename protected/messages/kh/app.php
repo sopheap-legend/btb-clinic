@@ -296,5 +296,10 @@ return array(
     'Other' => 'ផ្សេងៗ/Other',
     'Event Date' =>'កាលបរិច្ឆេទ',
     'Invoice Label' => 'វិក័យប័ត្រ​​​​​​​​​​​​​​​​​​​​​​​​​​​​​/Invoice',
+    'iDiscount' => 'បញ្ចុះតម្លៃ',
+    'PaidUS' => 'សរុបជាដុលា',
+    'PaidKH' => 'សរុបជារៀល',
+    'ActualPaid' =>'តម្លៃត្រូវបង់'
+
 );
 ?>
