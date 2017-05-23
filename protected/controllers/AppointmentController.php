@@ -710,7 +710,8 @@ class AppointmentController extends Controller
             
             //print_r($data['lab_selected']);
             
-            $this->render('labo_view',$data);
+            //$this->render('labo_view',$data);
+            $this->render('_hemograme_form',$data);
         }else{
             throw new CHttpException(404,'The requested page does not exist.');
         }    
@@ -1399,7 +1400,26 @@ class AppointmentController extends Controller
     {        
         $this->layout = '//layouts/column_receipt';
         $tran_log = new TransactionLog;
+
         $my_value="";
+        //foreach ($_POST as $k=>$v)
+        //print_r($_POST);
+        if(isset($_POST['itemtest']))
+        {
+            foreach ($_POST['itemtest'] as $p_key => $p_value)
+            {
+                foreach ($p_value as $c_key => $c_value) {
+                    $lab_result = new LabAnalyzedResult;
+                    //print_r($c_value) ;
+                    $lab_result->lab_detail_id = (int)$c_key;
+                    $lab_result->lab_item_desc = $p_key;
+                    $lab_result->lab_value = $c_value;
+                    $lab_result->save();
+                }
+            }
+        }
+
+        die();
         $lab_items_s=array();
         if(isset($_POST['lab_items_f']) || isset($_POST['lab_items_s']))
         {

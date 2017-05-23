@@ -32,7 +32,7 @@ class ClinicController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','ClinicInfo'),
+				'actions'=>array('create','update','admin','ClinicInfo','test'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -54,6 +54,11 @@ class ClinicController extends Controller
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
+	}
+
+	public function actionTest()
+	{
+		$this->render('test');
 	}
 
 	/**

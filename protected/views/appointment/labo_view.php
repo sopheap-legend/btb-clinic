@@ -82,7 +82,7 @@
         'clientOptions' => array(
             'validateOnSubmit' => true,
         ),
-        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
+        'layout' => TbHtml::FORM_LAYOUT_INLINE,
         'id' => 'add_client_result',
     )); ?>
 <div class="col-sm-12">    
@@ -157,7 +157,7 @@
             echo "<tr><td>No results found.</td></tr>";
         }
     ?>
-    </tbod>
+    </tbody>
     </table>    
 </div>
 <?php $chk_lab = TransactionLog::model()->find("visit_id=:visit_id",array('visit_id'=>$_GET['visit_id'])); ?>

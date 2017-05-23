@@ -296,7 +296,7 @@ if (isset($error_message))
                     <tr>
                         <td style='text-align:right;border-top:1px solid #000000;'></td>
                     </tr>
-                    <tr><td>Doctor: <?php echo TbHtml::encode(ucwords($employee)); ?></td></tr>
+                    <tr><td>Accountance: <?php echo TbHtml::encode(ucwords($employee)); ?></td></tr>
                     <tr><td>Date:<?php echo date('d-M-Y') ?></td></tr>
                 </table>
             </div>
