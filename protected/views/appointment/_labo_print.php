@@ -15,7 +15,7 @@
 }
 
 #receipt_items td {
-  //position: relative;
+  #position: relative;
   padding: 3px;
 }
 

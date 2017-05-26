@@ -87,6 +87,41 @@ class LabAnalyzedResult extends CActiveRecord
 		));
 	}
 
+	public function getClientResult($visit_id,$treatment_item,$item_id){
+		$sql="SELECT t3.lab_value 
+			FROM lab_analized t1
+			INNER JOIN lab_analyzed_detail t2 ON t1.id=t2.lab_analized_id
+			INNER JOIN lab_analyzed_result t3 ON t2.id=t3.lab_detail_id
+			WHERE t1.visit_id=:visit_id
+			AND t2.id=:item_id
+			AND t3.lab_item_desc=:treatment_item";
+
+		$cmd=Yii::app()->db->createCommand($sql);
+		$cmd->bindParam(':visit_id', $visit_id, PDO::PARAM_INT);
+		$cmd->bindParam(':item_id', $item_id, PDO::PARAM_INT);
+		$cmd->bindParam(':treatment_item', $treatment_item, PDO::PARAM_STR);
+
+		$result=$cmd->queryRow();
+
+		return $result['lab_value'];
+	}
+
+	public function setLabResult($visit_id,$lab_id,$lab_desc,$lab_value)
+	{
+		$cmd = Yii::app()->db->createCommand("select lab_result_sheet(:visit_id,:lab_id,:lab_desc,:lab_value) from dual");
+
+		$cmd->bindParam(':visit_id' , $visit_id);
+		$cmd->bindParam(':lab_id' ,$lab_id);
+		$cmd->bindParam(':lab_desc',$lab_desc);
+		$cmd->bindParam(':lab_value',$lab_value);
+		$results=$cmd->queryAll();
+
+		foreach($results as $result)
+			foreach ($result as $k=>$value)
+
+				return $value;
+	}
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

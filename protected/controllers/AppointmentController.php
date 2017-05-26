@@ -676,6 +676,8 @@ class AppointmentController extends Controller
     
     public function actionLaboView()
     {
+        $this->layout = '//layouts/column_sale';
+
         $model = new Appointment;  
         $treatment = new Treatment;
         $medicine = new Item;
@@ -1401,25 +1403,22 @@ class AppointmentController extends Controller
         $this->layout = '//layouts/column_receipt';
         $tran_log = new TransactionLog;
 
-        $my_value="";
-        //foreach ($_POST as $k=>$v)
-        //print_r($_POST);
         if(isset($_POST['itemtest']))
         {
             foreach ($_POST['itemtest'] as $p_key => $p_value)
             {
                 foreach ($p_value as $c_key => $c_value) {
-                    $lab_result = new LabAnalyzedResult;
-                    //print_r($c_value) ;
-                    $lab_result->lab_detail_id = (int)$c_key;
-                    $lab_result->lab_item_desc = $p_key;
-                    $lab_result->lab_value = $c_value;
-                    $lab_result->save();
+                    LabAnalyzedResult::model()->setLabResult($visit_id,(int)$c_key,$p_key,$c_value);
                 }
             }
+
+            $tran_log->visit_id = $_GET['visit_id'];
+            $tran_log->created_date = date('Y-m-d h:i:s');
+            $tran_log->transaction_name = 'Lab';
+            if($tran_log->validate()) $tran_log->save ();
         }
 
-        die();
+        /*die();
         $lab_items_s=array();
         if(isset($_POST['lab_items_f']) || isset($_POST['lab_items_s']))
         {
@@ -1444,16 +1443,15 @@ class AppointmentController extends Controller
                 }                    
                 LabAnalyzedDetail::model()->updateByPk($blood_item_id[$key],array('val'=>$my_value));
             }
-            //echo $my_value;
-            //print_r($lab_items_s);
+
             $tran_log->visit_id = $_GET['visit_id'];
             $tran_log->created_date = date('Y-m-d h:i:s');
             $tran_log->transaction_name = 'Lab';
             if($tran_log->validate()) $tran_log->save ();
             //$this->redirect(array('appointment/labocheck'));
-        }            
+        }*/
         
-        $data['lab_selected'] = LabAnalyzedDetail::model()->get_lab_analized($_GET['visit_id']);
+        /*$data['lab_selected'] = LabAnalyzedDetail::model()->get_lab_analized($_GET['visit_id']);
         $clinic_info = Clinic::model()->find();
         $data['clinic_name']=$clinic_info->clinic_name;
         $data['clinic_address']= $clinic_info->clinic_address;
@@ -1468,8 +1466,56 @@ class AppointmentController extends Controller
         $data['lab_tech'] = Employee::model()->get_doctorName($employee_id->employee_id);
         
         $doctor_id = RbacUser::model()->findByPk($patient_id->user_id);
-        $data['doctor'] = Employee::model()->get_doctorName($doctor_id->employee_id);
+        $data['doctor'] = Employee::model()->get_doctorName($doctor_id->employee_id);*/
+
+        $data=$this->loadData($visit_id);
         
-        $this->render('_labo_print', $data);
+        //$this->render('_labo_print', $data);
+        $this->render('_labo_result_print', $data);
+    }
+
+    public function loadData($visit_id = null)
+    {
+        $model = new Appointment;
+        $treatment = new Treatment;
+        $medicine = new Item;
+        //$tran_log = new TransactionLog;
+
+        $data['lab_selected'] = LabAnalyzedDetail::model()->get_lab_analized($visit_id);
+        $clinic_info = Clinic::model()->find();
+        $data['clinic_name']=$clinic_info->clinic_name;
+        $data['clinic_address']= $clinic_info->clinic_address;
+        $data['clinic_mobile'] = $clinic_info->mobile;
+
+        $patient_id = Appointment::model()->find("visit_id=:visit_id",array(':visit_id'=>$visit_id));
+        $rs = VSearchPatient::model()->find("patient_id=:patient_id",array(':patient_id'=>$patient_id->patient_id));
+        $data['visit_date']=$patient_id->appointment_date;
+        $data['client']=$rs;
+
+        $employee_id = RbacUser::model()->findByPk(Yii::app()->user->getId());
+        $data['lab_tech'] = Employee::model()->get_doctorName($employee_id->employee_id);
+
+        $doctor_id = RbacUser::model()->findByPk($patient_id->user_id);
+        $data['doctor'] = Employee::model()->get_doctorName($doctor_id->employee_id);
+
+        $employee = Employee::model()->get_doctorName($employee_id->employee_id);
+        $data['treatment']=$treatment;
+        $patient = VSearchPatient::model()->find("patient_id=:patient_id",array(':patient_id' => $patient_id->patient_id));
+
+        $data['treatment_selected_items']=$treatment->get_tbl_treatment($visit_id);
+        $data['medicine_selected_items']=$medicine->get_tbl_medicine($visit_id);
+        $data['model']=$model;
+        $data['visit']=  Visit::model()->findByPk($visit_id);
+        $data['employee']=$employee;
+        $data['treatment']=$treatment;
+        $data['patient']=$patient;
+        $data['treatment_items']=$treatment->get_all_treatment();
+        $data['medicine']=$medicine;
+        $data['visit_id'] = $_GET['visit_id'];
+        $rst = VAppointmentState::model()->find("visit_id=:visit_id",array(':visit_id'=>$visit_id));
+        $data['lab_selected'] = LabAnalyzedDetail::model()->get_lab_analized($visit_id);
+        $data['patient_name'] = $rst->patient_name;
+
+        return $data;
     }
 }
