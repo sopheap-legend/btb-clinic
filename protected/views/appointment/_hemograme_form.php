@@ -86,13 +86,14 @@
                 <?php
                     $input_disabled='';
                     $hematology_id=null;
-
+                    $my_style='';
                     if(!array_key_exists ($hematology->id,$result))
                     {
                         $input_disabled ='disabled';
 
                     }else{
                         $hematology_id = $result[$hematology->id]['id'];
+                        $my_style='style="font-weight: bold;color:#bf800c;font-style: italic;"';
                     }
                 ?>
                 <p/>
@@ -101,7 +102,8 @@
                 <label><?php //echo $hematology->caption; ?></label>-->
                 <div class="input-group col-xs-10">
                     <span class="input-group-addon in-group-transp">
-                        <?php echo TbHtml::label($hematology->treatment_item, 'text'); ?>:
+                        <?php //echo TbHtml::label($hematology->treatment_item, 'text'); ?>
+                        <label <?php echo $my_style; ?>><?php echo $hematology->treatment_item; ?></label>
                     </span>
                     <?php echo TbHtml::textField("itemtest[$hematology->treatment_item][$hematology_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$hematology->treatment_item,$hematology_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
                     <?php if(isset( $hematology->caption)){ ?>
@@ -118,19 +120,22 @@
                     <?php
                     $input_disabled='';
                     $immuno_hematology_id=null;
+                    $my_style='';
                     if(!array_key_exists ($immuno_hematology->id,$result))
                     {
                         $input_disabled ='disabled';
 
                     }else{
                         $immuno_hematology_id = $result[$immuno_hematology->id]['id'];
+                        $my_style='style="font-weight: bold;color:#bf800c;font-style: italic;"';
                     }
                     ?>
                     <p>
                     <?php if($immuno_hematology->id==4){ ?>
                         <div class="input-group col-xs-6">
                             <span class="input-group-addon in-group-transp">
-                            <?php echo TbHtml::label($immuno_hematology->treatment_item, 'text'); ?>:
+                            <?php //echo TbHtml::label($immuno_hematology->treatment_item, 'text'); ?>
+                                <label <?php echo $my_style; ?>><?php echo $immuno_hematology->treatment_item; ?>:</label>
                             </span>
                                  <?php echo TbHtml::textField("itemtest[$immuno_hematology->treatment_item][$immuno_hematology_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$immuno_hematology->treatment_item,$immuno_hematology_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
                             <span class="input-group-addon in-group-transp">
@@ -146,7 +151,8 @@
                     <?php }else{ ?>
                         <div class="input-group col-xs-10">
                         <span class="input-group-addon in-group-transp">
-                            <?php echo TbHtml::label($immuno_hematology->treatment_item, 'text'); ?>:
+                            <?php //echo TbHtml::label($immuno_hematology->treatment_item, 'text'); ?>
+                            <label <?php echo $my_style; ?>><?php echo $immuno_hematology->treatment_item; ?>:</label>
                         </span>
                                 <?php echo TbHtml::textField("itemtest[$immuno_hematology->treatment_item][$immuno_hematology_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$immuno_hematology->treatment_item,$immuno_hematology_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
                                 <?php if(isset( $immuno_hematology->caption)){ ?>
@@ -164,18 +170,21 @@
                 <?php
                 $input_disabled='';
                 $immunology_id=null;
+                $my_style='';
                 if(!array_key_exists ($immunology->id,$result))
                 {
                     $input_disabled ='disabled';
 
                 }else{
                     $immunology_id = $result[$immunology->id]['id'];
+                    $my_style='style="font-weight: bold;color:#bf800c;font-style: italic;"';
                 }
                 ?>
                 <p>
                 <div class="input-group col-xs-10">
                     <span class="input-group-addon in-group-transp">
-                        <?php echo TbHtml::label($immunology->treatment_item, 'text'); ?>:
+                        <?php //echo TbHtml::label($immunology->treatment_item, 'text'); ?>
+                        <label <?php echo $my_style; ?>><?php echo $immunology->treatment_item; ?>:</label>
                     </span>
                     <?php echo TbHtml::textField("itemtest[$immunology->treatment_item][$immunology_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$immunology->treatment_item,$immunology_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
                     <?php if(isset( $immunology->caption)){ ?>
@@ -192,26 +201,29 @@
                 <?php
                     $input_disabled='';
                     $hormones_id=null;
+                    $my_style='';
                     if(!array_key_exists ($hormones->id,$result))
                     {
                         $input_disabled ='disabled';
 
                     }else{
                         $hormones_id = $result[$hormones->id]['id'];
+                        $my_style='style="font-weight: bold;color:#bf800c;font-style: italic;"';
                     }
                 ?>
-                <p>
-                <div class="input-group col-xs-10">
-                    <span class="input-group-addon in-group-transp">
-                        <?php echo TbHtml::label($hormones->treatment_item, 'text'); ?>:
-                    </span>
-                    <?php echo TbHtml::textField("itemtest[$hormones->treatment_item][$hormones_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$hormones->treatment_item,$hormones_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
-                <?php if(isset( $hormones->caption)){ ?>
-                    <span class="input-group-addon in-group-transp">
-                        <?php echo TbHtml::label($hormones->caption, 'text'); ?>
-                    </span>
-                <?php } ?>
-                </div>
+                    <p>
+                    <div class="input-group col-xs-10">
+                        <span class="input-group-addon in-group-transp">
+                            <?php //echo TbHtml::label($hormones->treatment_item, 'text'); ?>
+                            <label <?php echo $my_style; ?>><?php echo $hormones->treatment_item; ?>:</label>
+                        </span>
+                        <?php echo TbHtml::textField("itemtest[$hormones->treatment_item][$hormones_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$hormones->treatment_item,$hormones_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
+                    <?php if(isset( $hormones->caption)){ ?>
+                        <span class="input-group-addon in-group-transp">
+                            <?php echo TbHtml::label($hormones->caption, 'text'); ?>
+                        </span>
+                    <?php } ?>
+                    </div>
                 <?php } ?>
             </div>
             <label class="control-label" for="coagulation"><strong><u>Coagulation</u></strong></label>
@@ -220,31 +232,34 @@
                 <?php
                 $input_disabled='';
                 $coagulation_id=null;
+                $my_style='';
                 if(!array_key_exists ($coagulation->id,$result))
                 {
                     $input_disabled ='disabled';
 
                 }else{
                     $coagulation_id = $result[$coagulation->id]['id'];
+                    $my_style='style="font-weight: bold;color:#bf800c;font-style: italic;"';
                 }
                 ?>
                 <p>
                     <?php if($coagulation->id==16 || $coagulation->id==17){ ?>
                     <div class="input-group col-xs-6">
                         <span class="input-group-addon in-group-transp">
-                        <?php echo TbHtml::label($coagulation->treatment_item, 'text'); ?>:
-                    </span>
+                        <?php //echo TbHtml::label($coagulation->treatment_item, 'text'); ?>
+                            <label <?php echo $my_style; ?>><?php echo $coagulation->treatment_item; ?>:</label>
+                        </span>
                         <?php echo TbHtml::textField("itemtest[$coagulation->treatment_item".' mm'."][$coagulation_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$coagulation->treatment_item.' mm',$coagulation_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
-                    <span class="input-group-addon in-group-transp">
-                        <?php echo TbHtml::label('mm', 'text'); ?>
-                    </span>
+                        <span class="input-group-addon in-group-transp">
+                            <?php echo TbHtml::label('mm', 'text'); ?>
+                        </span>
                     </div>
                     <div class="input-group col-xs-4">
                         <span class="input-group-addon in-group-transp">
                         <label></label>
-                    </span>
-                            <?php echo TbHtml::textField("itemtest[$coagulation->treatment_item".' sec'."][$coagulation_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$coagulation->treatment_item.' sec',$coagulation_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
-                    <span class="input-group-addon in-group-transp">
+                        </span>
+                                <?php echo TbHtml::textField("itemtest[$coagulation->treatment_item".' sec'."][$coagulation_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$coagulation->treatment_item.' sec',$coagulation_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
+                        <span class="input-group-addon in-group-transp">
                         <?php echo TbHtml::label($coagulation->caption, 'text'); ?>
                     </span>
                     </div>
@@ -258,29 +273,36 @@
             <?php
                 $input_disabled='';
                 $serology_id=null;
+                $my_style='';
                 if(!array_key_exists ($serology->id,$result))
                 {
                     $input_disabled ='disabled';
 
                 }else{
                     $serology_id = $result[$serology->id]['id'];
+                    $my_style='style="font-weight: bold;color:#bf800c;font-style: italic;"';
                 }
             ?>
             <p>
                 <?php if($serology->id==19 || $serology->id==29){ ?>
-                    <div class="input-group-addon in-group-transp"><?php echo TbHtml::label($serology->treatment_item, 'text'); ?>:</div>
+                    <span class="input-group-addon in-group-transp">
+                        <?php //echo TbHtml::label($serology->treatment_item, 'text'); ?>
+                        <label <?php echo $my_style; ?>><?php echo $serology->treatment_item; ?>:</label>
+                    </span>
                     <div>
                         <div class="input-group col-xs-3"></div>
                         <div class="input-group col-xs-7">
                         <?php if($serology->id==19){ ?>
                         <span class="input-group-addon in-group-transp">
-                            <?php echo TbHtml::label('IgG', 'text'); ?>:
+                            <?php //echo TbHtml::label('IgG', 'text'); ?>
+                            <label <?php echo $my_style; ?>>IgG:</label>
                         </span>
                             <?php echo TbHtml::textField("itemtest[$serology->treatment_item".' IgG'."][$serology_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$serology->treatment_item.' IgG',$serology_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
                         <?php } ?>
                         <?php if($serology->id==29){ ?>
                         <span class="input-group-addon in-group-transp">
-                            <?php echo TbHtml::label('To', 'text'); ?>:
+                            <?php //echo TbHtml::label('To', 'text'); ?>
+                            <label <?php echo $my_style; ?>>To:</label>
                         </span>
                             <?php echo TbHtml::textField("itemtest[$serology->treatment_item".' To'."][$serology_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$serology->treatment_item.' To',$serology_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
                         <?php } ?>
@@ -296,13 +318,15 @@
                         <div class="input-group col-xs-7">
                             <?php if($serology->id==19){ ?>
                                 <span class="input-group-addon in-group-transp">
-                                    <?php echo TbHtml::label('IgM', 'text'); ?>:
+                                    <?php //echo TbHtml::label('IgM', 'text'); ?>
+                                    <label <?php echo $my_style; ?>>IgM:</label>
                                 </span>
                                 <?php echo TbHtml::textField("itemtest[$serology->treatment_item".' IgM'."][$serology_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$serology->treatment_item.' IgM',$serology_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
                                 <?php } ?>
                                 <?php if($serology->id==29){ ?>
                                 <span class="input-group-addon in-group-transp">
-                                    <?php echo TbHtml::label('TH', 'text'); ?>:
+                                    <?php //echo TbHtml::label('TH', 'text'); ?>
+                                    <label <?php echo $my_style; ?>>TH:</label>
                                 </span>
                                 <?php echo TbHtml::textField("itemtest[$serology->treatment_item".' TH'."][$serology_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$serology->treatment_item.' TH',$serology_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
                                 <?php } ?>
@@ -316,9 +340,10 @@
                 <?php }else{ ?>
                     <div class="input-group col-xs-10">
                         <span class="input-group-addon in-group-transp">
-                            <?php echo TbHtml::label($serology->treatment_item, 'text'); ?>:
+                            <?php //echo TbHtml::label($serology->treatment_item, 'text'); ?>
+                            <label <?php echo $my_style; ?>><?php echo $serology->treatment_item; ?>:</label>
                         </span>
-                        <?php echo TbHtml::textField("itemtest[$serology->treatment_item][$serology_id]", '', array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
+                        <?php echo TbHtml::textField("itemtest[$serology->treatment_item][$serology_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$serology->treatment_item,$serology_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
                         <?php if(isset( $serology->caption)){ ?>
                             <span class="input-group-addon in-group-transp">
                             <?php echo TbHtml::label($serology->caption, 'text'); ?>
@@ -332,16 +357,21 @@
             <?php
                 $input_disabled='';
                 $micro_biology_id=null;
+                $my_style='';
                 if(!array_key_exists ($micro_biology->id,$result))
                 {
                     $input_disabled ='disabled';
 
                 }else{
                     $micro_biology_id = $result[$micro_biology->id]['id'];
+                    $my_style='style="font-weight: bold;color:#bf800c;font-style: italic;"';
                 }
             ?>
             <p>
-            <div class="input-group-addon in-group-transp"><?php echo TbHtml::label($micro_biology->treatment_item, 'text'); ?>:</div>
+            <span class="input-group-addon in-group-transp">
+                <?php //echo TbHtml::label($micro_biology->treatment_item, 'text'); ?>
+                <label <?php echo $my_style; ?>><?php echo $micro_biology->treatment_item; ?>:</label>
+            </span>
             <?php } ?>
         </div>
         <div class="col-sm-4">
@@ -349,26 +379,32 @@
             <div>
             <?php foreach (TreatmentItemDetail::model()->findAll('t_group_id=8') as $key=>$bbiochemistry){ ?>
             <?php
-            $input_disabled='';
-            $bbiochemistry_id=null;
-            if(!array_key_exists ($bbiochemistry->id,$result))
-            {
-                $input_disabled ='disabled';
+                $input_disabled='';
+                $bbiochemistry_id=null;
+                $my_style='';
+                if(!array_key_exists ($bbiochemistry->id,$result))
+                {
+                    $input_disabled ='disabled';
 
-            }else{
-                $bbiochemistry_id = $result[$bbiochemistry->id]['id'];
-            }
+                }else{
+                    $bbiochemistry_id = $result[$bbiochemistry->id]['id'];
+                    $my_style='style="font-weight: bold;color:#bf800c;font-style: italic;"';
+                }
             ?>
             <p>
                 <?php if($bbiochemistry->id==44){ ?>
-                    <div class="input-group-addon in-group-transp"><?php echo TbHtml::label($bbiochemistry->treatment_item, 'text'); ?>:</div>
+                    <span class="input-group-addon in-group-transp">
+                        <?php //echo TbHtml::label($bbiochemistry->treatment_item, 'text'); ?>
+                        <label <?php echo $my_style; ?>><?php echo $bbiochemistry->treatment_item; ?>:</label>
+                    </span>
                     <div>
                         <div class="input-group col-xs-3"></div>
                         <div class="input-group col-xs-7">
                             <?php if($bbiochemistry->id==44){ ?>
                                 <span class="input-group-addon in-group-transp">
-                            <?php echo TbHtml::label('SGOT (ASAT)', 'text'); ?>:
-                        </span>
+                                    <?php //echo TbHtml::label('SGOT (ASAT)', 'text'); ?>
+                                    <label <?php echo $my_style; ?>>SGOT (ASAT):</label>
+                                </span>
                                 <?php echo TbHtml::textField("itemtest[$bbiochemistry->treatment_item".' SGOT (ASAT)'."][$bbiochemistry_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$bbiochemistry->treatment_item.' SGOT (ASAT)',$bbiochemistry_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
                             <?php } ?>
                             <?php if(isset($bbiochemistry->caption)){ ?>
@@ -383,7 +419,8 @@
                         <div class="input-group col-xs-7">
                             <?php if($bbiochemistry->id==44){ ?>
                                 <span class="input-group-addon in-group-transp">
-                                    <?php echo TbHtml::label('SGPT(ALAT)', 'text'); ?>:
+                                    <?php //echo TbHtml::label('SGPT(ALAT)', 'text'); ?>
+                                    <label <?php echo $my_style; ?>>SGPT(ALAT):</label>
                                 </span>
                                 <?php echo TbHtml::textField("itemtest[$bbiochemistry->treatment_item".' SGPT(ALAT)'."][$bbiochemistry_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$bbiochemistry->treatment_item.' SGPT(ALAT)',$bbiochemistry_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
                             <?php } ?>
@@ -397,7 +434,8 @@
                 <?php }else{ ?>
                     <div class="input-group col-xs-10">
                         <span class="input-group-addon in-group-transp">
-                            <?php echo TbHtml::label($bbiochemistry->treatment_item, 'text'); ?>:
+                            <?php //echo TbHtml::label($bbiochemistry->treatment_item, 'text'); ?>
+                            <label <?php echo $my_style; ?>><?php echo $bbiochemistry->treatment_item; ?>:</label>
                         </span>
                         <?php echo TbHtml::textField("itemtest[$bbiochemistry->treatment_item][$bbiochemistry_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$bbiochemistry->treatment_item,$bbiochemistry_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
                         <?php if(isset( $bbiochemistry->caption)){ ?>
@@ -415,6 +453,7 @@
                     <?php
                     $input_disabled='';
                     $urology_id=null;
+                    $my_style='';
 
                     if(!array_key_exists ($urology->id,$result))
                     {
@@ -422,6 +461,7 @@
 
                     }else{
                         $urology_id = $result[$urology->id]['id'];
+                        $my_style='style="font-weight: bold;color:#bf800c;font-style: italic;"';
                     }
                     ?>
                     <p/>
@@ -430,7 +470,8 @@
                 <label><?php //echo $hematology->caption; ?></label>-->
                     <div class="input-group col-xs-10">
                     <span class="input-group-addon in-group-transp">
-                        <?php echo TbHtml::label($urology->treatment_item, 'text'); ?>:
+                        <?php //echo TbHtml::label($urology->treatment_item, 'text'); ?>
+                        <label <?php echo $my_style; ?>><?php echo $urology->treatment_item; ?>:</label>
                     </span>
                         <?php echo TbHtml::textField("itemtest[$urology->treatment_item][$urology_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$urology->treatment_item,$urology_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
                         <?php if(isset( $urology->caption)){ ?>
@@ -447,13 +488,15 @@
                     <?php
                     $input_disabled='';
                     $bacteriology_id=null;
+                    $my_style='';
 
                     if(!array_key_exists ($urology->id,$result))
                     {
                         $input_disabled ='disabled';
 
                     }else{
-                        $$bacteriology_id = $result[$urology->id]['id'];
+                        $bacteriology_id = $result[$urology->id]['id'];
+                        $my_style='style="font-weight: bold;color:#bf800c;font-style: italic;"';
                     }
                     ?>
                     <p/>
@@ -462,7 +505,8 @@
                 <label><?php //echo $hematology->caption; ?></label>-->
                     <div class="input-group col-xs-10">
                     <span class="input-group-addon in-group-transp">
-                        <?php echo TbHtml::label($bacteriology->treatment_item, 'text'); ?>:
+                        <?php //echo TbHtml::label($bacteriology->treatment_item, 'text'); ?>
+                        <label <?php echo $my_style; ?>><?php echo $bacteriology->treatment_item; ?>:</label>
                     </span>
                         <?php echo TbHtml::textField("itemtest[$bacteriology->treatment_item][$bacteriology_id]", LabAnalyzedResult::model()->getClientResult(@$visit_id,$bacteriology->treatment_item,$bacteriology_id), array('disabled'=>"$input_disabled",'class'=>"form-control",)); ?>
                         <?php if(isset( $bacteriology->caption)){ ?>

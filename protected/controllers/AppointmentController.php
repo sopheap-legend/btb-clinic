@@ -1402,7 +1402,7 @@ class AppointmentController extends Controller
     {        
         $this->layout = '//layouts/column_receipt';
         $tran_log = new TransactionLog;
-
+        Yii::app()->setLanguage('kh');
         if(isset($_POST['itemtest']))
         {
             foreach ($_POST['itemtest'] as $p_key => $p_value)
@@ -1490,6 +1490,7 @@ class AppointmentController extends Controller
         $patient_id = Appointment::model()->find("visit_id=:visit_id",array(':visit_id'=>$visit_id));
         $rs = VSearchPatient::model()->find("patient_id=:patient_id",array(':patient_id'=>$patient_id->patient_id));
         $data['visit_date']=$patient_id->appointment_date;
+        $data['visit_info'] = Visit::model()->findByPk($visit_id);
         $data['client']=$rs;
 
         $employee_id = RbacUser::model()->findByPk(Yii::app()->user->getId());

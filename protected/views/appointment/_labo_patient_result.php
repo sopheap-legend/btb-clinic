@@ -1,5 +1,6 @@
 <?php $this->widget('yiiwheels.widgets.grid.WhGridView',array(
             'id'=>'lab-result',
+            'type'=>'striped bordered',
             'dataProvider'=>$LabResult->showLabResult($visit_id),
             'htmlOptions'=>array('class'=>'table-responsive panel'),
             'template' => "{items}",
