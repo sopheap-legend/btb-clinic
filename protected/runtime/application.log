@@ -3344,3 +3344,228 @@ Stack trace:
 #40 {main}
 REQUEST_URI=/index.php/appointment/DoctorConsult?visit_id=52&patient_id=7&doctor_id=3
 ---
+2017/05/30 20:40:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png".' in /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/ace/css/...')
+#1 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png
+HTTP_REFERER=http://kh-clinic.app/themes/ace/css/jquery-ui-1.10.4.custom.min.css
+---
+2017/05/31 08:07:47 [error] [php] Undefined index: patient_id (/home/vagrant/Code/kh-clinic/protected/views/appointment/_ajax_Appointment_dashboard.php:35)
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CController.php(869): AppointmentController->renderFile()
+#1 /home/vagrant/Code/kh-clinic/protected/controllers/AppointmentController.php(754): AppointmentController->renderPartial()
+#2 /home/vagrant/Code/kh-clinic/framework/web/actions/CInlineAction.php(49): AppointmentController->actionAjaxAppointmentDash()
+#3 /home/vagrant/Code/kh-clinic/framework/web/CController.php(308): CInlineAction->runWithParams()
+#4 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(133): AppointmentController->runAction()
+#5 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /home/vagrant/Code/kh-clinic/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#7 /home/vagrant/Code/kh-clinic/framework/web/filters/CInlineFilter.php(58): AppointmentController->filterAccessControl()
+#8 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#9 /home/vagrant/Code/kh-clinic/framework/web/CController.php(291): CFilterChain->run()
+#10 /home/vagrant/Code/kh-clinic/framework/web/CController.php(265): AppointmentController->runActionWithFilters()
+#11 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(282): AppointmentController->run()
+#12 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#13 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#14 /home/vagrant/Code/kh-clinic/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/appointment/AjaxAppointmentDash
+2017/05/31 08:08:01 [error] [php] Undefined index: patient_id (/home/vagrant/Code/kh-clinic/protected/views/appointment/_ajax_Appointment_dashboard.php:35)
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CController.php(869): AppointmentController->renderFile()
+#1 /home/vagrant/Code/kh-clinic/protected/controllers/AppointmentController.php(754): AppointmentController->renderPartial()
+#2 /home/vagrant/Code/kh-clinic/framework/web/actions/CInlineAction.php(49): AppointmentController->actionAjaxAppointmentDash()
+#3 /home/vagrant/Code/kh-clinic/framework/web/CController.php(308): CInlineAction->runWithParams()
+#4 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(133): AppointmentController->runAction()
+#5 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /home/vagrant/Code/kh-clinic/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#7 /home/vagrant/Code/kh-clinic/framework/web/filters/CInlineFilter.php(58): AppointmentController->filterAccessControl()
+#8 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#9 /home/vagrant/Code/kh-clinic/framework/web/CController.php(291): CFilterChain->run()
+#10 /home/vagrant/Code/kh-clinic/framework/web/CController.php(265): AppointmentController->runActionWithFilters()
+#11 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(282): AppointmentController->run()
+#12 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#13 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#14 /home/vagrant/Code/kh-clinic/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/appointment/AjaxAppointmentDash
+2017/05/31 08:08:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png".' in /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/ace/css/...')
+#1 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png
+HTTP_REFERER=http://kh-clinic.app/themes/ace/css/jquery-ui-1.10.4.custom.min.css
+---
+2017/05/31 08:13:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png".' in /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/ace/css/...')
+#1 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png
+HTTP_REFERER=http://kh-clinic.app/themes/ace/css/jquery-ui-1.10.4.custom.min.css
+---
+2017/05/31 08:15:45 [error] [php] Undefined index: patient_id (/home/vagrant/Code/kh-clinic/protected/views/appointment/_ajax_Appointment_dashboard.php:35)
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CController.php(869): AppointmentController->renderFile()
+#1 /home/vagrant/Code/kh-clinic/protected/controllers/AppointmentController.php(754): AppointmentController->renderPartial()
+#2 /home/vagrant/Code/kh-clinic/framework/web/actions/CInlineAction.php(49): AppointmentController->actionAjaxAppointmentDash()
+#3 /home/vagrant/Code/kh-clinic/framework/web/CController.php(308): CInlineAction->runWithParams()
+#4 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(133): AppointmentController->runAction()
+#5 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /home/vagrant/Code/kh-clinic/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#7 /home/vagrant/Code/kh-clinic/framework/web/filters/CInlineFilter.php(58): AppointmentController->filterAccessControl()
+#8 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#9 /home/vagrant/Code/kh-clinic/framework/web/CController.php(291): CFilterChain->run()
+#10 /home/vagrant/Code/kh-clinic/framework/web/CController.php(265): AppointmentController->runActionWithFilters()
+#11 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(282): AppointmentController->run()
+#12 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#13 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#14 /home/vagrant/Code/kh-clinic/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/appointment/AjaxAppointmentDash
+2017/05/31 08:15:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png".' in /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/ace/css/...')
+#1 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png
+HTTP_REFERER=http://kh-clinic.app/themes/ace/css/jquery-ui-1.10.4.custom.min.css
+---
+2017/05/31 08:17:30 [error] [php] Trying to get property of non-object (/home/vagrant/Code/kh-clinic/protected/components/TreatmentCart.php:105)
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/actions/CAction.php(109): ReflectionMethod->invokeArgs()
+#1 /home/vagrant/Code/kh-clinic/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#2 /home/vagrant/Code/kh-clinic/framework/web/CController.php(308): CInlineAction->runWithParams()
+#3 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(133): AppointmentController->runAction()
+#4 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#5 /home/vagrant/Code/kh-clinic/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#6 /home/vagrant/Code/kh-clinic/framework/web/filters/CInlineFilter.php(58): AppointmentController->filterAccessControl()
+#7 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#8 /home/vagrant/Code/kh-clinic/framework/web/CController.php(291): CFilterChain->run()
+#9 /home/vagrant/Code/kh-clinic/framework/web/CController.php(265): AppointmentController->runActionWithFilters()
+#10 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(282): AppointmentController->run()
+#11 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#12 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#13 /home/vagrant/Code/kh-clinic/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/Appointment/Addmedicine/visit_id/53
+2017/05/31 08:17:34 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3. The SQL statement executed was: SELECT id,name,unit_price,quantity,dosage,measurement,category_name,
+                null duration,null frequency,instruction_id,consuming_time_id,null comment 
+                FROM v_item WHERE id=.
+2017/05/31 08:17:34 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3' in /home/vagrant/Code/kh-clinic/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /home/vagrant/Code/kh-clinic/protected/models/Item.php(588): CDbCommand->queryAll()
+#2 /home/vagrant/Code/kh-clinic/protected/components/TreatmentCart.php(83): Item->get_selected_medicine('')
+#3 /home/vagrant/Code/kh-clinic/protected/controllers/AppointmentController.php(827): TreatmentCart->addMedicine('')
+#4 [internal function]: AppointmentController->actionAddmedicine('53')
+#5 /home/vagrant/Code/kh-clinic/framework/web/actions/CAction.php(109): ReflectionMethod->invokeArgs(Object(AppointmentController), Array)
+#6 /home/vagrant/Code/kh-clinic/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(AppointmentController), Object(ReflectionMethod), Array)
+#7 /home/vagrant/Code/kh-clinic/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#8 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#9 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#10 /home/vagrant/Code/kh-clinic/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#11 /home/vagrant/Code/kh-clinic/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#12 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#13 /home/vagrant/Code/kh-clinic/framework/web/CController.php(291): CFilterChain->run()
+#14 /home/vagrant/Code/kh-clinic/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(282): CController->run('Addmedicine')
+#16 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('Appointment/Add...')
+#17 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#18 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/index.php/Appointment/Addmedicine/visit_id/53
+HTTP_REFERER=http://kh-clinic.app/index.php/appointment/DoctorConsult?visit_id=53&patient_id=6&doctor_id=3
+---
+2017/05/31 08:18:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png".' in /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/ace/css/...')
+#1 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png
+HTTP_REFERER=http://kh-clinic.app/themes/ace/css/jquery-ui-1.10.4.custom.min.css
+---
+2017/05/31 08:18:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png".' in /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/ace/css/...')
+#1 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png
+HTTP_REFERER=http://kh-clinic.app/themes/ace/css/jquery-ui-1.10.4.custom.min.css
+---
+2017/05/31 08:23:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png".' in /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/ace/css/...')
+#1 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png
+HTTP_REFERER=http://kh-clinic.app/themes/ace/css/jquery-ui-1.10.4.custom.min.css
+---
+2017/05/31 08:43:52 [error] [php] Undefined index: patient_id (/home/vagrant/Code/kh-clinic/protected/views/appointment/_ajax_Appointment_dashboard.php:35)
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CController.php(869): AppointmentController->renderFile()
+#1 /home/vagrant/Code/kh-clinic/protected/controllers/AppointmentController.php(754): AppointmentController->renderPartial()
+#2 /home/vagrant/Code/kh-clinic/framework/web/actions/CInlineAction.php(49): AppointmentController->actionAjaxAppointmentDash()
+#3 /home/vagrant/Code/kh-clinic/framework/web/CController.php(308): CInlineAction->runWithParams()
+#4 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(133): AppointmentController->runAction()
+#5 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /home/vagrant/Code/kh-clinic/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#7 /home/vagrant/Code/kh-clinic/framework/web/filters/CInlineFilter.php(58): AppointmentController->filterAccessControl()
+#8 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#9 /home/vagrant/Code/kh-clinic/framework/web/CController.php(291): CFilterChain->run()
+#10 /home/vagrant/Code/kh-clinic/framework/web/CController.php(265): AppointmentController->runActionWithFilters()
+#11 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(282): AppointmentController->run()
+#12 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#13 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#14 /home/vagrant/Code/kh-clinic/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/appointment/AjaxAppointmentDash
+2017/05/31 08:44:04 [error] [php] Undefined index: patient_id (/home/vagrant/Code/kh-clinic/protected/views/appointment/_ajax_Appointment_dashboard.php:35)
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CController.php(869): AppointmentController->renderFile()
+#1 /home/vagrant/Code/kh-clinic/protected/controllers/AppointmentController.php(754): AppointmentController->renderPartial()
+#2 /home/vagrant/Code/kh-clinic/framework/web/actions/CInlineAction.php(49): AppointmentController->actionAjaxAppointmentDash()
+#3 /home/vagrant/Code/kh-clinic/framework/web/CController.php(308): CInlineAction->runWithParams()
+#4 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(133): AppointmentController->runAction()
+#5 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /home/vagrant/Code/kh-clinic/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#7 /home/vagrant/Code/kh-clinic/framework/web/filters/CInlineFilter.php(58): AppointmentController->filterAccessControl()
+#8 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#9 /home/vagrant/Code/kh-clinic/framework/web/CController.php(291): CFilterChain->run()
+#10 /home/vagrant/Code/kh-clinic/framework/web/CController.php(265): AppointmentController->runActionWithFilters()
+#11 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(282): AppointmentController->run()
+#12 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#13 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#14 /home/vagrant/Code/kh-clinic/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/appointment/AjaxAppointmentDash
+2017/05/31 08:44:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png".' in /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/ace/css/...')
+#1 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png
+HTTP_REFERER=http://kh-clinic.app/themes/ace/css/jquery-ui-1.10.4.custom.min.css
+---
+2017/05/31 08:44:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png".' in /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/ace/css/...')
+#1 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png
+HTTP_REFERER=http://kh-clinic.app/themes/ace/css/jquery-ui-1.10.4.custom.min.css
+---
+2017/05/31 08:44:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png".' in /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/ace/css/...')
+#1 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png
+HTTP_REFERER=http://kh-clinic.app/themes/ace/css/jquery-ui-1.10.4.custom.min.css
+---

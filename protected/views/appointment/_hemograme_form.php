@@ -14,7 +14,7 @@
 
     fieldset {
         font-family: sans-serif;
-        border: 2px solid #1F497D;
+        border: 1px solid #1F497D;
         font-size: 12px;
         background: #EEF4F9;
         border-radius: 2px;
@@ -60,7 +60,27 @@
     'Lab Analized Sheet',
 );
 ?>
-
+<div class="row">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget-box">
+                <div class="widget-header widget-header-flat widget-header-small">
+                    <i class="ace-icon fa fa-stethoscope"></i>
+                    <h4 class="widget-title">Patient Name : <?php echo ucwords($patient_name); ?></h4>
+                </div>
+                <div class="profile-user-info profile-user-info-striped">
+                    <ul class="list-unstyled spaced">
+                        <?php foreach ($treatment_selected_items as $id => $item): ?>
+                            <li>
+                                <h2> <i class="ace-icon fa fa-check icon-animated-bell bigger-110 orange"></i><?php echo $item['treatment']; ?></h2>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="form">
     <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
         'action'=>Yii::app()->createUrl('appointment/CompletedLab/visit_id/'.$visit_id),
@@ -71,7 +91,7 @@
         'htmlOptions'=> array('enctype'=>'multipart/form-data','class' =>'form-transp-input',)
     )); ?>
     <fieldset class="row">
-        <legend>LAB ANALIZED SHEET</legend>
+        <!--<legend>LAB ANALIZED SHEET</legend>-->
     <?php
         $result=array();
         foreach ($lab_selected  as $key=>$value)

@@ -110,11 +110,15 @@ class LabAnalized extends CActiveRecord
         public function showLabResult($visit_id)
         {
             $sql="
-                SELECT t3.id ,t2.visit_id,t3.`lab_item_desc` lab_item_name,t3.lab_value result,
+                SELECT t3.id ,t2.visit_id,
+                CASE 
+                	WHEN t3.lab_item_desc is null THEN (select treatment_item from treatment_item_detail t4 where t1.itemtest_id=t4.id)
+                	ELSE t3.`lab_item_desc` 
+                end lab_item_name,t3.lab_value result,
                 (select caption from treatment_item_detail t4 where t1.itemtest_id=t4.id) caption 
                 FROM lab_analyzed_detail t1
                 INNER JOIN lab_analized t2 ON t1.lab_analized_id=t2.id
-                INNER JOIN lab_analyzed_result t3 ON t1.id=t3.lab_detail_id
+                LEFT JOIN lab_analyzed_result t3 ON t1.id=t3.lab_detail_id
                 where t2.visit_id=$visit_id
             ";
             
