@@ -280,7 +280,7 @@ return array(
     'Type Customer name / Phone number'=> 'បញ្ចូលឈ្មោះអតិថិជនឬលេខទូរស័ព្ទ',
     'Input data type is invalid' => 'ទិន្នន័យដែលបានបញ្ចូលមិនត្រឹមត្រូវ',
     //for clinic lang
-    'Patient name' => 'ឈ្មោះអ្នកជម្ងឺ/Patient Name',
+    'Patient name' => 'ឈ្មោះអ្នកជំងឺ/Patient Name',
     'Sex' => ' ភេទ/Sex',
     'Age' =>'អាយុ/Age',
     'National label' =>'សញ្ជាតិ/National',
@@ -296,10 +296,10 @@ return array(
     'Other' => 'ផ្សេងៗ/Other',
     'Event Date' =>'កាលបរិច្ឆេទ',
     'Invoice Label' => 'វិក័យប័ត្រ​​​​​​​​​​​​​​​​​​​​​​​​​​​​​/Invoice',
-    'iDiscount' => 'បញ្ចុះតម្លៃ',
-    'PaidUS' => 'សរុបជាដុលា',
-    'PaidKH' => 'សរុបជារៀល',
-    'ActualPaid' =>'តម្លៃត្រូវបង់',
+    'iDiscount' => 'បញ្ចុះតម្លៃ/Discount',
+    'PaidUS' => 'សរុបជាដុលារ/US',
+    'PaidKH' => 'សរុបជារៀល/Real',
+    'ActualPaid' =>'តម្លៃត្រូវបង់/Paid Amount',
     'Doctor' => 'គ្រូពេទ្យព្យាបាល',
     'Technical' => 'អ្នកបច្ចេកទេស'
 

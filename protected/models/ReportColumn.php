@@ -903,14 +903,14 @@ class ReportColumn extends CModel
     public static function getLabResultColumn()
     {
         return array(
-            /*array(
+            array(
                 'name' => 'id',
-                //'header' => Yii::t('app', 'Client'),
+                'header' => '#ID',
                 //'value' => '$data["client_name"]',
-                'headerHtmlOptions' => array('style' => 'text-align: right;display:none'),
+                //'headerHtmlOptions' => array('style' => 'text-align: right;display:none'),
                 //'htmlOptions' => array('style' => 'text-align: right;'),
             ),
-            array(
+            /*array(
                 'name' => 'visit_id',
                 //'header' => Yii::t('app', 'Client'),
                 //'value' => '$data["client_name"]',

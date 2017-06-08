@@ -4768,3 +4768,203 @@ Stack trace:
 REQUEST_URI=/themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png
 HTTP_REFERER=http://kh-clinic.app/themes/ace/css/jquery-ui-1.10.4.custom.min.css
 ---
+2017/06/08 18:52:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png".' in /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/ace/css/...')
+#1 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png
+HTTP_REFERER=http://kh-clinic.app/themes/ace/css/jquery-ui-1.10.4.custom.min.css
+---
+2017/06/08 19:02:45 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(SELECT @row := 0) r
+			INNER JOIN lab_analized t2 ON t1.lab_analized_id=t2.id' at line 19. The SQL statement executed was: 
+			SELECT @row := @row + 1 as id ,t2.visit_id,t5.group_name,t5.treatment_item,
+			CASE 
+				WHEN t1.itemtest_id=4 and t3.lab_item_desc='Blood group' then 'Group'
+				WHEN t1.itemtest_id=4 and t3.lab_item_desc like '%Rh' then 'Rh'
+				WHEN t1.itemtest_id=19 and t3.lab_item_desc like '%IgG' then 'IgG'
+				WHEN t1.itemtest_id=19 and t3.lab_item_desc like '%IgM' then 'IgM'
+				WHEN t1.itemtest_id=29 and t3.lab_item_desc like '%To' then 'To'
+				WHEN t1.itemtest_id=29 and t3.lab_item_desc like '%TH' then 'TH'
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGOT(ASAT)' then 'SGOT(ASAT)'
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGPT(ALAT)' then 'SGPT(ALAT)'
+				ELSE null
+			end lab_item_name,t3.lab_value result,
+			CASE 
+				when (t1.itemtest_id=16 or t1.itemtest_id=17) and t3.lab_item_desc like '%mm' then 'mm' 
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGOT(ASAT)' then 'UI/L(8-33)'
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGPT(ALAT)' then 'UI/L(3-35)'
+				else t5.caption 
+			end caption 
+			FROM lab_analyzed_detail t1 (SELECT @row := 0) r
+			INNER JOIN lab_analized t2 ON t1.lab_analized_id=t2.id
+			LEFT JOIN lab_analyzed_result t3 ON t1.id=t3.lab_detail_id
+			inner join v_labo_item t5 on t1.itemtest_id=t5.lab_item_id
+			where t2.visit_id=60
+		 LIMIT 10.
+2017/06/08 19:02:45 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(SELECT @row := 0) r
+			INNER JOIN lab_analized t2 ON t1.lab_analized_id=t2.id' at line 19' in /home/vagrant/Code/kh-clinic/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /home/vagrant/Code/kh-clinic/framework/web/CSqlDataProvider.php(108): CDbCommand->queryAll()
+#2 /home/vagrant/Code/kh-clinic/framework/web/CDataProvider.php(168): CSqlDataProvider->fetchData()
+#3 /home/vagrant/Code/kh-clinic/framework/zii/widgets/CBaseListView.php(125): CDataProvider->getData()
+#4 /home/vagrant/Code/kh-clinic/framework/zii/widgets/grid/CGridView.php(339): CBaseListView->init()
+#5 /home/vagrant/Code/kh-clinic/protected/extensions/bootstrap/widgets/TbGridView.php(48): CGridView->init()
+#6 /home/vagrant/Code/kh-clinic/protected/extensions/yiiwheels/widgets/grid/WhGroupGridView.php(73): TbGridView->init()
+#7 /home/vagrant/Code/kh-clinic/framework/web/CBaseController.php(147): WhGroupGridView->init()
+#8 /home/vagrant/Code/kh-clinic/framework/web/CBaseController.php(180): CBaseController->createWidget('yiiwheels.widge...', Array)
+#9 /home/vagrant/Code/kh-clinic/protected/views/appointment/_labo_result_print.php(149): CBaseController->widget('yiiwheels.widge...', Array)
+#10 /home/vagrant/Code/kh-clinic/framework/web/CBaseController.php(126): require('/home/vagrant/C...')
+#11 /home/vagrant/Code/kh-clinic/framework/web/CBaseController.php(95): CBaseController->renderInternal('/home/vagrant/C...', Array, true)
+#12 /home/vagrant/Code/kh-clinic/framework/web/CController.php(869): CBaseController->renderFile('/home/vagrant/C...', Array, true)
+#13 /home/vagrant/Code/kh-clinic/framework/web/CController.php(782): CController->renderPartial('_labo_result_pr...', Array, true)
+#14 /home/vagrant/Code/kh-clinic/protected/controllers/AppointmentController.php(1425): CController->render('_labo_result_pr...', Array)
+#15 [internal function]: AppointmentController->actionCompletedLab('60')
+#16 /home/vagrant/Code/kh-clinic/framework/web/actions/CAction.php(109): ReflectionMethod->invokeArgs(Object(AppointmentController), Array)
+#17 /home/vagrant/Code/kh-clinic/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(AppointmentController), Object(ReflectionMethod), Array)
+#18 /home/vagrant/Code/kh-clinic/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#19 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#20 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#21 /home/vagrant/Code/kh-clinic/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 /home/vagrant/Code/kh-clinic/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 /home/vagrant/Code/kh-clinic/framework/web/CController.php(291): CFilterChain->run()
+#25 /home/vagrant/Code/kh-clinic/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(282): CController->run('CompletedLab')
+#27 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('appointment/Com...')
+#28 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#29 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#30 {main}
+REQUEST_URI=/index.php/appointment/CompletedLab/visit_id/60
+---
+2017/06/08 19:03:07 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 't1.lab_analized_id' in 'on clause'. The SQL statement executed was: 
+			SELECT @row := @row + 1 as id ,t2.visit_id,t5.group_name,t5.treatment_item,
+			CASE 
+				WHEN t1.itemtest_id=4 and t3.lab_item_desc='Blood group' then 'Group'
+				WHEN t1.itemtest_id=4 and t3.lab_item_desc like '%Rh' then 'Rh'
+				WHEN t1.itemtest_id=19 and t3.lab_item_desc like '%IgG' then 'IgG'
+				WHEN t1.itemtest_id=19 and t3.lab_item_desc like '%IgM' then 'IgM'
+				WHEN t1.itemtest_id=29 and t3.lab_item_desc like '%To' then 'To'
+				WHEN t1.itemtest_id=29 and t3.lab_item_desc like '%TH' then 'TH'
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGOT(ASAT)' then 'SGOT(ASAT)'
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGPT(ALAT)' then 'SGPT(ALAT)'
+				ELSE null
+			end lab_item_name,t3.lab_value result,
+			CASE 
+				when (t1.itemtest_id=16 or t1.itemtest_id=17) and t3.lab_item_desc like '%mm' then 'mm' 
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGOT(ASAT)' then 'UI/L(8-33)'
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGPT(ALAT)' then 'UI/L(3-35)'
+				else t5.caption 
+			end caption 
+			FROM lab_analyzed_detail t1, (SELECT @row := 0) r
+			INNER JOIN lab_analized t2 ON t1.lab_analized_id=t2.id
+			LEFT JOIN lab_analyzed_result t3 ON t1.id=t3.lab_detail_id
+			inner join v_labo_item t5 on t1.itemtest_id=t5.lab_item_id
+			where t2.visit_id=60
+		 LIMIT 10.
+2017/06/08 19:03:07 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 't1.lab_analized_id' in 'on clause'' in /home/vagrant/Code/kh-clinic/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /home/vagrant/Code/kh-clinic/framework/web/CSqlDataProvider.php(108): CDbCommand->queryAll()
+#2 /home/vagrant/Code/kh-clinic/framework/web/CDataProvider.php(168): CSqlDataProvider->fetchData()
+#3 /home/vagrant/Code/kh-clinic/framework/zii/widgets/CBaseListView.php(125): CDataProvider->getData()
+#4 /home/vagrant/Code/kh-clinic/framework/zii/widgets/grid/CGridView.php(339): CBaseListView->init()
+#5 /home/vagrant/Code/kh-clinic/protected/extensions/bootstrap/widgets/TbGridView.php(48): CGridView->init()
+#6 /home/vagrant/Code/kh-clinic/protected/extensions/yiiwheels/widgets/grid/WhGroupGridView.php(73): TbGridView->init()
+#7 /home/vagrant/Code/kh-clinic/framework/web/CBaseController.php(147): WhGroupGridView->init()
+#8 /home/vagrant/Code/kh-clinic/framework/web/CBaseController.php(180): CBaseController->createWidget('yiiwheels.widge...', Array)
+#9 /home/vagrant/Code/kh-clinic/protected/views/appointment/_labo_result_print.php(149): CBaseController->widget('yiiwheels.widge...', Array)
+#10 /home/vagrant/Code/kh-clinic/framework/web/CBaseController.php(126): require('/home/vagrant/C...')
+#11 /home/vagrant/Code/kh-clinic/framework/web/CBaseController.php(95): CBaseController->renderInternal('/home/vagrant/C...', Array, true)
+#12 /home/vagrant/Code/kh-clinic/framework/web/CController.php(869): CBaseController->renderFile('/home/vagrant/C...', Array, true)
+#13 /home/vagrant/Code/kh-clinic/framework/web/CController.php(782): CController->renderPartial('_labo_result_pr...', Array, true)
+#14 /home/vagrant/Code/kh-clinic/protected/controllers/AppointmentController.php(1425): CController->render('_labo_result_pr...', Array)
+#15 [internal function]: AppointmentController->actionCompletedLab('60')
+#16 /home/vagrant/Code/kh-clinic/framework/web/actions/CAction.php(109): ReflectionMethod->invokeArgs(Object(AppointmentController), Array)
+#17 /home/vagrant/Code/kh-clinic/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(AppointmentController), Object(ReflectionMethod), Array)
+#18 /home/vagrant/Code/kh-clinic/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#19 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#20 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#21 /home/vagrant/Code/kh-clinic/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 /home/vagrant/Code/kh-clinic/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 /home/vagrant/Code/kh-clinic/framework/web/CController.php(291): CFilterChain->run()
+#25 /home/vagrant/Code/kh-clinic/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(282): CController->run('CompletedLab')
+#27 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('appointment/Com...')
+#28 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#29 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#30 {main}
+REQUEST_URI=/index.php/appointment/CompletedLab/visit_id/60
+---
+2017/06/08 19:04:14 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 't1.lab_analized_id' in 'on clause'. The SQL statement executed was: 
+			SELECT @rownum:=@rownum+1 id ,t2.visit_id,t5.group_name,t5.treatment_item,
+			CASE 
+				WHEN t1.itemtest_id=4 and t3.lab_item_desc='Blood group' then 'Group'
+				WHEN t1.itemtest_id=4 and t3.lab_item_desc like '%Rh' then 'Rh'
+				WHEN t1.itemtest_id=19 and t3.lab_item_desc like '%IgG' then 'IgG'
+				WHEN t1.itemtest_id=19 and t3.lab_item_desc like '%IgM' then 'IgM'
+				WHEN t1.itemtest_id=29 and t3.lab_item_desc like '%To' then 'To'
+				WHEN t1.itemtest_id=29 and t3.lab_item_desc like '%TH' then 'TH'
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGOT(ASAT)' then 'SGOT(ASAT)'
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGPT(ALAT)' then 'SGPT(ALAT)'
+				ELSE null
+			end lab_item_name,t3.lab_value result,
+			CASE 
+				when (t1.itemtest_id=16 or t1.itemtest_id=17) and t3.lab_item_desc like '%mm' then 'mm' 
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGOT(ASAT)' then 'UI/L(8-33)'
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGPT(ALAT)' then 'UI/L(3-35)'
+				else t5.caption 
+			end caption 
+			FROM lab_analyzed_detail t1,(SELECT @rownum:=0) r
+			INNER JOIN lab_analized t2 ON t1.lab_analized_id=t2.id
+			LEFT JOIN lab_analyzed_result t3 ON t1.id=t3.lab_detail_id
+			inner join v_labo_item t5 on t1.itemtest_id=t5.lab_item_id
+			where t2.visit_id=60
+		 LIMIT 10.
+2017/06/08 19:04:14 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 't1.lab_analized_id' in 'on clause'' in /home/vagrant/Code/kh-clinic/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /home/vagrant/Code/kh-clinic/framework/web/CSqlDataProvider.php(108): CDbCommand->queryAll()
+#2 /home/vagrant/Code/kh-clinic/framework/web/CDataProvider.php(168): CSqlDataProvider->fetchData()
+#3 /home/vagrant/Code/kh-clinic/framework/zii/widgets/CBaseListView.php(125): CDataProvider->getData()
+#4 /home/vagrant/Code/kh-clinic/framework/zii/widgets/grid/CGridView.php(339): CBaseListView->init()
+#5 /home/vagrant/Code/kh-clinic/protected/extensions/bootstrap/widgets/TbGridView.php(48): CGridView->init()
+#6 /home/vagrant/Code/kh-clinic/protected/extensions/yiiwheels/widgets/grid/WhGroupGridView.php(73): TbGridView->init()
+#7 /home/vagrant/Code/kh-clinic/framework/web/CBaseController.php(147): WhGroupGridView->init()
+#8 /home/vagrant/Code/kh-clinic/framework/web/CBaseController.php(180): CBaseController->createWidget('yiiwheels.widge...', Array)
+#9 /home/vagrant/Code/kh-clinic/protected/views/appointment/_labo_result_print.php(149): CBaseController->widget('yiiwheels.widge...', Array)
+#10 /home/vagrant/Code/kh-clinic/framework/web/CBaseController.php(126): require('/home/vagrant/C...')
+#11 /home/vagrant/Code/kh-clinic/framework/web/CBaseController.php(95): CBaseController->renderInternal('/home/vagrant/C...', Array, true)
+#12 /home/vagrant/Code/kh-clinic/framework/web/CController.php(869): CBaseController->renderFile('/home/vagrant/C...', Array, true)
+#13 /home/vagrant/Code/kh-clinic/framework/web/CController.php(782): CController->renderPartial('_labo_result_pr...', Array, true)
+#14 /home/vagrant/Code/kh-clinic/protected/controllers/AppointmentController.php(1425): CController->render('_labo_result_pr...', Array)
+#15 [internal function]: AppointmentController->actionCompletedLab('60')
+#16 /home/vagrant/Code/kh-clinic/framework/web/actions/CAction.php(109): ReflectionMethod->invokeArgs(Object(AppointmentController), Array)
+#17 /home/vagrant/Code/kh-clinic/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(AppointmentController), Object(ReflectionMethod), Array)
+#18 /home/vagrant/Code/kh-clinic/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#19 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#20 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#21 /home/vagrant/Code/kh-clinic/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 /home/vagrant/Code/kh-clinic/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 /home/vagrant/Code/kh-clinic/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 /home/vagrant/Code/kh-clinic/framework/web/CController.php(291): CFilterChain->run()
+#25 /home/vagrant/Code/kh-clinic/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(282): CController->run('CompletedLab')
+#27 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('appointment/Com...')
+#28 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#29 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#30 {main}
+REQUEST_URI=/index.php/appointment/CompletedLab/visit_id/60
+---
+2017/06/08 19:06:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png".' in /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/vagrant/Code/kh-clinic/framework/web/CWebApplication.php(141): CWebApplication->runController('themes/ace/css/...')
+#1 /home/vagrant/Code/kh-clinic/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /home/vagrant/Code/kh-clinic/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/themes/ace/css/images/ui-bg_flat_75_ffffff_40x100.png
+HTTP_REFERER=http://kh-clinic.app/themes/ace/css/jquery-ui-1.10.4.custom.min.css
+---

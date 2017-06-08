@@ -134,7 +134,7 @@ class LabAnalized extends CActiveRecord
 	public function printLabResult($visit_id)
 	{
 		$sql="
-			SELECT t3.id ,t2.visit_id,t5.group_name,t5.treatment_item,
+			SELECT @rownum:=@rownum+1 id ,t2.visit_id,t5.group_name,t5.treatment_item,
 			CASE 
 				WHEN t1.itemtest_id=4 and t3.lab_item_desc='Blood group' then 'Group'
 				WHEN t1.itemtest_id=4 and t3.lab_item_desc like '%Rh' then 'Rh'
@@ -155,7 +155,7 @@ class LabAnalized extends CActiveRecord
 			FROM lab_analyzed_detail t1
 			INNER JOIN lab_analized t2 ON t1.lab_analized_id=t2.id
 			LEFT JOIN lab_analyzed_result t3 ON t1.id=t3.lab_detail_id
-			inner join v_labo_item t5 on t1.itemtest_id=t5.lab_item_id
+			inner join v_labo_item t5 on t1.itemtest_id=t5.lab_item_id,(SELECT @rownum:=0) r
 			where t2.visit_id=$visit_id
 		";
 

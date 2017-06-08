@@ -34,7 +34,7 @@
         }*/
 
         #receipt_items td {
-            position: relative;
+            position: relative;d
             padding: 3px;
         }
 
@@ -65,11 +65,11 @@
             </div>
             <div class="col-xs-6 text-middle">
                 <p align="middle">
-                    <!--<strong style="font-size:x-large;color:blue;"><?php //echo TbHtml::encode($clinic_name);?></strong><br>
-                <strong style="font-size:large;color:blue;"><?php //echo "KE SINOUN HOSPITAL"; ?></strong><br>
-                <strong style="font-size:medium;color:blue;"><?php //echo TbHtml::encode($clinic_address); ?></strong><br>
-                <strong style="font-size:medium;color:blue;"><?php //echo TbHtml::encode($clinic_mobile); ?></strong><br>-->
-                    <?php echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_name.png','Company\'s logo',array('width'=>'360')); ?> <br>
+                <strong style="font-size:x-large;color:blue;"><?php echo TbHtml::encode($clinic_name);?></strong><br>
+                <strong style="font-size:large;color:blue;"><?php echo "KE SINOUN HOSPITAL"; ?></strong><br>
+                <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_address); ?></strong><br>
+                <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_mobile); ?></strong><br>
+                    <?php //echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_name.png','Company\'s logo',array('width'=>'360')); ?> <br>
                 </p>
             </div>
         </div>
@@ -176,10 +176,10 @@
     </div>
 </div>
 <?php $url = Yii::app()->createUrl('Appointment/labocheck/'); ?>
-<!--<script>
+<script>
     $(window).bind("load", function() {
         setTimeout(window.location.href='<?php //echo $url; ?>',5000);
         window.print();
         return true;
     });
-</script>-->
+</script>

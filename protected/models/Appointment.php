@@ -455,7 +455,7 @@ class Appointment extends CActiveRecord
 
     public function generateInvoice($visit_id)
     {
-        $sql = "select fullname,visit_date,item name,quantity,unit_price price,exchange_rate,0 discount,dosage,duration,consuming_time,instruction,remarks comment
+        $sql = "select @rownum:=@rownum+1 id,fullname,visit_date,item name,quantity,unit_price price,exchange_rate,0 discount,dosage,duration,consuming_time,instruction,remarks comment
                 from(SELECT t3.patient_id,t2.visit_id,
                 case
                         when last_name is not null then CONCAT(last_name,' ',first_name) 
@@ -478,7 +478,7 @@ class Appointment extends CActiveRecord
                 ON t1.visit_id=t2.visit_id
                 INNER JOIN patient t3 ON t2.patient_id=t3.patient_id
                 INNER JOIN contact t4 ON t3.contact_id=t4.id
-                )dl";
+                )dl,(SELECT @rownum:=0) r";
 
         $command = Yii::app()->db->createCommand($sql);
         return $command->queryAll();

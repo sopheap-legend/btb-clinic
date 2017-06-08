@@ -82,11 +82,11 @@ if (isset($error_message))
         </div>
         <div class="col-xs-7 text-middle">
             <p align="middle">
-                <!--<strong style="font-size:x-large;color:blue;"><?php //echo TbHtml::encode($clinic_name);?></strong><br>
-                <strong style="font-size:large;color:blue;"><?php //echo "KE SINOUN HOSPITAL"; ?></strong><br>
-                <strong style="font-size:medium;color:blue;"><?php //echo TbHtml::encode($clinic_address); ?></strong><br>
-                <strong style="font-size:medium;color:blue;"><?php //echo TbHtml::encode($clinic_mobile); ?></strong><br>-->
-                <?php echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_name.png','Company\'s logo',array('width'=>'360')); ?> <br>
+                <strong style="font-size:x-large;color:blue;"><?php echo TbHtml::encode($clinic_name);?></strong><br>
+                <strong style="font-size:large;color:blue;"><?php echo "KE SINOUN HOSPITAL"; ?></strong><br>
+                <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_address); ?></strong><br>
+                <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_mobile); ?></strong><br>
+                <?php //echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_name.png','Company\'s logo',array('width'=>'360')); ?> <br>
             </p>
         </div>
         <div class="col-xs-7 col-xs-offset-1 text-right">
@@ -133,7 +133,7 @@ if (isset($error_message))
             <!-- <div class="panel panel-default"> -->
                     <p>
                         <?php //echo TbHtml::encode(Yii::t('app','Invoice ID') . " : "  . $sale_id); ?>
-                        <?php echo Yii::t('app','Event Date')?>: <?php echo date('Y-m-d h:i:s'); ?> <br>
+                        <?php echo Yii::t('app','Event Date')?>: <?php echo date('Y-m-d'); ?> <br>
                     </p>
             <!-- </div> -->
         </div>
@@ -168,6 +168,7 @@ if (isset($error_message))
         <table class="table" id="receipt_items">
             <thead>
                 <tr>
+                    <th><?php echo Yii::t('app','#ID')?></th>
                     <th><?php echo Yii::t('app','Discription')?></th>
                     <!--<th class="center"><?php //echo Yii::t('app','Price'); ?></th>-->
                     <th class="center"> <?php echo Yii::t('app','Quantity')?></th>
@@ -192,7 +193,8 @@ if (isset($error_message))
                             $total_item=($item['price']*$item['quantity'])-(($item['price']*$item['quantity']*$discount_amt)/100);
                         }
                     ?>
-                    <tr>                
+                    <tr>
+                        <td><?php echo TbHtml::encode($item['id']); ?></td>
                         <td><?php echo TbHtml::encode($item['name']); ?></td>
                         <!--<td class="center"><?php //echo TbHtml::encode(number_format($item['price'],Yii::app()->shoppingCart->getDecimalPlace())); ?></td>-->
                         <td class="center"><?php echo TbHtml::encode(round($item['quantity']),2); ?></td>
@@ -219,8 +221,8 @@ if (isset($error_message))
                     </tr>-->
 
                 <tr class="gift_receipt_element">
-                    <td colspan="4" style='text-align:right;'><?php echo TbHtml::b(Yii::t('app','iDiscount')); ?></td>
-                    <td colspan="4" style='text-align:right;'>
+                    <td colspan="5" style='text-align:right;'><?php echo TbHtml::b(Yii::t('app','iDiscount')); ?></td>
+                    <td colspan="5" style='text-align:right;'>
                             <span style="font-size:12px;font-weight:bold">៛
                             <?php echo Yii::app()->settings->get('site', 'currencySymbol') . number_format($total_kh-$actual_amount,0, '.', ','); ?>
                             </span>
@@ -228,24 +230,24 @@ if (isset($error_message))
                 </tr>
                     
                     <tr class="gift_receipt_element">
-                        <td colspan="4" style='text-align:right;'><?php echo TbHtml::b(Yii::t('app','PaidUS')); ?></td>
-                        <td colspan="4" style='text-align:right;'>
+                        <td colspan="5" style='text-align:right;'><?php echo TbHtml::b(Yii::t('app','PaidUS')); ?></td>
+                        <td colspan="5" style='text-align:right;'>
                             <span style="font-size:12px;font-weight:bold">$
                             <?php echo Yii::app()->settings->get('site', 'currencySymbol') . number_format($total_us,Yii::app()->shoppingCart->getDecimalPlace(), '.', ','); ?>
                             </span>
                         </td>
                     </tr>
                     <tr class="gift_receipt_element">
-                        <td colspan="4" style='text-align:right;'><?php echo TbHtml::b(Yii::t('app','PaidKH')); ?></td>
-                        <td colspan="4" style='text-align:right;'>
+                        <td colspan="5" style='text-align:right;'><?php echo TbHtml::b(Yii::t('app','PaidKH')); ?></td>
+                        <td colspan="5" style='text-align:right;'>
                             <span style="font-size:12px;font-weight:bold">៛
                             <?php echo Yii::app()->settings->get('site', 'currencySymbol') . number_format($total_kh,0, '.', ','); ?>
                             </span>
                         </td>
                     </tr>
                     <tr class="gift_receipt_element">
-                        <td colspan="4" style='text-align:right;'><?php echo TbHtml::b(Yii::t('app','ActualPaid')); ?></td>
-                        <td colspan="4" style='text-align:right;'>
+                        <td colspan="5" style='text-align:right;'><?php echo TbHtml::b(Yii::t('app','ActualPaid')); ?></td>
+                        <td colspan="5" style='text-align:right;'>
                                 <span style="font-size:12px;font-weight:bold">៛
                                     <?php echo Yii::app()->settings->get('site', 'currencySymbol') . number_format($actual_amount,0, '.', ','); ?>
                                 </span>
@@ -296,7 +298,7 @@ if (isset($error_message))
                     <tr>
                         <td style='text-align:right;border-top:1px solid #000000;'></td>
                     </tr>
-                    <tr><td>Accountance: <?php echo TbHtml::encode(ucwords($employee)); ?></td></tr>
+                    <tr><td>Accountance <?php //echo TbHtml::encode(ucwords($employee)); ?></td></tr>
                     <tr><td>Date:<?php echo date('d-M-Y') ?></td></tr>
                 </table>
             </div>
