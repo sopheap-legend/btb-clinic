@@ -23,8 +23,7 @@
 
         .item-test{
             font-family: Arial;
-            width: 250mm;
-            hight: 350mm;
+            width: 220mm;
             alignment: center;
         }
 
@@ -143,7 +142,7 @@
             'dataProvider' => LabAnalized::model()->printLabResult($visit_id),
             'template' => "{items}",
             'extraRowColumns' => array('group_name'),
-            'extraRowHtmlOptions' => array('style' => 'padding:10px',),
+            'extraRowHtmlOptions' => array('style' => 'padding:12px;border:10px',),
             'columns' => $groupGridColumns,
             'mergeColumns' => array('treatment_item'),
         )); ?>
@@ -176,10 +175,10 @@
     </div>
 </div>
 <?php $url = Yii::app()->createUrl('Appointment/labocheck/'); ?>
-<script>
+<!--<script>
     $(window).bind("load", function() {
         setTimeout(window.location.href='<?php //echo $url; ?>',5000);
         window.print();
         return true;
     });
-</script>
+</script>-->
