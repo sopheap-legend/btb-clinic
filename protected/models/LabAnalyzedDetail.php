@@ -106,7 +106,7 @@ class LabAnalyzedDetail extends CActiveRecord
         public function get_lab_analized($visit_id)
         {
             $sql="
-                select id,blood_id,lab_analyzed_id,treatment_item,caption,
+                select id,blood_id,lab_analyzed_id,treatment_item,caption,t_group_id,itemtest_id,
                 CASE
                         WHEN ROUND((LENGTH(val_result)-LENGTH(REPLACE(val_result, ':', '')))/LENGTH(':'))=0 THEN val_result
                         ELSE SUBSTR(val_result,1,LOCATE('\"',val_result,1)-2)
@@ -117,7 +117,7 @@ class LabAnalyzedDetail extends CActiveRecord
                 END val_result_col2,
                 (select group_name from treatment_group t4 where mm.t_group_id=t4.id) lab_type
                 from (
-                SELECT t1.id,t3.id blood_id,t2.id lab_analyzed_id,t3.treatment_item,t3.caption,
+                SELECT t1.id,t3.id blood_id,t2.id lab_analyzed_id,t3.treatment_item,t3.caption,t1.itemtest_id,
                 SUBSTR(val,LOCATE(':',val,1)+2) val_result,t3.t_group_id
                 FROM lab_analyzed_detail t1
                 INNER JOIN lab_analized t2 ON t1.lab_analized_id=t2.id
@@ -131,4 +131,9 @@ class LabAnalyzedDetail extends CActiveRecord
             
             return $cmd->queryall();
         }
+
+		public function get_hemograme_group($visit_id)
+		{
+
+		}
 }

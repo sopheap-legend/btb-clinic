@@ -714,6 +714,7 @@ class AppointmentController extends Controller
             
             //$this->render('labo_view',$data);
             $this->render('_hemograme_form',$data);
+            //$this->render('_test_labform',$data);
         }else{
             throw new CHttpException(404,'The requested page does not exist.');
         }    
@@ -1417,61 +1418,12 @@ class AppointmentController extends Controller
             $tran_log->transaction_name = 'Lab';
             if($tran_log->validate()) $tran_log->save ();
         }
-
-        /*die();
-        $lab_items_s=array();
-        if(isset($_POST['lab_items_f']) || isset($_POST['lab_items_s']))
-        {
-            if(isset($_POST['lab_items_s'])){$lab_items_s = $_POST['lab_items_s'];}
-            $lab_items_name = $_POST['lab_items_name'];
-            $blood_item_id = $_POST['blood_item_id'];
-            foreach ($_POST['lab_items_f'] as $key =>$val)
-            {                    
-                if($key==4)
-                {
-                    $my_value =  '"'.$lab_items_name[$key].'": '.$val.' "Rh": '.$lab_items_s[$key];
-                }elseif($key==16 || $key==17){
-                    $my_value =  '"'.$lab_items_name[$key].' mm": '.$val.' "sec": '.$lab_items_s[$key];
-                }elseif($key==19){
-                    $my_value =  '"'.$lab_items_name[$key].' IgG": '.$val.' "IgM": '.$lab_items_s[$key];
-                }elseif($key==29){
-                    $my_value =  '"'.$lab_items_name[$key].' To": '.$val.' "TH": '.$lab_items_s[$key];
-                }elseif($key==44){
-                    $my_value =  '"'.$lab_items_name[$key].' SGOT(ASAT)": '.$val.' "SGPT(ALAT)": '.$lab_items_s[$key];
-                }else{
-                    $my_value='"'.$lab_items_name[$key].'": '.$val;
-                }                    
-                LabAnalyzedDetail::model()->updateByPk($blood_item_id[$key],array('val'=>$my_value));
-            }
-
-            $tran_log->visit_id = $_GET['visit_id'];
-            $tran_log->created_date = date('Y-m-d h:i:s');
-            $tran_log->transaction_name = 'Lab';
-            if($tran_log->validate()) $tran_log->save ();
-            //$this->redirect(array('appointment/labocheck'));
-        }*/
         
-        /*$data['lab_selected'] = LabAnalyzedDetail::model()->get_lab_analized($_GET['visit_id']);
-        $clinic_info = Clinic::model()->find();
-        $data['clinic_name']=$clinic_info->clinic_name;
-        $data['clinic_address']= $clinic_info->clinic_address;
-        $data['clinic_mobile'] = $clinic_info->mobile;
-        
-        $patient_id = Appointment::model()->find("visit_id=:visit_id",array(':visit_id'=>$visit_id));
-        $rs = VSearchPatient::model()->find("patient_id=:patient_id",array(':patient_id'=>$patient_id->patient_id));
-        $data['visit_date']=$patient_id->appointment_date;
-        $data['client']=$rs;
-        
-        $employee_id = RbacUser::model()->findByPk(Yii::app()->user->getId());
-        $data['lab_tech'] = Employee::model()->get_doctorName($employee_id->employee_id);
-        
-        $doctor_id = RbacUser::model()->findByPk($patient_id->user_id);
-        $data['doctor'] = Employee::model()->get_doctorName($doctor_id->employee_id);*/
-
         $data=$this->loadData($visit_id);
         
         //$this->render('_labo_print', $data);
         $this->render('_labo_result_print', $data);
+        //$this->render('_lab_print_test', $data);
     }
 
     public function loadData($visit_id = null)

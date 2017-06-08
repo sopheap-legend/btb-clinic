@@ -900,4 +900,52 @@ class ReportColumn extends CModel
         );
     }
 
+    public static function getLabResultColumn()
+    {
+        return array(
+            /*array(
+                'name' => 'id',
+                //'header' => Yii::t('app', 'Client'),
+                //'value' => '$data["client_name"]',
+                'headerHtmlOptions' => array('style' => 'text-align: right;display:none'),
+                //'htmlOptions' => array('style' => 'text-align: right;'),
+            ),
+            array(
+                'name' => 'visit_id',
+                //'header' => Yii::t('app', 'Client'),
+                //'value' => '$data["client_name"]',
+                'headerHtmlOptions' => array('style' => 'text-align: right;display:none'),
+                //'htmlOptions' => array('style' => 'text-align: right;'),
+            ),*/
+            array(
+                'name' => 'treatment_item',
+                'header' => Yii::t('app', 'Request'),
+                'value' => '$data["treatment_item"]',
+                'headerHtmlOptions' => array('style' => 'text-align: left;','class' => 'widget-header-flat'),
+                'htmlOptions' => array('style' => 'text-align: left;',),
+            ),
+            array(
+                'name' => 'lab_item_name',
+                'header' => Yii::t('app', 'Demand'),
+                'value' => '$data["lab_item_name"]',
+                'headerHtmlOptions' => array('style' => 'text-align: left;','class' => 'widget-header-flat'),
+                'htmlOptions' => array('style' => 'text-align: left;'),
+            ),
+            array(
+                'name' => 'result',
+                'header' => Yii::t('app', 'Result'),
+                'value' => '$data["result"]',
+                'headerHtmlOptions' => array('style' => 'text-align: right;','class' => 'widget-header-flat'),
+                'htmlOptions' => array('style' => 'text-align: right;'),
+            ),
+            array(
+                'name' => 'caption',
+                'header' => 'Unit',
+                'value' => '$data["caption"]',
+                'headerHtmlOptions' => array('style' => 'text-align: left;','class' => 'widget-header-flat'),
+                'htmlOptions' => array('style' => 'text-align: left;'),
+            ),
+        );
+    }
+
 }
