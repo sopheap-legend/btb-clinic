@@ -32,7 +32,7 @@ for ($i = 1; $i < 31; $i++) {
     echo "<tr><td class='appointment_time'>" . $i . "</td>";
     foreach ($doctors as $doc_id => $doc) {
         //$doc=$doctor;
-        $url = Yii::app()->createUrl('Appointment/create', array("doctor_id" => $doc_id,"patient_id"=>$_GET['patient_id']));
+        $url = Yii::app()->createUrl('Appointment/create', array("doctor_id" => $doc_id,"patient_id"=>@$_GET['patient_id']));
         
         /*if(isset($_GET['patient_id']))
         {
@@ -55,7 +55,7 @@ for ($i = 1; $i < 31; $i++) {
                     if ($app['status'] != 'Waiting') {
                         echo "<td id='" . $app['status'] . "'><a href='#'>" . $app['fullname'] . "</a></td>";
                     } else {
-                        echo "<td id='" . $app['status'] . "'>" . $app['fullname'] . "<a href='$cancel_url' title='Cancel Appointment' class='fa fa-times cancle-appointment'></a></td>";
+                        echo "<td id='" . $app['status'] . "'>" . $app['fullname'] . "<a href='$cancel_url' title='Cancel Appointment' class='fa fa-times cancle-appointment' id='cancle-appointment'></a></td>";
                     }
 
                     //echo "<td id='" . $app['status']. "'><a href='#'>" . $app['fullname'] . "</a></td>";
@@ -98,3 +98,24 @@ echo "<td id = \"action\">waiting</td>";
 echo "</tr></table></div></br>";
 ?>
 <?php $this->endWidget(); ?>
+
+<script>
+    $('tbody#appointment-dash').on('click','a#cancle-appointment',function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        var answer=confirm('Are you sure! you wan to cancel appointment?');
+        if(answer==true){
+            $.ajax({
+                url:url,
+                //dataType:'json',
+                type:'post',
+                beforeSend: function() { $('.waiting').show(); },
+                complete: function() { $('.waiting').hide(); },
+                success:function() {
+                    window.location=window.location.href;
+                }
+            });
+        }
+    });
+</script>
+

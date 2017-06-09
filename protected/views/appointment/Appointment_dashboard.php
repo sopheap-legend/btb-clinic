@@ -67,22 +67,8 @@ $this->breadcrumbs=array(
                                 if ($app['status'] != 'Waiting') {
                                     echo "<td id='" . $app['status'] . "'><a href='#'>" . $app['fullname'] . "</a></td>";
                                 } else {
-                                    echo "<td id='" . $app['status'] . "'>" . $app['fullname'] . "<a href='$cancel_url' title='Cancel Appointment' class='fa fa-times cancle-appointment'></a></td>";
+                                    echo "<td id='" . $app['status'] . "'>" . $app['fullname'] . "<a href='$cancel_url' title='Cancel Appointment' class='fa fa-times cancle-appointment' id='cancle-appointment'></a></td>";
                                 }
-
-                                //echo "<td id='" . $app['status']. "'><a href='#'>" . $app['fullname'] . "</a></td>";
-                                //echo "<td id='" . $app['status']. "'>" . $app['fullname'] . "<a href='$change_doc_url' title='Change Doctor' class='fa fa-exchange'></a><a href='$cancel_url' title='Cancel Appointment' class='fa fa-times'></a></td>";
-                                /*switch($app['status'])
-                                {
-                                    case 'Waiting':
-                                        echo "<td id='" . $app['status']. "'><a href='#'>" . $app['fullname'] . "</a></td>";
-                                        break;
-                                    case 'Consultant':
-                                        echo "<td id='" . $app['status']. "'><a href='#'>" . $app['fullname'] . "</a></td>";
-                                        break;
-                                    default:
-                                        break;
-                                }*/
                                 $count++;
                             }
                         }
@@ -117,25 +103,25 @@ $this->breadcrumbs=array(
 
 
 <?php
-Yii::app()->clientScript->registerScript('cancel_appointment', "
+/*Yii::app()->clientScript->registerScript('cancel_appointment', "
         $('tbody#appointment-dash').on('click','a.cancle-appointment',function(e) {
+        var url = $(this).attr('href');
         e.preventDefault();
         var answer=confirm('Are you sure! you wan to cancel appointment?');
-        if(answer==true){
-            var url = $(this).attr('href');
+        if(answer==true){            
             $.ajax({
                 url:url,
                 dataType:'json',
                 type:'post',    
                 beforeSend: function() { $('.waiting').show(); },
                 complete: function() { $('.waiting').hide(); },
-                success:function(data) {
-                    window.location.href=window.location.href
+                success:function() {
+                    location.reload();
                 }
             });
         }        
     });
-");
+");*/
 ?>
 
 <script>
@@ -151,4 +137,22 @@ Yii::app()->clientScript->registerScript('cancel_appointment', "
             }
         });
     })();
+
+    $('tbody#appointment-dash').on('click','a#cancle-appointment',function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        var answer=confirm('Are you sure! you wan to cancel appointment?');
+        if(answer==true){
+            $.ajax({
+                url:url,
+                //dataType:'json',
+                type:'post',
+                beforeSend: function() { $('.waiting').show(); },
+                complete: function() { $('.waiting').hide(); },
+                success:function() {
+                    window.location=window.location.href;
+                }
+            });
+        }
+    });
 </script>
