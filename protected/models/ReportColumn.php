@@ -905,9 +905,9 @@ class ReportColumn extends CModel
         return array(
             array(
                 'name' => 'id',
-                'header' => '#ID',
+                'header' => '#',
                 //'value' => '$data["client_name"]',
-                //'headerHtmlOptions' => array('style' => 'text-align: right;display:none'),
+                'headerHtmlOptions' => array('style' => 'text-align: left;','class' => 'widget-header-flat'),
                 //'htmlOptions' => array('style' => 'text-align: right;'),
             ),
             /*array(

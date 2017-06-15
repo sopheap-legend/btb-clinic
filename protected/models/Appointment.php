@@ -30,6 +30,9 @@ class Appointment extends CActiveRecord
     public $actual_amount;
     public $kh_payment_amount;
     public $us_payment_amount;
+    public $kh_discount;
+    public $us_discount;
+    public $test;
 
     public function tableName()
     {
@@ -290,6 +293,17 @@ class Appointment extends CActiveRecord
         $cmd->bindParam(":patient_id", $patient_id);
         $cmd->bindParam(":actual_amount", $actual_amount);
         $cmd->bindParam(":exchange_rate", $xchange_rate);
+        $cmd->execute();
+        return true;
+    }
+
+    public function updateStateAppt($visit_id, $user_id, $patient_id = 0, $status = '')
+    {        
+        $cmd = Yii::app()->db->createCommand("CALL pro_appointment_update_state(:visit_id, :user_id,:patient_id,:status)");
+        $cmd->bindParam(":visit_id", $visit_id);
+        $cmd->bindParam(":user_id", $user_id);
+        $cmd->bindParam(":patient_id", $patient_id);
+        $cmd->bindParam(":status",$status);
         $cmd->execute();
         return true;
     }
@@ -604,6 +618,17 @@ class Appointment extends CActiveRecord
     public function get_actual_amount($visit_id)
     {
         $sql = "select actual_amount from bill_tmp where visit_id= :visit_id and status=0";
+
+        $cmd = Yii::app()->db->createCommand($sql);
+        $cmd->bindParam(":visit_id", $visit_id);
+        return $cmd->queryScalar();
+    }
+
+    public function getPaymentDiscount($visit_id)
+    {
+        $sql = "SELECT t1.discount_amount FROM payment t1
+                INNER JOIN bill t2 ON t1.bill_id=t2.bill_id
+                where visit_id= :visit_id ";
 
         $cmd = Yii::app()->db->createCommand($sql);
         $cmd->bindParam(":visit_id", $visit_id);

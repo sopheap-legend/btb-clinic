@@ -41,7 +41,7 @@ $this->breadcrumbs=array(
                     $class = "class='odd'";
                 }
 
-                echo "<tr><td class='appointment_time'>" . $i . "</td>";
+                echo "<tr><td class=''>" . $i . "</td>";
                 foreach ($doctors as $doc_id => $doc) {
                     //$doc=$doctor;
                     if(isset($_GET['patient_id']))
@@ -127,13 +127,13 @@ $this->breadcrumbs=array(
 <script>
     (function worker() {
         $.ajax({
-            url: 'AjaxAppointmentDash',
+            url: 'AjaxAppointmentDash/patient_id/<?php echo @$_GET['patient_id']; ?>',
             success: function(data) {
                 $('.appointment-db-grid').html(data);
             },
             complete: function() {
                 // Schedule the next request when the current one's complete
-                setTimeout(worker, 5000);
+                setTimeout(worker, 8000);
             }
         });
     })();

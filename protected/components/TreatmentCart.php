@@ -281,12 +281,62 @@ class TreatmentCart extends CApplicationComponent
         return $this->session['amount_change_khr_round'];
     }
 
+    public function setKHDiscount($kh_discount=0)
+    {
+        $this->setSession(Yii::app()->session);
+        $this->session['kh_discount'] = $kh_discount;
+    }
+
+    public function getKHDiscount()
+    {
+        return $this->session['kh_discount'];
+    }
+
+    public function setUSDiscount($us_discount)
+    {
+        $this->setSession(Yii::app()->session);
+        $this->session['us_discount'] = $us_discount;
+    }
+
+    public function getUSDiscount()
+    {
+        return $this->session['us_discount'];
+    }
+
+    /*this function purpose to Calculate discount both into KHmer currency*/
+    public function getAllDiscount($total_amount=0,$visit_id=0)
+    {
+        $exchange_rate = Yii::app()->session['exchange_rate'];
+        $kh_discount=preg_replace('/[^0-9]/s', '',$this->getKHDiscount());
+        $us_discount=preg_replace('/[^0-9]/s', '',$this->getUSDiscount());
+        $discount_amount_tmp=($us_discount*$exchange_rate)+$kh_discount;
+
+        if($discount_amount_tmp==0 || $discount_amount_tmp=='')
+        {
+            $discount_amount=Appointment::model()->getPaymentDiscount($visit_id);
+        }else{
+            $discount_amount=$discount_amount_tmp;
+        }
+
+        if($total_amount-$discount_amount>=0)
+        {
+            return $discount_amount;
+        }else{
+            return $total_amount;
+        }
+        //return ($us_discount*$exchange_rate)+$kh_discount;
+
+        //return 100;
+    }
+
     public function deletePayment($visit_id)
     {
         $payments = $this->getPayments();
         unset($payments[$visit_id]);
         unset($this->session['amount_change']);
         unset($this->session['amount_change_khr_round']);
+        unset($this->session['kh_discount']);
+        unset($this->session['us_discount']);
         $this->setPayments($payments);
     }
     
@@ -296,6 +346,8 @@ class TreatmentCart extends CApplicationComponent
         unset($this->session['payments']);
         unset($this->session['amount_change']);
         unset($this->session['amount_change_khr_round']);
+        unset($this->session['kh_discount']);
+        unset($this->session['us_discount']);
     }
     
     protected function emptyCart()

@@ -14,6 +14,7 @@ $box = $this->beginWidget('yiiwheels.widgets.box.WhBox', array(
         'error' => array('block' => true, 'fade' => true, 'closeText' => '&times;'),
     ),
 )); ?>
+<?php //echo $_SERVER['REQUEST_URI'];?>
 <?php
 echo "<table class=\"items table table-bordered\"><thead><tr><th>No</th>";
 foreach ($doctors as $doctor) {
@@ -29,7 +30,7 @@ for ($i = 1; $i < 31; $i++) {
         $class = "class='odd'";
     }
 
-    echo "<tr><td class='appointment_time'>" . $i . "</td>";
+    echo "<tr><td class=''>" . $i . "</td>";
     foreach ($doctors as $doc_id => $doc) {
         //$doc=$doctor;
         $url = Yii::app()->createUrl('Appointment/create', array("doctor_id" => $doc_id,"patient_id"=>@$_GET['patient_id']));

@@ -168,7 +168,7 @@ if (isset($error_message))
         <table class="table" id="receipt_items">
             <thead>
                 <tr>
-                    <th><?php echo Yii::t('app','#ID')?></th>
+                    <th><?php echo Yii::t('app','#')?></th>
                     <th><?php echo Yii::t('app','Discription')?></th>
                     <!--<th class="center"><?php //echo Yii::t('app','Price'); ?></th>-->
                     <th class="center"> <?php echo Yii::t('app','Quantity')?></th>
@@ -224,7 +224,7 @@ if (isset($error_message))
                     <td colspan="5" style='text-align:right;'><?php echo TbHtml::b(Yii::t('app','iDiscount')); ?></td>
                     <td colspan="5" style='text-align:right;'>
                             <span style="font-size:12px;font-weight:bold">៛
-                            <?php echo Yii::app()->settings->get('site', 'currencySymbol') . number_format($total_kh-$actual_amount,0, '.', ','); ?>
+                            <?php echo Yii::app()->settings->get('site', 'currencySymbol') . number_format($discount_amount,0, '.', ','); ?>
                             </span>
                     </td>
                 </tr>
@@ -249,7 +249,7 @@ if (isset($error_message))
                         <td colspan="5" style='text-align:right;'><?php echo TbHtml::b(Yii::t('app','ActualPaid')); ?></td>
                         <td colspan="5" style='text-align:right;'>
                                 <span style="font-size:12px;font-weight:bold">៛
-                                    <?php echo Yii::app()->settings->get('site', 'currencySymbol') . number_format($actual_amount,0, '.', ','); ?>
+                                    <?php echo Yii::app()->settings->get('site', 'currencySymbol') . number_format($actual_amount-$discount_amount,0, '.', ','); ?>
                                 </span>
                         </td>
                     </tr>
@@ -320,10 +320,10 @@ if (isset($error_message))
 </div>
 
 
-<script>
+<!--<script>
 $(window).bind("load", function() {
     setTimeout(window.location.href='Prescription',5000); 
     window.print();
     return true;
 });    
-</script>
+</script>-->

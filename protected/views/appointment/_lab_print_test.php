@@ -23,17 +23,13 @@
 
         .item-test{
             font-family: Arial;
-            width: 220mm;
+            width: 250mm;
+            hight: 350mm;
             alignment: center;
         }
 
-        /*#tbl-result{
-            border: double;
-            padding: 3px;
-        }*/
-
         #receipt_items td {
-            position: relative;d
+            position: relative;
             padding: 3px;
         }
 
@@ -64,11 +60,11 @@
             </div>
             <div class="col-xs-6 text-middle">
                 <p align="middle">
-                <strong style="font-size:x-large;color:blue;font-family:KhmerOSbattambang"><?php echo TbHtml::encode($clinic_name);?></strong><br>
-                <strong style="font-size:large;color:blue;"><?php echo "KE SINOUN HOSPITAL"; ?></strong><br>
-                <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_address); ?></strong><br>
-                <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_mobile); ?></strong><br>
-                    <?php //echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_name.png','Company\'s logo',array('width'=>'360')); ?> <br>
+                    <!--<strong style="font-size:x-large;color:blue;"><?php //echo TbHtml::encode($clinic_name);?></strong><br>
+                <strong style="font-size:large;color:blue;"><?php //echo "KE SINOUN HOSPITAL"; ?></strong><br>
+                <strong style="font-size:medium;color:blue;"><?php //echo TbHtml::encode($clinic_address); ?></strong><br>
+                <strong style="font-size:medium;color:blue;"><?php //echo TbHtml::encode($clinic_mobile); ?></strong><br>-->
+                    <?php echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_name.png','Company\'s logo',array('width'=>'360')); ?> <br>
                 </p>
             </div>
         </div>
@@ -138,11 +134,10 @@
 
         $this->widget('yiiwheels.widgets.grid.WhGroupGridView', array(
             'type' => 'bordered',
-            'id' => 'tbl-result',
             'dataProvider' => LabAnalized::model()->printLabResult($visit_id),
             'template' => "{items}",
             'extraRowColumns' => array('group_name'),
-            'extraRowHtmlOptions' => array('style' => 'padding:12px;border:10px',),
+            'extraRowHtmlOptions' => array('style' => 'padding:10px',),
             'columns' => $groupGridColumns,
             'mergeColumns' => array('treatment_item'),
         )); ?>

@@ -115,10 +115,10 @@ class Payment extends CActiveRecord
                       ->queryAll(true,array(':visit_id' => $visit_id));
         }*/
         
-        public function CompleteSale($visit_id)
+        public function CompleteSale($visit_id,$discount_amt)
         {
             //$sql="CALL Create_patient_id(:myid, :my_last_name)";
-            $myid= Yii::app()->db->createCommand("SELECT add_payment($visit_id)");
+            $myid= Yii::app()->db->createCommand("SELECT add_payment($visit_id,$discount_amt)");
             return $myid->queryScalar();
         }
         

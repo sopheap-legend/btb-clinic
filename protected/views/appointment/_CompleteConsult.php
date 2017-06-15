@@ -22,6 +22,7 @@
         'enableClientValidation' => true,
         'clientOptions' => array(
             'validateOnSubmit' => true,
+            //'afterValidate'=>'js:yiiFix.ajaxSubmit.afterValidate'
         ),
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
         'id' => 'add_item_form',
@@ -32,9 +33,14 @@
     <?php endif; ?>
     <div class="col-sm-6">
 
-        <?php echo $form->textAreaControlGroup($visit, 'sympton',
-            array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
+        <?php //echo $form->textAreaControlGroup($visit, 'sympton',array('rows' => 1, 'cols' => 10, 'class' => 'span2',)); ?>
 
+        <div>
+            <?php echo $form->labelEx($visit,'sympton'); ?>
+            <?php echo $form->textArea($visit,'sympton',array('rows' => 1, 'cols' => 10, 'class' => 'span2 symton-validate',)); ?>
+        </div>
+        <div id='error' style="color: red"></div>
+        <br/>
         <!-- Request to remove from Samnag -->
         <?php //echo $form->textAreaControlGroup($visit, 'assessment', array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
     </div>
@@ -42,7 +48,12 @@
     <div class="col-sm-6">
         <!--<h4 class="header blue bolder smaller"><i class="ace-icon fa fa-key blue"></i><?php //echo Yii::t('app','Treatment Result') ?></h4>--->
 
-        <?php echo $form->textAreaControlGroup($visit, 'observation', array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
+        <?php //echo $form->textAreaControlGroup($visit, 'observation', array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
+        <div>
+            <?php echo $form->labelEx($visit,'observation'); ?>
+            <?php echo $form->textArea($visit,'observation',array('rows' => 1, 'cols' => 10, 'class' => 'span2',)); ?>
+        </div>
+        <br/>
 
         <!-- Visit -->
         <?php //echo $form->textAreaControlGroup($visit, 'plan', array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
@@ -96,52 +107,18 @@
             </div>
         <?php $this->endWidget(); ?>        
     </div>
-    
     <div class="col-sm-12">
         <div class="form-actions" id="form-actions">
-            <?php echo TbHtml::submitButton($visit->isNewRecord ? Yii::t('app', 'Save') : Yii::t('app', 'Save'), array(
+            <?php echo TbHtml::submitButton($visit->isNewRecord ? Yii::t('app', 'Submit') : Yii::t('app', 'Submit'), array(
                 'color' => TbHtml::BUTTON_COLOR_PRIMARY,
                 'size' => TbHtml::BUTTON_SIZE_SMALL,
-                'id' => 'Save_consult',
-                'name' => 'Save_consult'
+                'id' => 'btn-submit',
+                'name' => 'btn-submit'
                 //'size'=>TbHtml::BUTTON_SIZE_SMALL,
             )); ?>
-
-            <?php if (!empty($chk_bill_saved)) { ?>
-                <?php
-                $this->widget('bootstrap.widgets.TbModal', array(
-                    'id' => 'show-payment-modal',
-                    'header' => 'Payment Amount',
-                    /*'htmlOptions' =>array(
-                        'style' => 'width: 1500px;'
-                    ),*/
-                    'content' => $this->renderpartial("_add_payment", array('form' => $form, 'model' => $model), true, false),
-                    'footer' => implode(' ', array(
-                        TbHtml::submitButton(Yii::t('app', 'Pay'), array(
-                                'name' => 'Completed_consult',
-                                'id' => 'Completed_consult',
-                                'color' => TbHtml::BUTTON_COLOR_PRIMARY
-                            )
-                        ),
-                        TbHtml::button('Close', array('data-dismiss' => 'modal')),
-                    )),
-                ));
-                ?>
-
-                <?php echo TbHtml::button(Yii::t('app', 'Save & Complete Consultation'), array(
-                    'color' => TbHtml::BUTTON_COLOR_SUCCESS,
-                    'size' => TbHtml::BUTTON_SIZE_SMALL,
-                    'data-toggle' => 'modal',
-                    'data-target' => '#show-payment-modal',
-                )); ?>
-
-            <?php } ?>
         </div>
     </div>
-
-
     <?php $this->endWidget(); ?>
-
 </div>
 
 
@@ -346,6 +323,83 @@ Yii::app()->clientScript->registerScript('completedConsult', "
         if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
                 e.preventDefault();
         }
+    });
+
+    $("#btn-submit").on('click',function(e) {
+        e.preventDefault();
+        //a_href = $(this).attr("href");
+        var url='/index.php/appointment/DoctorConsult?visit_id=<?php echo $_GET['visit_id']; ?>&patient_id=<?php echo $_GET['patient_id']; ?>&doctor_id=<?php echo $_GET['doctor_id']; ?>';
+        var return_url='waitingqueue';
+        //finished_url=
+        $.confirm({
+            title: 'Confirm!',
+            content: 'Please choose your operation with below button!',
+            columnClass: 'col-md-6 col-md-offset-3',
+            buttons: {
+                Save: {
+                    //text: 'Save',
+                    btnClass: 'btn-success',
+                    action: function(){
+                        data = $('form').serialize();
+                        $.ajax({
+                            data:data+ "&Save_consult=" + true+'&ajax='+$('form').attr('id'),
+                            type: "POST",
+                            dataType: 'json',
+                            url: url,
+                            success: function (data) {
+                                //var json = $.parseJSON(data);
+                                if(data.Visit_sympton!=null)
+                                {
+                                    $('#error').html(data.Visit_sympton);
+                                    $('.symton-validate').css({
+                                        "border": "1px solid red",
+                                        "background": "#FFCECE"
+                                    });
+                                }else{
+                                    window.location.href = return_url;
+                                    //window.location.href=data.redirect;
+                                }
+                            },
+                            error:function(er){
+                                window.location.href = return_url;
+                            }
+                        });
+                    }
+                },
+                Complete: {
+                    //btnClass: 'btn-success',
+                    id:'Completed_consult',
+                    name:'Completed_consult',
+                    action: function(){
+                        data = $('form').serialize();
+                        $.ajax({
+                            data:data+ "&Completed_consult=" + true+'&ajax='+$('form').attr('id'),
+                            type: "POST",
+                            dataType: 'json',
+                            url: url,
+                            success: function (data) {
+                                if(data.Visit_sympton!=null)
+                                {
+                                    $('#error').html(data.Visit_sympton);
+                                    $('.symton-validate').css({
+                                        "border": "1px solid red",
+                                        "background": "#FFCECE"
+                                    });
+                                }else{
+                                    window.location.href = return_url;
+                                    //window.location.href=data.redirect;
+                                }
+                            },
+                            error:function(er){
+                                window.location.href = return_url;
+                            }
+                        });
+                    }
+                },
+                Cancel: function () {
+                },
+            }
+        });
     });
     
 </script>  

@@ -30,6 +30,7 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
+<?php //print_r($model); ?>
 <?php if(Yii::app()->user->hasFlash('success')):?>
         <?php $this->widget('bootstrap.widgets.TbAlert'); ?>
 <?php endif; ?>
@@ -70,7 +71,7 @@ $('.search-form form').submit(function(){
                 //'status',
                 array('name'=>'unit_price',
                         'header'=>'Total', 
-                        'value'=> 'number_format($data["unit_price"], 2, ".", ",")'
+                        'value'=> 'number_format($data["unit_price"], 0, ".", ",")'
                 ),
                 array('name'=>'info',
                        'header'=>'Information', 
@@ -103,19 +104,39 @@ $('.search-form form').submit(function(){
                                     <td><?php /*echo $count_item; */?></td>
                                 </tr>  -->
                                 <tr>
-                                    <td><?php echo Yii::t('app', 'Total'); ?> :</td>
-                                    <td>
+                                    <td style="width: 50%" colspan="2"><?php echo Yii::t('app', 'Total'); ?> :</td>
+                                    <td align="right">
                                         <span class="badge badge-info bigger-120">
                                             <?php echo '៛'.number_format(@$amount, 2, '.', ','); ?>
                                         </span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo Yii::t('app', 'Total Pay Amount'); ?> :</td>
-                                    <td>
-                                        <span class="badge badge-warning bigger-120">
-                                            <?php echo '៛'.number_format(@$actual_amount, 2, '.', ','); ?>
-                                        </span>
+                                    <td style="width: 50%" colspan="2" ><span class="label label-danger"><?php echo Yii::t('app', 'Discount Amount'); ?> :</span></td>
+                                    <td align="right" style="width: 50%">
+                                        <?php if (@$count_payment > 0) {$disabled='disabled';}else{$disabled='';} ?>
+                                        <?php echo $form->textFieldControlGroup($model, 'kh_discount', array(
+                                            //'value' => $amount_change,
+                                            'class' => 'input-small text-right payment-amount-txt',
+                                            'id' => 'kh_payment_amount_id',
+                                            'data-url' => Yii::app()->createUrl('appointment/AddPayment?visit_id='.$visit_id),
+                                            'placeholder'=>Yii::t('app','Discount Amount') . ' ៛',
+                                            'prepend' => '៛',
+                                            'style'=>'width:100%',
+                                            'disabled'=>$disabled
+                                        ));
+                                        ?>
+                                        <?php echo $form->textFieldControlGroup($model, 'us_discount', array(
+                                            //'value' => '', //$amount_change,
+                                            'class' => 'input-mini text-right payment-amount-txt',
+                                            'id' => 'us_payment_amount_id',
+                                            'data-url' => Yii::app()->createUrl('appointment/AddPayment?visit_id='.$visit_id),
+                                            'placeholder'=>Yii::t('app','Discount Amount') . ' $',
+                                            'prepend' =>  '$',
+                                            'style'=>'width:100%',
+                                            'disabled'=>$disabled
+                                        ));
+                                        ?>
                                     </td>
                                 </tr>
                                 <!--<tr>
@@ -129,7 +150,7 @@ $('.search-form form').submit(function(){
                                 <?php //echo $count_payment; ?>
                                 <?php if ($count_payment == 0) { ?>
                                 <tr>
-                                    <td colspan="2" style='text-align:right'>
+                                    <td colspan="3" style='text-align:right'>
                                         <?php echo $form->textFieldControlGroup($model, 'kh_payment_amount', array(
                                                 //'value' => $amount_change,
                                                 'class' => 'input-small text-right payment-amount-txt',
@@ -156,7 +177,7 @@ $('.search-form form').submit(function(){
                                 <?php if ($count_payment > 0) { ?>
                                     <?php foreach ($payments as $id => $payment): ?>
                                     <tr>
-                                        <td>
+                                        <td colspan="2">
                                             <?php
                                             echo TbHtml::linkButton('', array(
                                                 'size' => TbHtml::BUTTON_SIZE_MINI,
@@ -168,7 +189,7 @@ $('.search-form form').submit(function(){
                                             ));
                                             ?>  
                                             <?php echo Yii::t('App','Paid Amount[Cash]'); ?></td>
-                                        <td>
+                                        <td colspan="2" align="right">
                                             <span class="badge badge-success bigger-120">    
                                                 <?php if($amount_change<=0) {?>
                                                 <?php echo '៛'.number_format($payment['actual_amount'], 2, '.', ','); ?>
@@ -182,20 +203,20 @@ $('.search-form form').submit(function(){
                                     
                                     <?php if ($amount_change<=0) { ?> 
                                         <tr>
-                                            <td> 
+                                            <td colspan="2" >
                                                <?php echo Yii::t('app', 'Change Due'); ?>:
                                             </td>
-                                            <td>
+                                            <td colspan="2" align="right">
                                                 <span class="badge badge-info bigger-120">
                                                     <?php echo '$'. number_format($amount_change, 2, '.', ','); ?>
                                                 </span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td> 
+                                            <td colspan="2">
                                                <?php echo Yii::t('app', 'Change Due in KHR'); ?>:
                                             </td>
-                                            <td>
+                                            <td align="right">
                                                 <span class="badge badge-success bigger-120">
                                                     <?php echo '៛' . number_format($amount_change_khr_round, 0, '.', ','); ?>
                                                 </span>
@@ -207,7 +228,7 @@ $('.search-form form').submit(function(){
                                                 <span class="label label-danger">
                                                     <?php echo TbHtml::b(Yii::t('app', 'Change Owe')); ?></td>
                                                 </span>
-                                            <td>
+                                            <td colspan="2" align="right">
                                                 <span class="badge badge-important bigger-120">
                                                     <strong>
                                                     <?php echo '$' . number_format($amount_change, 2, '.', ','); ?>
@@ -216,12 +237,12 @@ $('.search-form form').submit(function(){
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td> 
+                                            <td colspan="2">
                                                <span class="label label-danger">
                                                <?php echo TbHtml::b(Yii::t('app', 'Change Owe in KHR')); ?>:
                                                </span>
                                             </td>
-                                            <td>
+                                            <td colspan="2" align="right">
                                                 <span class="badge badge-important bigger-120">
                                                     <?php echo '៛' . number_format($amount_change_khr_round, 0, '.', ','); ?>
                                                 </span>
@@ -232,7 +253,7 @@ $('.search-form form').submit(function(){
                                 <?php } ?>
                                 <?php if (@$count_payment == 0) { ?>                                     
                                     <tr>
-                                        <td colspan="2" style='text-align:right'><?php
+                                        <td colspan="3" style='text-align:right'><?php
                                             echo TbHtml::linkButton(Yii::t('app', 'Add Payment'), array(
                                                 'color' => TbHtml::BUTTON_COLOR_INFO,
                                                 'size' => TbHtml::BUTTON_SIZE_MINI,
