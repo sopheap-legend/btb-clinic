@@ -690,7 +690,7 @@ class AppointmentController extends Controller
         $tran_log = new TransactionLog;
         //$patient = new Patient;
 
-        if(!Yii::app()->user->checkAccess('consultation.view'))
+        if(!Yii::app()->user->checkAccess('laboratory.view'))
         {
             throw new CHttpException(400,'You are not authorized to perform this action.');
         }

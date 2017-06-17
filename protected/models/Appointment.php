@@ -575,8 +575,8 @@ class Appointment extends CActiveRecord
                         FROM v_appointment_state 
                         WHERE appointment_date>=DATE_SUB(CURDATE(), INTERVAL 0 DAY)
                         and appointment_date<DATE_ADD(CURDATE(), INTERVAL 1 DAY)
-                        and user_id=$userid  
-                        and status in ('Waiting','Consultation','Complete')
+                        /*and user_id=$userid*/ 
+                        and status in ('Waiting','Consultation')
                         $cond
                         ORDER BY appointment_date
                     )cl,(SELECT @rownum:=0) r";
