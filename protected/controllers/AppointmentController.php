@@ -645,7 +645,7 @@ class AppointmentController extends Controller
             }
             $data['LabResult']=$LabResult;
             $data['lab_items']=$lab_items;
-            $this->render('consultation_form',$data,true,false);
+            $this->render('consultation_form',$data);
 
             //return true;
         }else{
