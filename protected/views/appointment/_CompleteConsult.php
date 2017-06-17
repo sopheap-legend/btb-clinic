@@ -386,12 +386,12 @@ Yii::app()->clientScript->registerScript('completedConsult', "
                                         "background": "#FFCECE"
                                     });
                                 }else{
-                                    //window.location.href = return_url;
+                                    window.location.href = return_url;
                                     //window.location.href=data.redirect;
                                 }
                             },
                             error:function(er){
-                                //window.location.href = return_url;
+                                window.location.href = return_url;
                             }
                         });
                     }
