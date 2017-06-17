@@ -47,7 +47,8 @@
     }
 
     strong {
-        color: blue;
+        color: blue !important;
+        font-family: Khmer OS Battambang;
         -webkit-print-color-adjust: exact;
     }
 
@@ -82,7 +83,7 @@ if (isset($error_message))
         </div>
         <div class="col-xs-7 text-middle">
             <p align="middle">
-                <strong style="font-size:x-large;color:blue;"><?php echo TbHtml::encode($clinic_name);?></strong><br>
+                <strong style="font-family: Khmer OS Muol;font-size:x-large;color:blue;"><?php echo TbHtml::encode($clinic_name);?></strong><br>
                 <strong style="font-size:large;color:blue;"><?php echo "KE SINOUN HOSPITAL"; ?></strong><br>
                 <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_address); ?></strong><br>
                 <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_mobile); ?></strong><br>
@@ -318,10 +319,10 @@ if (isset($error_message))
     </div>
      
 </div>
-<!--<script>
+<script>
 $(window).bind("load", function() {
     setTimeout(window.location.href='Prescription',5000); 
     window.print();
     return true;
 });    
-</script>-->
+</script>

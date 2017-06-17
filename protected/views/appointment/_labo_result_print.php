@@ -34,6 +34,7 @@
 
         strong{
             color: blue !important;
+            font-family: Khmer OS Battambang;
         }
 
         #receipt_items td {
@@ -61,12 +62,12 @@
 <div class="form-group" id="receipt_wrapper">
     <div class="containter">
         <div class="row">
-            <div class="col-md-12 col-xs-offset-1 text-middle" style="display: inline-flex">
+            <div class="col-md-12 col-xs-offset-2 text-middle" style="display: inline-flex">
                 <div>
                     <?php echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_logo.png','Company\'s logo',array('width'=>'100')); ?>
                 </div>
                 <div style="text-align: center">
-                    <strong style="font-size: medium;color:blue;font-family:KhmerOSbattambang"><?php echo TbHtml::encode($clinic_name);?></strong><br>
+                    <strong style="font-family: Khmer OS Muol;font-size: x-large;color:blue;"><?php echo TbHtml::encode($clinic_name);?></strong><br>
                     <strong style="font-size:large;color:blue;"><?php echo "KE SINOUN HOSPITAL"; ?></strong><br>
                     <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_address); ?></strong><br>
                     <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_mobile); ?></strong>
@@ -176,11 +177,11 @@
         </div>
     </div>
 </div>
-<?php //$url = Yii::app()->createUrl('Appointment/labocheck/'); ?>
-<!--<script>
+<?php $url = Yii::app()->createUrl('Appointment/labocheck/'); ?>
+<script>
     $(window).bind("load", function() {
-        setTimeout(window.location.href='<?php //echo $url; ?>',5000);
+        setTimeout(window.location.href='<?php echo $url; ?>',5000);
         window.print();
         return true;
     });
-</script>-->
+</script>
