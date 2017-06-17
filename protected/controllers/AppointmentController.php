@@ -1307,7 +1307,7 @@ class AppointmentController extends Controller
         //$ll='hhh';
         if($data['amount_change']<=0)
         {
-            $sale_id = Payment::model()->CompleteSale($visit_id,$data['discount_amount']);
+            $sale_id = Payment::model()->CompleteSale($visit_id,@$data['discount_amount']);
 
             $data['cust_fullname'] =  $data['Patient_info']->fullname;
             //$data['cust_fullname'] =  'Hello';
