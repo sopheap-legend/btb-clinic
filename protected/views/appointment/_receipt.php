@@ -31,7 +31,7 @@
 #receipt_wrapper {
     font-family: Arial;
     width: 98% !important;
-    font-size: 13px !important;
+    font-size: 12px !important;
     margin: 0 auto !important;
     padding: 0 !important;
 }
@@ -66,7 +66,7 @@ if (isset($error_message))
     exit();
 }
 ?>
-<div class="container" id="receipt_wrapper"> 
+<div class="container" id="receipt_wrapper">
     <div class="row">
         <div class="col-xs-3">
             <!-- <div class="panel panel-default"> -->
@@ -86,7 +86,7 @@ if (isset($error_message))
                 <strong style="font-size:large;color:blue;"><?php echo "KE SINOUN HOSPITAL"; ?></strong><br>
                 <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_address); ?></strong><br>
                 <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_mobile); ?></strong><br>
-                <?php //echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_name.png','Company\'s logo',array('width'=>'360')); ?> <br>
+                <?php //echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_name.png','Company\'s logo',array('width'=>'360')); ?>
             </p>
         </div>
         <div class="col-xs-7 col-xs-offset-1 text-right">
@@ -99,17 +99,17 @@ if (isset($error_message))
                     <?php //} ?>
                         <?php //echo TbHtml::encode($clinic_mobile); ?>
                     <?php //if (Yii::app()->settings->get('receipt', 'printcompanyPhone')=='1') { ?>    
-                        <?php //echo TbHtml::encode(Yii::app()->settings->get('site', 'companyPhone')); ?><br>
+                        <?php //echo TbHtml::encode(Yii::app()->settings->get('site', 'companyPhone')); ?>
                     <?php //} ?>  
                         <?php //echo TbHtml::encode($clinic_address); ?>
                     <?php //if (Yii::app()->settings->get('receipt', 'printcompanyAddress')=='1') { ?>    
-                        <?php //echo TbHtml::encode(Yii::app()->settings->get('site', 'companyAddress')); ?><br>
+                        <?php //echo TbHtml::encode(Yii::app()->settings->get('site', 'companyAddress')); ?>
                     <?php //} ?>
                      <?php //if (Yii::app()->settings->get('receipt', 'printcompanyAddress1')=='1') { ?>    
-                        <?php //echo TbHtml::encode(Yii::app()->settings->get('site', 'companyAddress1')); ?><br>
+                        <?php //echo TbHtml::encode(Yii::app()->settings->get('site', 'companyAddress1')); ?>
                     <?php //} ?>    
                     <?php if (Yii::app()->settings->get('receipt', 'printtransactionTime')=='1') { ?> 
-                        <?php echo TbHtml::encode($transaction_time); ?><br>
+                        <?php echo TbHtml::encode($transaction_time); ?>
                     <?php } ?>
                 </p>
             <!-- </div> -->
@@ -118,7 +118,7 @@ if (isset($error_message))
     <!-- / end client details section -->
     
     <div class="row">
-        
+
         <div class="col-xs-6">
             <!-- <div class="panel panel-default"> -->
                     <p>
@@ -318,8 +318,6 @@ if (isset($error_message))
     </div>
      
 </div>
-
-
 <!--<script>
 $(window).bind("load", function() {
     setTimeout(window.location.href='Prescription',5000); 

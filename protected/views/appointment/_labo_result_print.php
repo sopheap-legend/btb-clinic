@@ -9,7 +9,7 @@
     #receipt_wrapper {
         font-family: Arial;
         width: 98% !important;
-        font-size: 13px !important;
+        font-size: 12px !important;
         margin: 0 auto !important;
         padding: 0 !important;
     }
@@ -21,16 +21,20 @@
 
     @media print {
 
-        .item-test{
+        /*.item-test{
             font-family: Arial;
-            width: 220mm;
+            width: 200mm;
             alignment: center;
-        }
+        }*/
 
         /*#tbl-result{
             border: double;
             padding: 3px;
         }*/
+
+        strong{
+            color: blue !important;
+        }
 
         #receipt_items td {
             position: relative;d
@@ -54,22 +58,20 @@
     }
 </style>
 
-<div class="container" id="receipt_wrapper">
-    <div class="gift_receipt_element item-test">
+<div class="form-group" id="receipt_wrapper">
+    <div class="containter">
         <div class="row">
-            <div class="col-xs-3">
-                <p>
-                    <?php echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_logo.png','Company\'s logo',array('width'=>'150')); ?> <br>
-                </p>
-            </div>
-            <div class="col-xs-6 text-middle">
-                <p align="middle">
-                <strong style="font-size:x-large;color:blue;font-family:KhmerOSbattambang"><?php echo TbHtml::encode($clinic_name);?></strong><br>
-                <strong style="font-size:large;color:blue;"><?php echo "KE SINOUN HOSPITAL"; ?></strong><br>
-                <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_address); ?></strong><br>
-                <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_mobile); ?></strong><br>
+            <div class="col-md-12 col-xs-offset-1 text-middle" style="display: inline-flex">
+                <div>
+                    <?php echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_logo.png','Company\'s logo',array('width'=>'100')); ?>
+                </div>
+                <div style="text-align: center">
+                    <strong style="font-size: medium;color:blue;font-family:KhmerOSbattambang"><?php echo TbHtml::encode($clinic_name);?></strong><br>
+                    <strong style="font-size:large;color:blue;"><?php echo "KE SINOUN HOSPITAL"; ?></strong><br>
+                    <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_address); ?></strong><br>
+                    <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_mobile); ?></strong>
+                </div>
                     <?php //echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_name.png','Company\'s logo',array('width'=>'360')); ?> <br>
-                </p>
             </div>
         </div>
         <div class="row">
@@ -79,7 +81,7 @@
                     <?php echo TbHtml::encode(Yii::t('app','Sex').': '.$client->sex.' '.Yii::t('app','Age').': '.$client->age.' '); ?> <br>
                     <?php echo TbHtml::encode(Yii::t('app','Diagnosis') . " : "  .$visit_info->sympton); ?> <br>
                     <?php echo TbHtml::encode(Yii::t('app','Address') . " : "  .$client->address_line_1); ?> <br>
-                    <?php echo TbHtml::encode( Yii::t('app','Event Date') . " : "  . $visit_date); ?><br>
+                    <?php echo TbHtml::encode( Yii::t('app','Event Date') . " : "  . $visit_date); ?>
                 </p>
             </div>
         </div>
@@ -94,17 +96,17 @@
                 <?php //} ?>
                 <?php //echo TbHtml::encode($clinic_mobile); ?>
                 <?php //if (Yii::app()->settings->get('receipt', 'printcompanyPhone')=='1') { ?>
-                <?php //echo TbHtml::encode(Yii::app()->settings->get('site', 'companyPhone')); ?><br>
+                <?php //echo TbHtml::encode(Yii::app()->settings->get('site', 'companyPhone')); ?>
                 <?php //} ?>
                 <?php //echo TbHtml::encode($clinic_address); ?>
                 <?php //if (Yii::app()->settings->get('receipt', 'printcompanyAddress')=='1') { ?>
-                <?php //echo TbHtml::encode(Yii::app()->settings->get('site', 'companyAddress')); ?><br>
+                <?php //echo TbHtml::encode(Yii::app()->settings->get('site', 'companyAddress')); ?>
                 <?php //} ?>
                 <?php //if (Yii::app()->settings->get('receipt', 'printcompanyAddress1')=='1') { ?>
-                <?php //echo TbHtml::encode(Yii::app()->settings->get('site', 'companyAddress1')); ?><br>
+                <?php //echo TbHtml::encode(Yii::app()->settings->get('site', 'companyAddress1')); ?>
                 <?php //} ?>
                 <?php if (Yii::app()->settings->get('receipt', 'printtransactionTime')=='1') { ?>
-                    <?php echo TbHtml::encode($transaction_time); ?><br>
+                    <?php echo TbHtml::encode($transaction_time); ?>
                 <?php } ?>
             </p>
             <!-- </div> -->
@@ -142,7 +144,7 @@
             'dataProvider' => LabAnalized::model()->printLabResult($visit_id),
             'template' => "{items}",
             'extraRowColumns' => array('group_name'),
-            'extraRowHtmlOptions' => array('style' => 'padding:12px;border:10px',),
+            'extraRowHtmlOptions' => array('style' => 'padding:12px;border:10px','class' => 'active',),
             'columns' => $groupGridColumns,
             'mergeColumns' => array('treatment_item'),
         )); ?>
@@ -174,11 +176,11 @@
         </div>
     </div>
 </div>
-<?php $url = Yii::app()->createUrl('Appointment/labocheck/'); ?>
-<script>
+<?php //$url = Yii::app()->createUrl('Appointment/labocheck/'); ?>
+<!--<script>
     $(window).bind("load", function() {
         setTimeout(window.location.href='<?php //echo $url; ?>',5000);
         window.print();
         return true;
     });
-</script>
+</script>-->
