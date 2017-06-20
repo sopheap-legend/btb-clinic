@@ -47,7 +47,7 @@ class Contact extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('first_name, dob', 'required'),
-			array('first_name, middle_name, last_name, address_line_1, address_line_2, image_name', 'length', 'max'=>300),
+			array('first_name, middle_name, last_name, address_line_1, address_line_2, image_name,nationality', 'length', 'max'=>300),
 			array('sex', 'length', 'max'=>20),
 			array('display_name, email, country', 'length', 'max'=>100),
 			array('phone_number, type', 'length', 'max'=>30),
@@ -57,7 +57,7 @@ class Contact extends CActiveRecord
             array('dob ', 'date', 'format'=>array('yyyy-MM-dd'), 'allowEmpty'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, first_name, middle_name, last_name, dob, sex, display_name, phone_number, email, image_path, type, address_line_1, address_line_2, city, state, postal_code, country, image_name', 'safe', 'on'=>'search'),
+			array('id, first_name, middle_name, last_name, dob, sex, display_name, phone_number, email, image_path, type, address_line_1, address_line_2, city, state, postal_code, country, image_name,nationality', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -96,6 +96,7 @@ class Contact extends CActiveRecord
 			'postal_code' => 'Postal Code',
 			'country' => 'Country',
 			'image_name' => 'Image Name',
+			'nationality' => 'Nationality',
 		);
 	}
 

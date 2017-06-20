@@ -132,21 +132,7 @@ class ContactController extends Controller
             try {
                 set_error_handler(array(&$this, "exception_error_handler"));
 
-                $model->image = CUploadedFile::getInstance($model, 'image');
-
-                $rnd = rand(0, 9999);
-
-                $path = Yii::app()->basePath . '/ximages/' . $model->first_name . '_' . $rnd;
-
-                //$image_name=$path.'/'.$model->image;
-
-                $model->image_path = $path;
-                $model->image_name = $model->image;
-                $image_name = $path . '/' . $model->image;
-
-                if (!is_dir($path)) {
-                    mkdir($path, 0777, true);
-                }
+                $files = CUploadedFile::getInstance($model, 'image');
 
                 //if ($model->image!=null) {
                 if ($model->save()) {
@@ -158,9 +144,25 @@ class ContactController extends Controller
                     $patient->reference_by = 'Lux'; //will add this field on interface
                     $patient->save();
 
-                    if ($model->image != null) {
-                        $model->image->saveAs($image_name);
+                    $rnd = rand(0, 9999);
+
+                    $path = Yii::app()->basePath . '/../ximages/' . $display_id;
+
+                    //$path_dis = $display_id;
+
+                    $model->image_path = $display_id;;
+                    $model->image_name = $rnd.'_'.$files;
+                    $image_name = $path . '/' . $model->image_name;
+
+                    if (!is_dir($path)) {
+                        mkdir($path, 0777, true);
                     }
+
+                    if ($files != null) {
+                        $files->saveAs($image_name);
+                    }
+
+                    Contact::model()->updateByPk($model->id,array('image_path'=>$model->image_path,'image_name'=>$model->image_name));
 
                     $transaction->commit();
                     if ($status === 'Y') {
@@ -209,11 +211,13 @@ class ContactController extends Controller
                 $model->dob = $dob;
             }
 
+            $rnd = rand(0, 9999);
+
             $model->image = CUploadedFile::getInstance($model, 'image');
 
             if ($model->image != null) {
-                $model->image_name = $model->image;
-                $image_name = $model->image_path . '/' . $model->image;
+                $model->image_name = $rnd.'_'.$model->image;
+                $image_name = Yii::app()->basePath . '/../ximages/'.$model->image_path . '/' . $model->image_name;
             }
 
             if ($model->save()) {
