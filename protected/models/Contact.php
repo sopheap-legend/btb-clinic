@@ -30,6 +30,7 @@ class Contact extends CActiveRecord
     public $day;
     public $month;
     public $year;
+	public $age;
 
     /**
 	 * @return string the associated database table name
@@ -46,7 +47,8 @@ class Contact extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('first_name, dob', 'required'),
+			array('first_name', 'required'),
+			array('dob', 'dob_validate'),
 			array('first_name, middle_name, last_name, address_line_1, address_line_2, image_name,nationality', 'length', 'max'=>300),
 			array('sex', 'length', 'max'=>20),
 			array('display_name, email, country', 'length', 'max'=>100),
@@ -97,6 +99,7 @@ class Contact extends CActiveRecord
 			'country' => 'Country',
 			'image_name' => 'Image Name',
 			'nationality' => 'Nationality',
+			'age' => 'Age'
 		);
 	}
 
@@ -185,4 +188,11 @@ class Contact extends CActiveRecord
         $this->year = date('Y',$dob);
         return parent::afterFind();
     }
+
+	public function dob_validate($attribute, $params)
+	{
+		if ($_POST['Contact']['age']=='') {
+			$this->addError('dob', 'dob cannot be blank');
+		}
+	}
 }

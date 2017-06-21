@@ -40,6 +40,10 @@
     <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                 'id'=>'employee-form',
                 'enableAjaxValidation'=>false,
+                'enableClientValidation' => true,
+                'clientOptions' => array(
+                    'validateOnSubmit' => true,
+                ),
                 'layout'=>TbHtml::FORM_LAYOUT_HORIZONTAL,                
                 'htmlOptions'=> array('enctype'=>'multipart/form-data',)
         )); ?>
@@ -76,6 +80,8 @@
                 </div>
 
             </div>
+
+            <?php echo $form->textFieldControlGroup($model,'age',array('class'=>'span7','maxlength'=>40,'Placeholder'=>'Enter Age')); ?>
             
             <!--<div class="form-group"><label class="col-sm-3 control-label" for="dob"><?php /*echo Yii::t('app','Date Of Birth'); */?></label>
                 <div class="col-md-9">
@@ -172,6 +178,7 @@
     <div class="form-actions">
         <?php echo TbHtml::submitButton($model->isNewRecord ? Yii::t('app','Create') : Yii::t('app','Save'),array(
            'color'=>TbHtml::BUTTON_COLOR_PRIMARY,
+            'name'=>'btn-submit'
            //'size'=>TbHtml::BUTTON_SIZE_SMALL,
        )); ?>
     </div>

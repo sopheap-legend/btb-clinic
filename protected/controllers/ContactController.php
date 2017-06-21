@@ -126,7 +126,15 @@ class ContactController extends Controller
             if ($_POST['Contact']['year'] !== "" || $_POST['Contact']['month'] !== "" || $_POST['Contact']['day'] !== "") {
                 $dob = $_POST['Contact']['year'] . '-' . $_POST['Contact']['month'] . '-' . $_POST['Contact']['day'];
                 $model->dob = $dob;
+                //$model->dob=date('Y-m-d');
+            }else{
+                if($_POST['Contact']['age']!='')
+                {
+                    $model->dob=date('Y-m-d', strtotime($_POST['Contact']['age'] . ' years ago'));
+                }
             }
+
+            //print_r($_POST);
 
             $transaction = $model->dbConnection->beginTransaction();
             try {
@@ -203,12 +211,24 @@ class ContactController extends Controller
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
+        if(!empty($model->dob))
+        {
+            $today = date("Y-m-d");
+            $diff = date_diff(date_create($model->dob), date_create($today));
+            $model->age=$diff->format('%y');
+        }
+
         if (isset($_POST['Contact'])) {
             $model->attributes = $_POST['Contact'];
 
             if ($_POST['Contact']['year'] !== "" || $_POST['Contact']['month'] !== "" || $_POST['Contact']['day'] !== "") {
                 $dob = $_POST['Contact']['year'] . '-' . $_POST['Contact']['month'] . '-' . $_POST['Contact']['day'];
                 $model->dob = $dob;
+            }else{
+                if($_POST['Contact']['age']!='')
+                {
+                    $model->dob=date('Y-m-d', strtotime($_POST['Contact']['age'] . ' years ago'));
+                }
             }
 
             $rnd = rand(0, 9999);
