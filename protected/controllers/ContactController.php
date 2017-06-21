@@ -217,7 +217,15 @@ class ContactController extends Controller
 
             if ($model->image != null) {
                 $model->image_name = $rnd.'_'.$model->image;
-                $image_name = Yii::app()->basePath . '/../ximages/'.$model->image_path . '/' . $model->image_name;
+                $path = Yii::app()->basePath . '/../ximages/' . substr(strtoupper($model->first_name),0,1).$model->id;
+                if (!is_dir($path)) {
+                    mkdir($path, 0777, true);
+                    $model->image_path=substr(strtoupper($model->first_name),0,1).$model->id;
+                    $image_name = $path . '/' . $model->image_name;
+                }else{
+                    //$model->image_path=substr(strtoupper($model->first_name),0,1).$model->id;
+                    $image_name = Yii::app()->basePath . '/../ximages/'.$model->image_path . '/' . $model->image_name;
+                }
             }
 
             if ($model->save()) {
