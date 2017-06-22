@@ -46,7 +46,7 @@ class VSearchPatient extends CActiveRecord
 			array('dob', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('search,patient_id, contact_id, fullname, dob, sex, display_id, phone_number, display_name, address_line_1', 'safe', 'on'=>'search'),
+			array('search,patient_id, contact_id, fullname, dob, sex, display_id, phone_number, display_name, address_line_1,nationality', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -76,6 +76,7 @@ class VSearchPatient extends CActiveRecord
 			'phone_number' => 'Phone Number',
 			'display_name' => 'Display Name',
 			'address_line_1' => 'Address',
+			'nationality' => 'Nationality'
 		);
 	}
 

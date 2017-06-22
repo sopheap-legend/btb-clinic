@@ -145,7 +145,7 @@ if (isset($error_message))
             <th><?php echo Yii::t('app','Patient name')?>: <?php echo TbHtml::encode(ucwords($cust_fullname)); ?> </th>
             <th><?php echo Yii::t('app','Sex')?>: <?php echo TbHtml::encode(@$Patient_info->sex);?></th>
             <th><?php echo Yii::t('app','Age')?>: <?php echo TbHtml::encode(@$Patient_info->age);?></th>
-            <th><?php echo Yii::t('app','National label')?>:  <?php echo Yii::t('app','National')?></th>
+            <th><?php echo Yii::t('app','National label')?>:  <?php echo TbHtml::encode(@$Patient_info->nationality); ?></th>
         </div>
         <div class="col-xs-12">
             <th><?php echo Yii::t('app','Address')?>:</th>
@@ -319,10 +319,10 @@ if (isset($error_message))
     </div>
      
 </div>
-<script>
+<!--<script>
 $(window).bind("load", function() {
     setTimeout(window.location.href='Prescription',5000); 
     window.print();
     return true;
 });    
-</script>
+</script>-->

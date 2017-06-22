@@ -91,7 +91,7 @@ class Contact extends CActiveRecord
 			'email' => 'Email',
 			'image_path' => 'Image Path',
 			'type' => 'Type',
-			'address_line_1' => 'Address Line 1',
+			'address_line_1' => 'Address',
 			'address_line_2' => 'Address Line 2',
 			'city' => 'City',
 			'state' => 'State',
@@ -192,7 +192,9 @@ class Contact extends CActiveRecord
 	public function dob_validate($attribute, $params)
 	{
 		if ($_POST['Contact']['age']=='') {
-			$this->addError('dob', 'dob cannot be blank');
+			if ($_POST['Contact']['year'] == "" || $_POST['Contact']['month'] == "" || $_POST['Contact']['day'] == "") {
+				$this->addError('dob', 'dob cannot be blank');
+			}
 		}
 	}
 }

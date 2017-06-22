@@ -225,7 +225,7 @@ class ContactController extends Controller
                 $dob = $_POST['Contact']['year'] . '-' . $_POST['Contact']['month'] . '-' . $_POST['Contact']['day'];
                 $model->dob = $dob;
             }else{
-                if($_POST['Contact']['age']!='')
+                if($_POST['Contact']['age']!=='')
                 {
                     $model->dob=date('Y-m-d', strtotime($_POST['Contact']['age'] . ' years ago'));
                 }

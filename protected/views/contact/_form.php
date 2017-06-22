@@ -81,7 +81,7 @@
 
             </div>
 
-            <?php echo $form->textFieldControlGroup($model,'age',array('class'=>'span7','maxlength'=>40,'Placeholder'=>'Enter Age')); ?>
+            <?php echo $form->textFieldControlGroup($model,'age',array('class'=>'span7 age-input','maxlength'=>40,'Placeholder'=>'Enter Age')); ?>
             
             <!--<div class="form-group"><label class="col-sm-3 control-label" for="dob"><?php /*echo Yii::t('app','Date Of Birth'); */?></label>
                 <div class="col-md-9">
@@ -212,5 +212,21 @@
     $("#Cancel_image").click(function(){
         $("#Contact_image").val('');
         resetURL();
+    });
+
+    $(".age-input").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+            // Allow: Ctrl+A, Command+A
+            (e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) ||
+            // Allow: home, end, left, right, down, up
+            (e.keyCode >= 35 && e.keyCode <= 40)) {
+            // let it happen, don't do anything
+            return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
     });
 </script>
