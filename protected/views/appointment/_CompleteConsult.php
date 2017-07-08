@@ -33,14 +33,14 @@
     <?php endif; ?>
     <div class="col-sm-6">
 
-        <?php //echo $form->textAreaControlGroup($visit, 'sympton',array('rows' => 1, 'cols' => 10, 'class' => 'span2',)); ?>
+        <?php echo $form->textAreaControlGroup($visit, 'sympton',array('rows' => 1, 'cols' => 10, 'class' => 'span2',)); ?>
 
-        <div>
-            <?php echo $form->labelEx($visit,'sympton'); ?>
-            <?php echo $form->textArea($visit,'sympton',array('rows' => 1, 'cols' => 10, 'class' => 'span2 symton-validate',)); ?>
+        <!--<div>
+            <?php //echo $form->labelEx($visit,'sympton'); ?>
+            <?php //echo $form->textArea($visit,'sympton',array('rows' => 1, 'cols' => 10, 'class' => 'span2 symton-validate',)); ?>
         </div>
         <div id='error' style="color: red"></div>
-        <br/>
+        <br/>-->
         <!-- Request to remove from Samnag -->
         <?php //echo $form->textAreaControlGroup($visit, 'assessment', array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
     </div>
@@ -48,12 +48,12 @@
     <div class="col-sm-6">
         <!--<h4 class="header blue bolder smaller"><i class="ace-icon fa fa-key blue"></i><?php //echo Yii::t('app','Treatment Result') ?></h4>--->
 
-        <?php //echo $form->textAreaControlGroup($visit, 'observation', array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
-        <div>
-            <?php echo $form->labelEx($visit,'observation'); ?>
-            <?php echo $form->textArea($visit,'observation',array('rows' => 1, 'cols' => 10, 'class' => 'span2',)); ?>
+        <?php echo $form->textAreaControlGroup($visit, 'observation', array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
+        <!--<div>
+            <?php //echo $form->labelEx($visit,'observation'); ?>
+            <?php //echo $form->textArea($visit,'observation',array('rows' => 1, 'cols' => 10, 'class' => 'span2',)); ?>
         </div>
-        <br/>
+        <br/>-->
 
         <!-- Visit -->
         <?php //echo $form->textAreaControlGroup($visit, 'plan', array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
@@ -107,15 +107,54 @@
             </div>
         <?php $this->endWidget(); ?>        
     </div>
-    <div class="col-sm-12">
+    <!--<div class="col-sm-12">
         <div class="form-actions" id="form-actions">
-            <?php echo TbHtml::submitButton($visit->isNewRecord ? Yii::t('app', 'Submit') : Yii::t('app', 'Submit'), array(
+            <?php /*echo TbHtml::submitButton($visit->isNewRecord ? Yii::t('app', 'Submit') : Yii::t('app', 'Submit'), array(
                 'color' => TbHtml::BUTTON_COLOR_PRIMARY,
                 'size' => TbHtml::BUTTON_SIZE_SMALL,
                 'id' => 'btn-submit',
                 'name' => 'btn-submit'
                 //'size'=>TbHtml::BUTTON_SIZE_SMALL,
+            )); */?>
+        </div>
+    </div>-->
+
+    <div class="col-sm-12">
+        <div class="form-actions" id="form-actions">
+            <?php echo TbHtml::submitButton($visit->isNewRecord ? Yii::t('app', 'Save') : Yii::t('app', 'Save'), array(
+                'color' => TbHtml::BUTTON_COLOR_PRIMARY,
+                'size' => TbHtml::BUTTON_SIZE_SMALL,
+                'id' => 'Save_consult',
+                'name' => 'Save_consult'
+                //'size'=>TbHtml::BUTTON_SIZE_SMALL,
             )); ?>
+                <?php
+                $this->widget('bootstrap.widgets.TbModal', array(
+                    'id' => 'show-payment-modal',
+                    'header' => 'Payment Amount',
+                    /*'htmlOptions' =>array(
+                        'style' => 'width: 1500px;'
+                    ),*/
+                    'content' => $this->renderpartial("_add_payment", array('form' => $form, 'model' => $model), true, false),
+                    'footer' => implode(' ', array(
+                        TbHtml::submitButton(Yii::t('app', 'Pay'), array(
+                                'name' => 'Completed_consult',
+                                'id' => 'Completed_consult',
+                                'color' => TbHtml::BUTTON_COLOR_PRIMARY
+                            )
+                        ),
+                        TbHtml::button('Close', array('data-dismiss' => 'modal')),
+                    )),
+                ));
+                ?>
+
+                <?php echo TbHtml::button(Yii::t('app', 'Save & Complete Consultation'), array(
+                    'color' => TbHtml::BUTTON_COLOR_SUCCESS,
+                    'size' => TbHtml::BUTTON_SIZE_SMALL,
+                    'data-toggle' => 'modal',
+                    'data-target' => '#show-payment-modal',
+                )); ?>
+
         </div>
     </div>
     <?php $this->endWidget(); ?>
@@ -325,10 +364,10 @@ Yii::app()->clientScript->registerScript('completedConsult', "
         }
     });
 
-    $("#btn-submit").on('click',function(e) {
+    /*$("#btn-submit").on('click',function(e) {
         e.preventDefault();
         //a_href = $(this).attr("href");
-        var url='/index.php/appointment/DoctorConsult?visit_id=<?php echo $_GET['visit_id']; ?>&patient_id=<?php echo $_GET['patient_id']; ?>&doctor_id=<?php echo $_GET['doctor_id']; ?>';
+        var url='/index.php/appointment/DoctorConsult?visit_id=<?php //echo $_GET['visit_id']; ?>&patient_id=<?php //echo $_GET['patient_id']; ?>&doctor_id=<?php echo $_GET['doctor_id']; ?>';
         var return_url='waitingqueue';
         //finished_url=
         $.confirm({
@@ -400,6 +439,6 @@ Yii::app()->clientScript->registerScript('completedConsult', "
                 },
             }
         });
-    });
+    });*/
     
 </script>  

@@ -416,7 +416,7 @@ class AppointmentController extends Controller
             throw new CHttpException(400,'You are not authorized to perform this action.');
         }
 
-        if(isset($_POST['ajax']) && $_POST['ajax']==='add_item_form')
+        /*if(isset($_POST['ajax']) && $_POST['ajax']==='add_item_form')
         {
             if(isset($_POST['Save_consult']) || isset($_POST['Completed_consult']))
             {
@@ -430,6 +430,19 @@ class AppointmentController extends Controller
                         'status' => '[success]',
                     ));
                 }
+            }
+        }*/
+
+        if(isset($_POST['ajax']) && $_POST['ajax']==='add_item_form')
+        {
+            if(isset($_POST['Completed_consult']))
+            {
+                //$model->attributes=$_POST['Appointment'];
+                echo CActiveForm::validate($model);
+                Yii::app()->end();
+            }else{
+                echo CActiveForm::validate($visit);
+                Yii::app()->end();
             }
         }
 
@@ -562,8 +575,12 @@ class AppointmentController extends Controller
                                 //$actual_amount = $_POST['Appointment']['actual_amount'];
                                 //$actual_amount = preg_replace('/[^0-9.]/s', '', $_POST['Appointment']['actual_amount']);
                                 //echo $actual_amount; die();
-                                $this->actioncompletedConsult($_GET['visit_id'],$_GET['patient_id']);
+                                //$this->actioncompletedConsult($_GET['visit_id'],$_GET['patient_id']);
                                 //}
+
+                                $actual_amount = preg_replace('/[^0-9.]/s', '', $_POST['Appointment']['actual_amount']);
+                                //echo $actual_amount; die();
+                                $this->actioncompletedConsult($_GET['visit_id'],$_GET['patient_id'],$actual_amount);
                             }else{
                                 Yii::app()->user->setFlash('success', '<strong>Ooop!</strong> Please select treatment or medicine!.');
                             }
@@ -577,7 +594,7 @@ class AppointmentController extends Controller
                         $transaction->commit();
                         Yii::app()->treatmentCart->clearAll();
                         //echo json_encode(array('redirect'=>$this->createUrl('appointment/waitingqueue')));
-                        //$this->redirect(array('appointment/waitingqueue'));
+                        $this->redirect(array('appointment/waitingqueue'));
                         //exit;
 
                     }catch (Exception $e){
@@ -1003,9 +1020,9 @@ class AppointmentController extends Controller
             throw new CHttpException(400,'You are not authorized to perform this action.');
         }else{
             $user_id = Yii::app()->user->getId();
-            //Appointment::model()->updateCompleteAppt($visit_id,$user_id,$patient_id,$actual_amount);
-            $status=Yii::app()->params['completed_consult'];
-            Appointment::model()->updateStateAppt($visit_id,$user_id,$patient_id, $status);
+            Appointment::model()->updateCompleteAppt($visit_id,$user_id,$patient_id,$actual_amount);
+            //$status=Yii::app()->params['completed_consult'];
+            //Appointment::model()->updateStateAppt($visit_id,$user_id,$patient_id, $status);
             Yii::app()->treatmentCart->clearAll();
         }
     }
@@ -1074,9 +1091,15 @@ class AppointmentController extends Controller
         $data['model'] = new Appointment('showBillDetail');
         $data['count_item'] = $model->countBill($visit_id);
         $data['amount'] = $model->sumBill($visit_id);
-        $data['actual_amount'] = $model->get_actual_amount($visit_id);
+        $data['doctor_amount'] = $model->get_actual_amount($visit_id); //amount input from doctor
 
         $data['visit_id'] = $visit_id;
+
+        if($data['doctor_amount']>0)
+        {
+            $model->kh_discount=$data['amount']-$data['doctor_amount'];
+            $data['model']=$model;
+        }
 
         $data['payments'] =Yii::app()->treatmentCart->getPayments();
         //print_r($data['amount_change_khr_round']);
@@ -1159,13 +1182,21 @@ class AppointmentController extends Controller
             $data['payment'] =$payment;
             $data['count_item'] = $model->countBill($visit_id);
             $data['amount'] = $model->sumBill($visit_id);
+            $data['doctor_amount'] = $model->get_actual_amount($visit_id); //amount input from doctor
 
             /*Discount input*/
             if(isset($_POST['Appointment']['kh_discount']))
             {
                 $model->kh_discount=preg_replace('/[^0-9.]/s', '', @$_POST['Appointment']['kh_discount']);
                 Yii::app()->treatmentCart->setKHDiscount($model->kh_discount);
+            }else{
+                if($data['doctor_amount']>0)
+                {
+                    $model->kh_discount=$data['amount']-$data['doctor_amount'];
+                    Yii::app()->treatmentCart->setKHDiscount($model->kh_discount);
+                }
             }
+
             if(isset($_POST['Appointment']['us_discount']))
             {
                 $model->us_discount=preg_replace('/[^0-9]/s', '', $_POST['Appointment']['us_discount']);
@@ -1282,6 +1313,14 @@ class AppointmentController extends Controller
 
                 Yii::app()->clientScript->scriptMap['jquery-ui.css'] = false;
                 Yii::app()->clientScript->scriptMap['box.css'] = false;
+
+                $data['doctor_amount'] = $model->get_actual_amount($visit_id); //amount input from doctor
+
+                if($data['doctor_amount']>0)
+                {
+                    $model->kh_discount=$data['amount']-$data['doctor_amount'];
+                    $data['model']=$model;
+                }
 
                 $this->renderPartial('prescriptionDetail',$data,false, true);
             }

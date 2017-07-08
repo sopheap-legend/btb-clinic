@@ -31,6 +31,15 @@
             border: double;
             padding: 3px;
         }*/
+        #receipt_wrapper {
+            width: 100% !important;
+            margin: 0 auto !important;
+            padding: 0 !important;
+        }
+
+        body {
+            position: relative;
+        }
 
         strong{
             color: blue !important;
@@ -38,7 +47,7 @@
         }
 
         #receipt_items td {
-            position: relative;d
+            position: relative;
             padding: 3px;
         }
 
@@ -62,7 +71,7 @@
 <div class="form-group" id="receipt_wrapper">
     <div class="containter">
         <div class="row">
-            <div class="col-md-12 col-xs-offset-2 text-middle" style="display: inline-flex">
+            <div class="col-md-12 col-xs-offset-3 text-middle" style="display: inline-flex">
                 <div>
                     <?php echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_logo.png','Company\'s logo',array('width'=>'100')); ?>
                 </div>
@@ -76,7 +85,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-md-6">
                 <p>
                     <?php echo TbHtml::encode(Yii::t('app','Patient name') . " : "  .$client->fullname); ?> <br>
                     <?php echo TbHtml::encode(Yii::t('app','Sex').': '.$client->sex.' '.Yii::t('app','Age').': '.$client->age.' '); ?> <br>
@@ -87,7 +96,7 @@
             </div>
         </div>
 
-        <div class="col-xs-7 col-xs-offset-1 text-right">
+        <div class="col-md-7 col-xs-offset-1 text-right">
             <!-- <div class="panel panel-default"> -->
             <p>
                 <?php //if (Yii::app()->settings->get('receipt', 'printcompanyName')=='1') { ?>
@@ -123,13 +132,14 @@
             </tr>
         </table>
     </div>-->
-    <div class="item-test">
-        <div class="col-xs-12" align="middle">
+    <div class="row">
+        <div class="col-md-12" align="middle">
             <div style="font-size:large;"><strong>ប័ណ្ណវិភាគវេជ្ជសាស្រ្ត</strong></div>
             <div style="font-size:large;">LAB ANALIZED SHEET</div>
         </div>
     </div>
-    <div class="item-test gift_receipt_element">
+    <div class="row">
+        <div class="col-md-12">
         <?php
         $groupGridColumns = ReportColumn::getLabResultColumn();
         $groupGridColumns[] = array(
@@ -145,15 +155,16 @@
             'dataProvider' => LabAnalized::model()->printLabResult($visit_id),
             'template' => "{items}",
             'extraRowColumns' => array('group_name'),
-            'extraRowHtmlOptions' => array('style' => 'padding:12px;border:10px','class' => 'active',),
+            'extraRowHtmlOptions' => array('class' => 'active',),
             'columns' => $groupGridColumns,
             'mergeColumns' => array('treatment_item'),
         )); ?>
+        </div>
     </div>
     <p/><p/>
     <div id="footer">
         <div class="row">
-            <div class="col-xs-3">
+            <div class="col-md-3">
                 <table id="receipt_items" style="width:100%">
                     <tr>
                         <td style='text-align:right;border-top:1px solid #000000;'></td>
@@ -178,10 +189,10 @@
     </div>
 </div>
 <?php $url = Yii::app()->createUrl('Appointment/labocheck/'); ?>
-<script>
+<!--<script>
     $(window).bind("load", function() {
-        setTimeout(window.location.href='<?php echo $url; ?>',5000);
+        setTimeout(window.location.href='<?php //echo $url; ?>',5000);
         window.print();
         return true;
     });
-</script>
+</script>-->

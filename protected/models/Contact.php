@@ -85,7 +85,7 @@ class Contact extends CActiveRecord
 			'middle_name' => 'Middle Name',
 			'last_name' => 'Last Name',
 			'dob' => 'Dob',
-			'sex' => 'Sex',
+			'sex' => 'Gender',
 			'display_name' => 'Display Name',
 			'phone_number' => 'Phone Number',
 			'email' => 'Email',
