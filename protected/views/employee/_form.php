@@ -47,7 +47,7 @@
                 
                 <?php echo $form->textFieldControlGroup($user,'user_name',array('class'=>'span8','maxlength'=>60,'placeholder'=>'User name', 'autocomplete'=>'off','data-required'=>'true','disabled' => $disabled)); ?>
 
-                <?php if ($model->isNewRecord) { ?>
+                <?php //if ($model->isNewRecord) { ?>
 
                 <?php echo $form->passwordFieldControlGroup($user,'Password',array('class'=>'span8','maxlength'=>128,'placeholder'=>'User Password','autocomplete'=>'off')); ?>
 
@@ -55,7 +55,7 @@
 
                 <?php //echo $form->dropDownListControlGroup($model, 'location', Location::model()->getLocationChk(),array('class'=>'ace-checkbox-2')); ?>
                 
-                <?php } ?>
+                <?php //} ?>
 
                     <?php //if ($n_location>1) { ?> 
                     <?php //echo $form->inlineCheckBoxListControlGroup($model, 'visit_location', Location::model()->getLocationChk(),array('class'=>'ace-checkbox-2')); ?>

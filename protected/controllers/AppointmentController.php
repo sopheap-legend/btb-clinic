@@ -1090,7 +1090,8 @@ class AppointmentController extends Controller
         $data['patient_name'] = $rst->patient_name;
         $data['model'] = new Appointment('showBillDetail');
         $data['count_item'] = $model->countBill($visit_id);
-        $data['amount'] = $model->sumBill($visit_id);
+        //$data['amount'] = $model->sumBill($visit_id);
+        $data['amount'] = $model->get_actual_amount($visit_id); //this for doctor sinoun only and will need to be change one day
         $data['doctor_amount'] = $model->get_actual_amount($visit_id); //amount input from doctor
 
         $data['visit_id'] = $visit_id;
@@ -1181,7 +1182,8 @@ class AppointmentController extends Controller
             $data['model'] = $model;
             $data['payment'] =$payment;
             $data['count_item'] = $model->countBill($visit_id);
-            $data['amount'] = $model->sumBill($visit_id);
+            //$data['amount'] = $model->sumBill($visit_id);
+            $data['amount'] = $model->get_actual_amount($visit_id); //for Doctor Sinoun only
             $data['doctor_amount'] = $model->get_actual_amount($visit_id); //amount input from doctor
 
             /*Discount input*/
@@ -1207,7 +1209,8 @@ class AppointmentController extends Controller
             $data['discount_amount']=Yii::app()->treatmentCart->getAllDiscount($data['amount'],$visit_id);
 
             //$data['actual_amount'] = $model->get_actual_amount($visit_id);
-            $data['actual_amount'] = ($model->sumBill($visit_id))-$data['discount_amount'];//Change to get Direct from detail table
+            //$data['actual_amount'] = ($model->sumBill($visit_id))-$data['discount_amount'];//Change to get Direct from detail table
+            $data['actual_amount'] = $data['amount']-$data['discount_amount'];
             //$data['payment_amount']=$data['actual_amount'];
 
             $rst = VAppointmentState::model()->find("visit_id=:visit_id",array(':visit_id'=>$visit_id));
@@ -1283,9 +1286,11 @@ class AppointmentController extends Controller
             $data['model'] = $model;
             $data['payment'] =$payment;
             $data['count_item'] = $model->countBill($visit_id);
-            $data['amount'] = $model->sumBill($visit_id);
+            //$data['amount'] = $model->sumBill($visit_id);
+            $data['amount'] = $model->get_actual_amount($visit_id);
             //$data['actual_amount'] = $model->get_actual_amount($visit_id);
-            $data['actual_amount'] = $model->sumBill($visit_id);
+            //$data['actual_amount'] = $model->sumBill($visit_id);
+            $data['actual_amount'] = $model->get_actual_amount($visit_id);
             $data['visit_id'] = $visit_id;
             $rst = VAppointmentState::model()->find("visit_id=:visit_id",array(':visit_id'=>$visit_id));
             $data['patient_name'] = $rst->patient_name;
@@ -1334,7 +1339,9 @@ class AppointmentController extends Controller
         $data['amount_change']=Yii::app()->treatmentCart->get_us_change();
         $data['amount_change_khr_round']=Yii::app()->treatmentCart->get_kh_change();
         $total_amount = Appointment::model()->sumBill($visit_id);
-        $data['discount_amount']=Yii::app()->treatmentCart->getAllDiscount($total_amount,$visit_id);
+        //$data['discount_amount']=Yii::app()->treatmentCart->getAllDiscount($total_amount,$visit_id);
+        $data['discount_amount_tmp']=Yii::app()->treatmentCart->getAllDiscount($total_amount,$visit_id);
+        $data['discount_amount'] = $data['discount_amount_tmp'] + ($total_amount-Appointment::model()->get_actual_amount($visit_id));
         $clinic_info = Clinic::model()->find();
         $employee_id = RbacUser::model()->findByPk(Yii::app()->user->getId());
         $employee = Employee::model()->get_doctorName($employee_id->employee_id);
@@ -1379,7 +1386,8 @@ class AppointmentController extends Controller
             //$data['total']=$total - $total*$data['discount_amount']/100;
             $data['total_kh']=$total_kh;
             $data['total_us']=$total_us;
-            $data['actual_amount'] = Appointment::model()->sumBill($visit_id); //need to modify direct get from Table
+            //$data['actual_amount'] = Appointment::model()->sumBill($visit_id); //need to modify direct get from Table
+            $data['actual_amount'] = Appointment::model()->get_actual_amount($visit_id);
 
             $data['amount_change']=Yii::app()->treatmentCart->get_us_change();
             $data['amount_change_khr_round']=Yii::app()->treatmentCart->get_kh_change();
@@ -1398,9 +1406,11 @@ class AppointmentController extends Controller
 
             $data['model'] = new Appointment('showBillDetail');
             $data['count_item'] = $model->countBill($visit_id);
-            $data['amount'] = $model->sumBill($visit_id);
+            //$data['amount'] = $model->sumBill($visit_id); //this get direct from table
+            $data['amount'] = $model->get_actual_amount($visit_id); //this get from Doctor Input
             //$data['actual_amount'] = $model->get_actual_amount($visit_id);
-            $data['actual_amount'] = $model->sumBill($visit_id);
+            //$data['actual_amount'] = $model->sumBill($visit_id);
+            $data['actual_amount'] = $model->get_actual_amount($visit_id); //this get from Doctor Input
 
             $data['visit_id'] = $visit_id;
 

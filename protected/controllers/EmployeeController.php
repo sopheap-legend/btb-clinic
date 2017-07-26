@@ -185,7 +185,7 @@ class EmployeeController extends Controller
 
             if (isset($_POST['Employee'])) {
                 $model->attributes = $_POST['Employee'];
-                //$user->attributes=$_POST['RbacUser'];
+                $user->attributes=$_POST['RbacUser'];
                 // validate BOTH $a and $b
                 $valid = $model->validate();
                 //$valid=$user->validate() && $valid;
@@ -201,7 +201,7 @@ class EmployeeController extends Controller
                               Authassignment::model()->deleteAll($criteria);
                              * 
                              */
-                            // Delete all existing granted module 
+                            // Delete all existing granted module
                             Authassignment::model()->deleteAuthassignment($user->id);
 
                             $assignitems = array('items', 'sales', 'employees', 
@@ -222,6 +222,8 @@ class EmployeeController extends Controller
                                     }
                                 }
                             }
+
+                            if($user->validate()) $user->save();
 
                             $transaction->commit();
                             Yii::app()->user->setFlash(TbHtml::ALERT_COLOR_SUCCESS,'Employee : <strong>' . ucwords($model->last_name . ' ' .$model->first_name) . '</strong> have been saved successfully!' );

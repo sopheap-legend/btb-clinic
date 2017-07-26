@@ -71,7 +71,7 @@
 <div class="form-group" id="receipt_wrapper">
     <div class="containter">
         <div class="row">
-            <div class="col-md-12 col-xs-offset-3 text-middle" style="display: inline-flex">
+            <div class="col-md-12 col-xs-offset-2 text-middle" style="display: inline-flex">
                 <div>
                     <?php echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_logo.png','Company\'s logo',array('width'=>'100')); ?>
                 </div>
@@ -164,7 +164,7 @@
     <p/><p/>
     <div id="footer">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-xs-3">
                 <table id="receipt_items" style="width:100%">
                     <tr>
                         <td style='text-align:right;border-top:1px solid #000000;'></td>
