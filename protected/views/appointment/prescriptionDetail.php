@@ -123,7 +123,8 @@ $('.search-form form').submit(function(){
                                             'placeholder'=>Yii::t('app','Discount Amount') . ' ៛',
                                             'prepend' => '៛',
                                             'style'=>'width:100%',
-                                            'disabled'=>$disabled
+                                            //'disabled'=>$disabled
+                                            'disabled'=>true
                                         ));
                                         ?>
                                         <?php echo $form->textFieldControlGroup($model, 'us_discount', array(
@@ -134,7 +135,8 @@ $('.search-form form').submit(function(){
                                             'placeholder'=>Yii::t('app','Discount Amount') . ' $',
                                             'prepend' =>  '$',
                                             'style'=>'width:100%',
-                                            'disabled'=>$disabled
+                                            //'disabled'=>$disabled
+                                            'disabled'=>true
                                         ));
                                         ?>
                                     </td>
