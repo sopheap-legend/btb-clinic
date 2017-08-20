@@ -134,6 +134,46 @@ class LabAnalized extends CActiveRecord
 	public function printLabResult($visit_id)
 	{
 		$sql="
+			SELECT @rownum:=@rownum+1 id ,t2.visit_id,t5.group_name,t5.treatment_item,
+			CASE 
+				WHEN t1.itemtest_id=4 and t3.lab_item_desc='Blood group' then '-Group'
+				WHEN t1.itemtest_id=4 and t3.lab_item_desc like '%Rh' then '-Rh'
+				WHEN t1.itemtest_id=19 and t3.lab_item_desc like '%IgG' then '-IgG'
+				WHEN t1.itemtest_id=19 and t3.lab_item_desc like '%IgM' then '-IgM'
+				WHEN t1.itemtest_id=29 and t3.lab_item_desc like '%To' then '-To'
+				WHEN t1.itemtest_id=29 and t3.lab_item_desc like '%TH' then '-TH'
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGOT(ASAT)' then '-SGOT(ASAT)'
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGPT(ALAT)' then '-SGPT(ALAT)'
+				ELSE ''
+			end lab_item_name,null lab_item_name,t3.lab_value result,
+			CASE 
+				when (t1.itemtest_id=16 or t1.itemtest_id=17) and t3.lab_item_desc like '%mm' then 'mm' 
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGOT(ASAT)' then 'UI/L(8-33)'
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGPT(ALAT)' then 'UI/L(3-35)'
+				else t5.caption 
+			end caption 
+			FROM lab_analyzed_detail t1
+			INNER JOIN lab_analized t2 ON t1.lab_analized_id=t2.id
+			LEFT JOIN lab_analyzed_result t3 ON t1.id=t3.lab_detail_id
+			inner join v_labo_item t5 on t1.itemtest_id=t5.lab_item_id,(SELECT @rownum:=0) r
+			where t2.visit_id=$visit_id
+		";
+
+		/*return new CSqlDataProvider($sql,array(
+			'sort' => array(
+				'attributes' => array(
+					'lab_item_id'
+				)
+			),
+		));*/
+
+		$command = Yii::app()->db->createCommand($sql);
+		return $command->queryAll();
+	}
+	
+	public function printLabResult2($visit_id)
+	{
+		$sql="
 			SELECT @rownum:=@rownum+1 id ,t2.visit_id,t5.group_name,concat(t5.treatment_item,
 			(CASE 
 				WHEN t1.itemtest_id=4 and t3.lab_item_desc='Blood group' then '-Group'

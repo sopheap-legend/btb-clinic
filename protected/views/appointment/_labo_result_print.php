@@ -169,7 +169,7 @@
                 <tbody>
                 <?php //print_r($cust_info); die(); ?>
                 <?php $i=0; ?>
-                <?php foreach(LabAnalized::model()->printLabResult($visit_id) as $item): ?>
+                <?php foreach(LabAnalized::model()->printLabResult2($visit_id) as $item): ?>
                     <tr>
                         <td><?php echo TbHtml::encode($item['id']); ?></td>
                         <td><?php echo TbHtml::encode($item['treatment_item']); ?></td>
