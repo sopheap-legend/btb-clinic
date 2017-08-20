@@ -114,8 +114,8 @@
 
     <div class="row">
         <div class="col-md-12" align="middle">
-            <div style="font-size:large;"><strong>ប័ណ្ណវិភាគវេជ្ជសាស្រ្ត</strong></div>
-            <div style="font-size:large;">LAB ANALIZED SHEET</div>
+            <div style="font-size:large;"><strong>លទ្ធផលវិភាគវេជ្ជសាស្រ្ត</strong></div>
+            <div style="font-size:large;">LABORATORY RESULT</div>
         </div>
     </div>
 
