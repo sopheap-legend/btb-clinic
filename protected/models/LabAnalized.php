@@ -159,16 +159,16 @@ class LabAnalized extends CActiveRecord
 			where t2.visit_id=$visit_id
 		";
 
-		/*return new CSqlDataProvider($sql,array(
+		return new CSqlDataProvider($sql,array(
 			'sort' => array(
 				'attributes' => array(
 					'lab_item_id'
 				)
 			),
-		));*/
+		));
 
-		$command = Yii::app()->db->createCommand($sql);
-		return $command->queryAll();
+		/*$command = Yii::app()->db->createCommand($sql);
+		return $command->queryAll();*/
 	}
 	
 	public function printLabResult2($visit_id)
