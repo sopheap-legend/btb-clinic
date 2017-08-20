@@ -174,7 +174,7 @@
                         <td><?php echo TbHtml::encode($item['id']); ?></td>
                         <td><?php echo TbHtml::encode($item['treatment_item']); ?></td>
                         <!--<td class="center"><?php //echo TbHtml::encode(number_format($item['price'],Yii::app()->shoppingCart->getDecimalPlace())); ?></td>-->
-                        <td class="center"><?php echo TbHtml::encode(round($item['result']),2); ?></td>
+                        <td class="center"><?php echo TbHtml::encode($item['result']); ?></td>
                         <td class="center"><?php echo TbHtml::encode($item['caption']); ?></td>
                         <td class="center"><?php //echo TbHtml::encode($item['duration']); ?></td>
                         <!--<td class="center"><?php //echo TbHtml::encode($item['consuming_time']); ?></td>
