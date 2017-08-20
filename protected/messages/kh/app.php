@@ -236,7 +236,7 @@ return array(
     'Notes'=>'កត់ចំណាំ',
     'Item Name' => 'ឈ្មោះ',
     'Item Number' => 'លេខបាកូត',
-    'Unit' => 'ប្រភេទឯកតា',
+    //'Unit' => 'ប្រភេទឯកតា',
     'Supplier' => 'អ្នកផ្គត់ផ្គង់',
     'Buy Price' => 'តំលៃទិញ',
     'Sell Price' => 'តំលៃលក់',
