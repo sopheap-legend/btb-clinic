@@ -9,7 +9,7 @@
     #receipt_wrapper {
         font-family: Arial;
         width: 98% !important;
-        font-size: 12px !important;
+        font-size: 14px !important;
         margin: 0 auto !important;
         padding: 0 !important;
     }
@@ -81,18 +81,7 @@
                     <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_address); ?></strong><br>
                     <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_mobile); ?></strong>
                 </div>
-                    <?php //echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_name.png','Company\'s logo',array('width'=>'360')); ?> <br>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <p>
-                    <?php echo TbHtml::encode(Yii::t('app','Patient name') . " : "  .$client->fullname); ?> <br>
-                    <?php echo TbHtml::encode(Yii::t('app','Sex').': '.$client->sex.' '.Yii::t('app','Age').': '.$client->age.' '); ?> <br>
-                    <?php echo TbHtml::encode(Yii::t('app','Diagnosis') . " : "  .$visit_info->sympton); ?> <br>
-                    <?php echo TbHtml::encode(Yii::t('app','Address') . " : "  .$client->address_line_1); ?> <br>
-                    <?php echo TbHtml::encode( Yii::t('app','Event Date') . " : "  . $visit_date); ?>
-                </p>
+                <?php //echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_name.png','Company\'s logo',array('width'=>'360')); ?> <br>
             </div>
         </div>
 
@@ -122,45 +111,88 @@
             <!-- </div> -->
         </div>
     </div>
-    <!--<div class="gift_receipt_element item-test">
-        <table id="receipt_items" style="width:100%">
-            <tr>
-                <td align="center"><h3><strong>LABORATORY RESULT</strong></h3></td>
-            </tr>
-            <tr>
-                <td style='text-align:right;border-top:1px solid #000000;'></td>
-            </tr>
-        </table>
-    </div>-->
+
     <div class="row">
         <div class="col-md-12" align="middle">
             <div style="font-size:large;"><strong>ប័ណ្ណវិភាគវេជ្ជសាស្រ្ត</strong></div>
             <div style="font-size:large;">LAB ANALIZED SHEET</div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-        <?php
-        $groupGridColumns = ReportColumn::getLabResultColumn();
-        $groupGridColumns[] = array(
-            'name' => 'group_name',
-            'value' => '$data["group_name"]',
-            'headerHtmlOptions' => array('style' => 'display:none'),
-            'htmlOptions' => array('style' => 'display:none')
-        );
 
-        $this->widget('yiiwheels.widgets.grid.WhGroupGridView', array(
-            'type' => 'bordered',
-            'id' => 'tbl-result',
-            'dataProvider' => LabAnalized::model()->printLabResult($visit_id),
-            'template' => "{items}",
-            'extraRowColumns' => array('group_name'),
-            'extraRowHtmlOptions' => array('class' => 'active',),
-            'columns' => $groupGridColumns,
-            'mergeColumns' => array('treatment_item'),
-        )); ?>
+    <div class="row">
+
+        <div class="col-xs-6">
+            <!-- <div class="panel panel-default"> -->
+            <p>
+                <?php //echo Yii::t('app','Doctor') . " : ". TbHtml::encode(ucwords($employee)); ?> <br>
+                <?php //echo Yii::t('app','Patient') . " : ". TbHtml::encode(ucwords($cust_fullname)); ?> <br>
+            </p>
+            <!-- </div> -->
         </div>
+
+        <div class="col-xs-6 col-xs-offset-0 text-right">
+
+            <!-- <div class="panel panel-default"> -->
+            <p>
+                <?php //echo TbHtml::encode(Yii::t('app','Invoice ID') . " : "  . $sale_id); ?>
+                <?php echo Yii::t('app','Event Date')?>: <?php echo date('Y-m-d'); ?> <br>
+            </p>
+            <!-- </div> -->
+        </div>
+        <div class="col-xs-12">
+            <th><?php echo Yii::t('app','Patient name')?>: <?php echo TbHtml::encode(ucwords($client->fullname)); ?> </th>
+            <th><?php echo Yii::t('app','Sex')?>: <?php echo TbHtml::encode(@$client->sex);?></th>
+            <th><?php echo Yii::t('app','Age')?>: <?php echo TbHtml::encode(@$client->age);?></th>
+            <th><?php echo Yii::t('app','National label')?>:  <?php echo TbHtml::encode(@$client->nationality); ?></th>
+        </div>
+        <div class="col-xs-12">
+            <th><?php echo Yii::t('app','Address')?>:</th>
+            <th><?php echo TbHtml::encode(@$client->address_line_1);?></th>
+            <th></th>
+            <th></th>
+        </div>
+        <div class="col-xs-12">
+            <th><?php echo Yii::t('app','Diagnosis')?>: </th>
+            <th><?php echo TbHtml::encode(@$visit_info->sympton);?></th>
+        </div>
+        <div class="col-xs-12">
+            <table class="table" id="receipt_items">
+                <thead>
+                <tr>
+                    <th><?php echo Yii::t('app','#')?></th>
+                    <th> <?php echo Yii::t('app','Request')?></th>
+                    <th class="center"> <?php echo Yii::t('app','Result')?></th>
+                    <th class="center"> <?php echo Yii::t('app','Unit')?></th>
+                    <th class="center"> <?php echo Yii::t('app','Other')?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php //print_r($cust_info); die(); ?>
+                <?php $i=0; ?>
+                <?php foreach(LabAnalized::model()->printLabResult($visit_id) as $item): ?>
+                    <tr>
+                        <td><?php echo TbHtml::encode($item['id']); ?></td>
+                        <td><?php echo TbHtml::encode($item['treatment_item']); ?></td>
+                        <!--<td class="center"><?php //echo TbHtml::encode(number_format($item['price'],Yii::app()->shoppingCart->getDecimalPlace())); ?></td>-->
+                        <td class="center"><?php echo TbHtml::encode(round($item['result']),2); ?></td>
+                        <td class="center"><?php echo TbHtml::encode($item['caption']); ?></td>
+                        <td class="center"><?php //echo TbHtml::encode($item['duration']); ?></td>
+                        <!--<td class="center"><?php //echo TbHtml::encode($item['consuming_time']); ?></td>
+                        <td class="center"><?php //echo TbHtml::encode($item['instruction']); ?></td>
+                        <td class="center"><?php //echo TbHtml::encode($item['comment']); ?></td>-->
+
+                        <!--<td class="center"><?php //echo TbHtml::encode($item['comment']); ?></td>-->
+
+                    </tr>
+                <?php endforeach; ?> <!--/endforeach-->
+
+                </tbody>
+            </table>
+        </div>
+        <div id="sale_return_policy"> <?php echo TbHtml::encode(Yii::t('app',Yii::app()->settings->get('site', 'returnPolicy'))); ?> </div>
+
     </div>
+
     <p/><p/>
     <div id="footer">
         <div class="row">
@@ -189,10 +221,10 @@
     </div>
 </div>
 <?php $url = Yii::app()->createUrl('Appointment/labocheck/'); ?>
-<script>
+<!--<script>
     $(window).bind("load", function() {
         setTimeout(window.location.href='<?php echo $url; ?>',5000);
         window.print();
         return true;
     });
-</script>
+</script>-->

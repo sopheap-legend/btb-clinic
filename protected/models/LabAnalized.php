@@ -134,18 +134,18 @@ class LabAnalized extends CActiveRecord
 	public function printLabResult($visit_id)
 	{
 		$sql="
-			SELECT @rownum:=@rownum+1 id ,t2.visit_id,t5.group_name,t5.treatment_item,
-			CASE 
-				WHEN t1.itemtest_id=4 and t3.lab_item_desc='Blood group' then 'Group'
-				WHEN t1.itemtest_id=4 and t3.lab_item_desc like '%Rh' then 'Rh'
-				WHEN t1.itemtest_id=19 and t3.lab_item_desc like '%IgG' then 'IgG'
-				WHEN t1.itemtest_id=19 and t3.lab_item_desc like '%IgM' then 'IgM'
-				WHEN t1.itemtest_id=29 and t3.lab_item_desc like '%To' then 'To'
-				WHEN t1.itemtest_id=29 and t3.lab_item_desc like '%TH' then 'TH'
-				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGOT(ASAT)' then 'SGOT(ASAT)'
-				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGPT(ALAT)' then 'SGPT(ALAT)'
-				ELSE null
-			end lab_item_name,t3.lab_value result,
+			SELECT @rownum:=@rownum+1 id ,t2.visit_id,t5.group_name,concat(t5.treatment_item,
+			(CASE 
+				WHEN t1.itemtest_id=4 and t3.lab_item_desc='Blood group' then '-Group'
+				WHEN t1.itemtest_id=4 and t3.lab_item_desc like '%Rh' then '-Rh'
+				WHEN t1.itemtest_id=19 and t3.lab_item_desc like '%IgG' then '-IgG'
+				WHEN t1.itemtest_id=19 and t3.lab_item_desc like '%IgM' then '-IgM'
+				WHEN t1.itemtest_id=29 and t3.lab_item_desc like '%To' then '-To'
+				WHEN t1.itemtest_id=29 and t3.lab_item_desc like '%TH' then '-TH'
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGOT(ASAT)' then '-SGOT(ASAT)'
+				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGPT(ALAT)' then '-SGPT(ALAT)'
+				ELSE ''
+			end)) treatment_item,null lab_item_name,t3.lab_value result,
 			CASE 
 				when (t1.itemtest_id=16 or t1.itemtest_id=17) and t3.lab_item_desc like '%mm' then 'mm' 
 				when t1.itemtest_id=44 and t3.lab_item_desc like '%SGOT(ASAT)' then 'UI/L(8-33)'
@@ -159,12 +159,15 @@ class LabAnalized extends CActiveRecord
 			where t2.visit_id=$visit_id
 		";
 
-		return new CSqlDataProvider($sql,array(
+		/*return new CSqlDataProvider($sql,array(
 			'sort' => array(
 				'attributes' => array(
 					'lab_item_id'
 				)
 			),
-		));
+		));*/
+
+		$command = Yii::app()->db->createCommand($sql);
+		return $command->queryAll();
 	}
 }
