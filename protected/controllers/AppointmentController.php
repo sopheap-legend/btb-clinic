@@ -1401,8 +1401,8 @@ class AppointmentController extends Controller
             $this->layout = '//layouts/column_sale';
 
             $model = new Appointment;
-            //$rst = VAppointmentState::model()->find("visit_id=:visit_id",array(':visit_id'=>$visit_id));
-            //$data['patient_name'] = $rs->fullname;
+            $rst = VAppointmentState::model()->find("visit_id=:visit_id",array(':visit_id'=>$visit_id));
+            $data['patient_name'] = $rst->patient_name;
 
             $data['model'] = new Appointment('showBillDetail');
             $data['count_item'] = $model->countBill($visit_id);
