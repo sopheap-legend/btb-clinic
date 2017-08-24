@@ -88,6 +88,7 @@ class TreatmentCart extends CApplicationComponent
 
         foreach ($models as $k => $model) {
             $consuming_time_id=$consuming_time_id!=''?$consuming_time_id:$model["consuming_time_id"];
+            if($dosage !=''){$dosage=$dosage;}else{if($model["dosage"]==''){$dosage=1;}else{$dosage=$model["dosage"];}}
             $consuming = ConsumingTime::model()->findByPk($consuming_time_id);
             $item_data = array((int)$medicine_id =>
                 array(
@@ -96,13 +97,12 @@ class TreatmentCart extends CApplicationComponent
                     'price' => $price!= null ? round($price, $this->getDecimalPlace()) : round($model["unit_price"], $this->getDecimalPlace()),
                     //'quantity' => $dosage*$duration*$consuming->multiple,
                     'quantity'=>  round($quantity),
-                    'dosage' => $dosage !='' ? $dosage:$model["dosage"],
+                    'dosage' => $dosage,
                     'duration' => $duration,
                     'frequency' => $frequency,
                     'instruction_id' => $instruction_id!='' ? $instruction_id:$model["instruction_id"],
                     'comment' => $comment,
                     'consuming_time_id' => $consuming_time_id,
-                    'cons_multiple' => @$consuming->multiple!='' ? $consuming->multiple:1,
                     'cons_multiple' => @$consuming->multiple!='' ? $consuming->multiple:1,
                     'measurement' => $model["measurement"],
                     'category_name' => $model["category_name"]
