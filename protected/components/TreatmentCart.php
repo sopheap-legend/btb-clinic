@@ -102,7 +102,8 @@ class TreatmentCart extends CApplicationComponent
                     'instruction_id' => $instruction_id!='' ? $instruction_id:$model["instruction_id"],
                     'comment' => $comment,
                     'consuming_time_id' => $consuming_time_id,
-                    'cons_multiple' => $consuming->multiple,
+                    'cons_multiple' => @$consuming->multiple!='' ? $consuming->multiple:1,
+                    'cons_multiple' => @$consuming->multiple!='' ? $consuming->multiple:1,
                     'measurement' => $model["measurement"],
                     'category_name' => $model["category_name"]
                 )
