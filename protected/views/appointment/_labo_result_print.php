@@ -43,7 +43,7 @@
 
         strong{
             color: blue !important;
-            font-family: Khmer OS Battambang;
+            /*font-family: Khmer OS Battambang;*/
         }
 
         #receipt_items td {
@@ -78,8 +78,8 @@
                 <div style="text-align: center">
                     <strong style="font-family: Khmer OS Muol;font-size: x-large;color:blue;"><?php echo TbHtml::encode($clinic_name);?></strong><br>
                     <strong style="font-size:large;color:blue;"><?php echo "KE SINOUN HOSPITAL"; ?></strong><br>
-                    <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_address); ?></strong><br>
-                    <strong style="font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_mobile); ?></strong>
+                    <strong style="font-family: 'Khmer OS Battambang';font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_address); ?></strong><br>
+                    <strong style="font-family: 'Khmer OS Battambang';font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_mobile); ?></strong>
                 </div>
                 <?php //echo TbHtml::image(Yii::app()->baseUrl . '/images/shop_name.png','Company\'s logo',array('width'=>'360')); ?> <br>
             </div>
@@ -114,8 +114,8 @@
 
     <div class="row">
         <div class="col-md-12" align="middle">
-            <div style="font-size:large;"><strong>លទ្ធផលវិភាគវេជ្ជសាស្រ្ត</strong></div>
-            <div style="font-size:large;">LABORATORY RESULT</div>
+            <div style="font-family: Khmer OS Muol"><font size="3"> <strong>លទ្ធផលវិភាគវេជ្ជសាស្រ្ត</strong></font></div>
+            <div style="font-family: 'Times New Roman';font-size:large;font-weight: bold;">LABORATORY RESULT</div>
         </div>
     </div>
 
@@ -139,19 +139,19 @@
             </p>
             <!-- </div> -->
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12" style="font-family: 'Khmer OS Battambang'">
             <th><?php echo Yii::t('app','Patient name')?>: <?php echo TbHtml::encode(ucwords($client->fullname)); ?> </th>
             <th><?php echo Yii::t('app','Sex')?>: <?php echo TbHtml::encode(@$client->sex);?></th>
             <th><?php echo Yii::t('app','Age')?>: <?php echo TbHtml::encode(@$client->age);?></th>
-            <th><?php echo Yii::t('app','National label')?>:  <?php echo TbHtml::encode(@$client->nationality); ?></th>
+            <!--<th><?php //echo Yii::t('app','National label')?>:  <?php //echo TbHtml::encode(@$client->nationality); ?></th>-->
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12" style="font-family: 'Khmer OS Battambang'">
             <th><?php echo Yii::t('app','Address')?>:</th>
             <th><?php echo TbHtml::encode(@$client->address_line_1);?></th>
             <th></th>
             <th></th>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12" style="font-family: 'Khmer OS Battambang'">
             <th><?php echo Yii::t('app','Diagnosis')?>: </th>
             <th><?php echo TbHtml::encode(@$visit_info->sympton);?></th>
         </div>
@@ -190,7 +190,6 @@
             </table>
         </div>
         <div id="sale_return_policy"> <?php echo TbHtml::encode(Yii::t('app',Yii::app()->settings->get('site', 'returnPolicy'))); ?> </div>
-
     </div>
 
     <p/><p/>
@@ -198,11 +197,11 @@
         <div class="row">
             <div class="col-xs-3">
                 <table id="receipt_items" style="width:100%">
-                    <tr>
+                    <!--<tr>
                         <td style='text-align:right;border-top:1px solid #000000;'></td>
-                    </tr>
-                    <tr><td><?php echo TbHtml::encode(Yii::t('app','Doctor')); ?>: វជ្ជ. <?php echo $doctor->doctor_name; ?></td></tr>
-                    <tr><td>Date:<?php echo date('d-M-Y') ?></td></tr>
+                    </tr>-->
+                    <tr><td><?php echo TbHtml::encode(Yii::t('app','Doctor')); ?><br>Doctor: វជ្ជ. <?php echo $doctor->doctor_name; ?></td></tr>
+                    <!--<tr><td>Date:<?php //echo date('d-M-Y') ?></td></tr>-->
                 </table>
             </div>
             <div class="col-xs-3"></div>
@@ -210,12 +209,49 @@
             <div class="col-xs-3"></div>
             <div class="col-xs-3 align-right">
                 <table id="receipt_items" style="width:100%">
-                    <tr>
+                    <!--<tr>
                         <td style='text-align:right;border-top:1px solid #000000;'></td>
-                    </tr>
-                    <tr style='text-align:left'><td><?php echo TbHtml::encode(Yii::t('app','Technical')); ?>: <?php echo $lab_tech->doctor_name; ?></td></tr>
-                    <tr style='text-align:left'><td>Date:<?php echo date('d-M-Y') ?></td></tr>
+                    </tr>-->
+                    <tr style='text-align:left'><td><?php echo TbHtml::encode(Yii::t('app','Technical')); ?><br>Lab-Tech: <?php echo $lab_tech->doctor_name; ?></td></tr>
+                    <!--<tr style='text-align:left'><td>Date:<?php //echo date('d-M-Y') ?></td></tr>-->
                 </table>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2">
+                    <table id="receipt_items" style="width:100%">
+                        <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2">
+                    <table id="receipt_items" style="width:100%">
+                        <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2">
+                    <table id="receipt_items" style="width:100%">
+                        <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2">
+                    <table id="receipt_items" style="width:100%">
+                        <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2">
+                    <table id="receipt_items" style="width:100%">
+                        <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

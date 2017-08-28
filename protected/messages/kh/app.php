@@ -236,7 +236,7 @@ return array(
     'Notes'=>'កត់ចំណាំ',
     'Item Name' => 'ឈ្មោះ',
     'Item Number' => 'លេខបាកូត',
-    //'Unit' => 'ប្រភេទឯកតា',
+    'Unit' => 'ឯកតា/Unit',
     'Supplier' => 'អ្នកផ្គត់ផ្គង់',
     'Buy Price' => 'តំលៃទិញ',
     'Sell Price' => 'តំលៃលក់',
@@ -301,7 +301,8 @@ return array(
     'PaidKH' => 'សរុបជារៀល/Real',
     'ActualPaid' =>'តម្លៃត្រូវបង់/Paid Amount',
     'Doctor' => 'គ្រូពេទ្យព្យាបាល',
-    'Technical' => 'អ្នកបច្ចេកទេស'
-
+    'Technical' => 'អ្នកបច្ចេកទេស',
+    'Request' => 'ស្នើសុំ/Request',
+    'Result' => 'លទ្ធផល/Result'
 );
 ?>
