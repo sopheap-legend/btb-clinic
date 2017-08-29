@@ -169,6 +169,7 @@
                         || Yii::app()->user->checkAccess('item.create') 
                         || Yii::app()->user->checkAccess('item.update') 
                         || Yii::app()->user->checkAccess('item.delete')
+                        || Yii::app()->user->checkAccess('item.view')
                     ),
                 )
             ),
