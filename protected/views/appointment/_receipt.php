@@ -31,7 +31,7 @@
 #receipt_wrapper {
     font-family: Arial;
     width: 98% !important;
-    font-size: 12px !important;
+    font-size: 14px !important;
     margin: 0 auto !important;
     padding: 0 !important;
 }

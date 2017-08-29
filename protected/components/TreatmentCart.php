@@ -73,7 +73,7 @@ class TreatmentCart extends CApplicationComponent
         return true;
     }
     
-    public function addMedicine($medicine_id,$price = null,$quantity = 1,$dosage = '',$duration =  1,$frequency =  null,$instruction_id = '',$comment = null,$consuming_time_id = '')
+    public function addMedicine($medicine_id,$price = null,$quantity = 1,$dosage = '',$duration =  15,$frequency =  null,$instruction_id = '',$comment = null,$consuming_time_id = '')
     {
         $this->setSession(Yii::app()->session);
         //Get all items in the cart so far...
@@ -90,6 +90,15 @@ class TreatmentCart extends CApplicationComponent
             $consuming_time_id=$consuming_time_id!=''?$consuming_time_id:$model["consuming_time_id"];
             if($dosage !=''){$dosage=$dosage;}else{if($model["dosage"]==''){$dosage=1;}else{$dosage=$model["dosage"];}}
             $consuming = ConsumingTime::model()->findByPk($consuming_time_id);
+            $consuming_dur=@$consuming->multiple!='' ? $consuming->multiple:1;
+
+            if($model['category_name']=='Tablet' || $model['category_name']=='Parcel' || $model['category_name']=='Ampul')
+            {
+                $quantity=$dosage*$duration*$consuming_dur;
+            }else{
+                $quantity=1;
+            }
+
             $item_data = array((int)$medicine_id =>
                 array(
                     'id' => $model["id"],
@@ -103,7 +112,7 @@ class TreatmentCart extends CApplicationComponent
                     'instruction_id' => $instruction_id!='' ? $instruction_id:$model["instruction_id"],
                     'comment' => $comment,
                     'consuming_time_id' => $consuming_time_id,
-                    'cons_multiple' => @$consuming->multiple!='' ? $consuming->multiple:1,
+                    'cons_multiple' => $consuming_dur,
                     'measurement' => $model["measurement"],
                     'category_name' => $model["category_name"]
                 )
