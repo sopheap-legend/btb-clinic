@@ -38,6 +38,7 @@
                     ),
                     array('label'=>Yii::t('menu','Waiting Queue'),'icon'=> 'fa fa-user-md', 'url'=>Yii::app()->urlManager->createUrl('appointment/WaitingQueue'),'active'=>$this->id .'/'. $this->action->id=='appointment/WaitingQueue',
                         'visible'=>Yii::app()->user->checkAccess('appointment.waitingqueue')
+                        ||Yii::app()->user->checkAccess('consultation.view')
                     ),
                     array('label'=>Yii::t('menu','Prescription Bill'),'icon'=> 'fa fa-plus-square', 'url'=>Yii::app()->urlManager->createUrl('appointment/Prescription'), 'active'=>$this->id=='Prescription',
                         'visible'=>Yii::app()->user->checkAccess('prescription.view')
