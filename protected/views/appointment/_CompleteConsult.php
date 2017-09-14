@@ -58,10 +58,14 @@
         <!-- Visit -->
         <?php //echo $form->textAreaControlGroup($visit, 'plan', array('rows' => 1, 'cols' => 10, 'class' => 'span2')); ?>
     </div>
+
+    <div class="col-sm-6">
+        <?php echo $form->textAreaControlGroup($visit, 'diagnosis',array('rows' => 1, 'cols' => 10, 'class' => 'span2',)); ?>
+    </div>
     
     <div class="col-sm-12">
         <?php $this->beginWidget('yiiwheels.widgets.box.WhBox', array(
-            'title' => Yii::t('app', 'Treatment'),
+            'title' => Yii::t('app', 'Investigate'),
             'headerIcon' => 'ace-icon fa fa-h-square',
             'headerButtons' => array(
                 $this->renderpartial('_select_treatment',
@@ -80,7 +84,7 @@
     
     <div class="col-sm-12" id="medicine_form">
         <?php $this->beginWidget('yiiwheels.widgets.box.WhBox', array(
-            'title' => 'Medicine',
+            'title' => 'Treatment',
             'headerIcon' => 'ace-icon fa fa-medkit',
             'headerButtons' => array(
                 $this->renderpartial('_Medicine', array('medicine' => $medicine), true)

@@ -18,6 +18,7 @@
 class Patient extends CActiveRecord
 {
 	public $patient_id;
+	public $patient_status;
 
     /**
 	 * @return string the associated database table name

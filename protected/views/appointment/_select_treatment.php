@@ -5,7 +5,7 @@ $this->widget('yiiwheels.widgets.select2.WhSelect2', array(
     'model'=> $treatment, 
     'attribute'=>'id',
     'pluginOptions' => array(
-            'placeholder' => Yii::t('app','Select Treatment'),
+            'placeholder' => Yii::t('app','Select'),
             'multiple'=>false,
             'width' => '350px',
             //'id'=>'select2-single-append',

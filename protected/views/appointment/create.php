@@ -14,7 +14,7 @@
                     ),
                 ),
                 'htmlHeaderOptions'=>array('class'=>'widget-header-flat widget-header-small'),
-                'content' => $this->renderPartial('_form', array('model'=>$model,'patient'=>$patient,'contact'=>$contact, 'user'=>$user), true),
+                'content' => $this->renderPartial('_form', array('model'=>$model,'patient'=>$patient,'contact'=>$contact, 'user'=>$user,), true),
  )); ?>  
 
 <?php $this->endWidget(); ?>

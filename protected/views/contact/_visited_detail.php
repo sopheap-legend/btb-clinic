@@ -61,3 +61,36 @@
 	),
 )); ?>
 
+
+<?php $this->widget('yiiwheels.widgets.grid.WhGridView',array(
+    'id'=>'waiting-queue',
+    'dataProvider'=>$model->showInvestigate($visit_id),
+    //'htmlOptions'=>array('class'=>'table-responsive panel'),
+    'template' => "{items}",
+    'columns'=>array(
+        /* array('name'=>'id',
+                'header'=>'#',
+         ),*/
+        array('name'=>'patient_id',
+            'headerHtmlOptions' => array('style' => 'display:none'),
+            'htmlOptions' => array('style' => 'display:none'),
+        ),
+        array('name'=>'visit_id',
+            'headerHtmlOptions' => array('style' => 'display:none'),
+            'htmlOptions' => array('style' => 'display:none'),
+        ),
+        //'patient_id',
+        //'patient_name',
+        /*array('name'=>'fullname',
+               'header'=>'Patient Name',
+        ),*/
+        array('name'=>'visit_date',
+            'header'=>'Visit Date',
+        ),
+        //'appointment_date',
+        array('name'=>'investigate',
+            'header'=>'Investigate',
+        ),
+    ),
+)); ?>
+

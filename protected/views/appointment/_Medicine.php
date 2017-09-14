@@ -34,7 +34,7 @@ $this->widget('yiiwheels.widgets.select2.WhSelect2', array(
     'attribute'=>'id',
     //'name'=>'Medicine_id',
     'pluginOptions' => array(
-            'placeholder' => Yii::t('app','Select Medicine'),
+            'placeholder' => Yii::t('app','Select'),
             'multiple'=>false,
             'width' => '350px',
             //'id'=>'select2-single-append',

@@ -27,7 +27,7 @@
     <thead>
         <tr>
             <th style="display:none">ID</th>
-            <th>Treatment</th>
+            <th>Item</th>
             <th>Price</th>
             <th></th>
         </tr>
@@ -106,7 +106,7 @@
 </table>  
 <?php
     if (empty($treatment_selected_items)) {
-        echo Yii::t('app', 'There are no treatment select');
+        echo Yii::t('app', 'No results found.');
     }
 ?> 
 

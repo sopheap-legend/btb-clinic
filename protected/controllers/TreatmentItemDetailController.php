@@ -186,78 +186,79 @@ class TreatmentItemDetailController extends Controller
 		}
 	}
         
-        public function actionLabAnalyzed($visit_id)
-        {            
-            $lab_test = new LabAnalized;
-            $lab_selected = new LabAnalyzedDetail;
-            $userid = Yii::app()->user->getId();
-            if ( Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest )
-            { 
-                //echo "Here we are!";
-                $transaction=$lab_selected->dbConnection->beginTransaction();
-                try{
-                    $chk_selected = LabAnalized::model()->find(array(
-                        'condition' => 'visit_id=:visit_id',
-                        'params' => array(':visit_id'=>$visit_id))
-                    );
-                    
-                    if(!empty($chk_selected))
-                    {
-                        LabAnalyzedDetail::model()->deleteAll(
-                            array('condition'=>'lab_analized_id=:lab_analized_id',
-                            'params'=>array(':lab_analized_id'=>$chk_selected->id))
-                        );
-                        
-                        $lab_id = $chk_selected->id;
-                    }else{
-                        $lab_test->date_created = date('Y-m-d');
-                        $lab_test->visit_id = $visit_id;
-                        $lab_test->last_update = date('Y-m-d');
-                        $lab_test->updated_by = $userid;
-                        $lab_test->status=0;
-                        $lab_test->exchange_rate = Yii::app()->session['exchange_rate'];
-                        $lab_test->save();
-                        $lab_id = $lab_test->id;
-                    }   
-   
-                    $lab_items = array('hematology', 'immuno_hematology', 'immunology', 
-                                                'hormones', 'coagulation', 'serology', 
-                                                'micro_biology', 'blood_biochemistry', 'urology', 
-                                                'bacteriology');
-                    //print_r($_POST);
-                    foreach ($lab_items as $lab_item) {
-                        if (!empty($_POST['TreatmentItemDetail'][$lab_item])) {
-                            foreach ($_POST['TreatmentItemDetail'][$lab_item] as $itemId) { 
-                                $lab_selected = new LabAnalyzedDetail;
-                                $check_price = TreatmentItemDetail::model()->findByPk($itemId);
-                                $lab_selected->lab_analized_id = $lab_id;
-                                $lab_selected->itemtest_id = $itemId;
-                                $lab_selected->unit_price = $check_price->unit_price;
-                                //$lab_selected->isNewRecord = true;
-                                if (!$lab_selected->save()) {
-                                    $transaction->rollback();
-                                    print_r($lab_selected->errors);
-                                }
-                                //print_r($check_price);
-                                //print_r($_POST['TreatmentItemDetail'][$lab_item]);
-                            }
-                        }
-                        //print_r($_POST['TreatmentItemDetail'][$lab_item]);
-                    }
-					//Update cross form from consultant
-					if (!empty($_POST['Visit']['sympton']) || !empty($_POST['Visit']['observation']))
-					{
-						$visit = Visit::model()->findByPk($visit_id);
-						$visit->sympton=@$_POST['Visit']['sympton'];
-						$visit->observation=@$_POST['Visit']['observation'];
-						$visit->update(array('sympton','observation'));
+	public function actionLabAnalyzed($visit_id)
+	{
+		$lab_test = new LabAnalized;
+		$lab_selected = new LabAnalyzedDetail;
+		$userid = Yii::app()->user->getId();
+		if ( Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest )
+		{
+			//echo "Here we are!";
+			$transaction=$lab_selected->dbConnection->beginTransaction();
+			try{
+				$chk_selected = LabAnalized::model()->find(array(
+					'condition' => 'visit_id=:visit_id',
+					'params' => array(':visit_id'=>$visit_id))
+				);
+
+				if(!empty($chk_selected))
+				{
+					LabAnalyzedDetail::model()->deleteAll(
+						array('condition'=>'lab_analized_id=:lab_analized_id',
+						'params'=>array(':lab_analized_id'=>$chk_selected->id))
+					);
+
+					$lab_id = $chk_selected->id;
+				}else{
+					$lab_test->date_created = date('Y-m-d');
+					$lab_test->visit_id = $visit_id;
+					$lab_test->last_update = date('Y-m-d');
+					$lab_test->updated_by = $userid;
+					$lab_test->status=0;
+					$lab_test->exchange_rate = Yii::app()->session['exchange_rate'];
+					$lab_test->save();
+					$lab_id = $lab_test->id;
+				}
+
+				$lab_items = array('hematology', 'immuno_hematology', 'immunology',
+											'hormones', 'coagulation', 'serology',
+											'micro_biology', 'blood_biochemistry', 'urology',
+											'bacteriology');
+				//print_r($_POST);
+				foreach ($lab_items as $lab_item) {
+					if (!empty($_POST['TreatmentItemDetail'][$lab_item])) {
+						foreach ($_POST['TreatmentItemDetail'][$lab_item] as $itemId) {
+							$lab_selected = new LabAnalyzedDetail;
+							$check_price = TreatmentItemDetail::model()->findByPk($itemId);
+							$lab_selected->lab_analized_id = $lab_id;
+							$lab_selected->itemtest_id = $itemId;
+							$lab_selected->unit_price = $check_price->unit_price;
+							//$lab_selected->isNewRecord = true;
+							if (!$lab_selected->save()) {
+								$transaction->rollback();
+								print_r($lab_selected->errors);
+							}
+							//print_r($check_price);
+							//print_r($_POST['TreatmentItemDetail'][$lab_item]);
+						}
 					}
-					
-                    $transaction->commit();
-                }  catch (Exception $e){
-                    $transaction->rollback();
-                    print_r($lab_selected->errors);
-                }
-            }                
-        }
+					//print_r($_POST['TreatmentItemDetail'][$lab_item]);
+				}
+				//Update cross form from consultant
+				if (!empty($_POST['Visit']['sympton']) || !empty($_POST['Visit']['observation']))
+				{
+					$visit = Visit::model()->findByPk($visit_id);
+					$visit->sympton=@$_POST['Visit']['sympton'];
+					$visit->observation=@$_POST['Visit']['observation'];
+					$visit->diagnosis=@$_POST['Visit']['diagnosis'];
+					$visit->update(array('sympton','observation','diagnosis'));
+				}
+
+				$transaction->commit();
+			}catch (Exception $e){
+				$transaction->rollback();
+				print_r($lab_selected->errors);
+			}
+		}
+	}
 }

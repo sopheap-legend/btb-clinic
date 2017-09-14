@@ -77,7 +77,7 @@
             <strong><?php echo $form->error($model, 'patient_id'); ?></strong></div>
     </div>
 
-    <?php //echo $form->textFieldControlGroup($model,'end_date',array('span'=>5)); ?>
+    <?php echo $form->textFieldControlGroup($patient,'patient_status',array('span'=>5)); ?>
 
     <?php //echo $form->textFieldControlGroup($contact,'display_name',array('disabled'=>true,'span'=>5,'maxlength'=>50)); ?>
 
@@ -124,6 +124,7 @@ Yii::app()->clientScript->registerScript('searchPatient', "
             var patient_id=remote.val();
             var fullname= $('#Contact_display_name');
             var msisdn = $('#Contact_phone_number');
+            var patient_status = $('#Patient_patient_status');
             $.ajax({url: 'RetreivePatient',
                 dataType : 'json',
                 data : {patient_id : patient_id},
@@ -135,6 +136,7 @@ Yii::app()->clientScript->registerScript('searchPatient', "
                     {
                         fullname.val(data.div_fullname);
                         msisdn.val(data.div_msisdn);
+                        patient_status.val(data.patient_status);
                     }
                     else 
                     {

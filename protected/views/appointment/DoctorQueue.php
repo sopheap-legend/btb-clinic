@@ -91,6 +91,10 @@ Yii::app()->clientScript->registerScript('search', "
                         'header' => 'Patient Name',
                     ),
                     array(
+                        'name' => 'patient_state',
+                        'header' => 'Patient State',
+                    ),
+                    array(
                         'name' => 'display_id',
                         'header' => 'Patient ID',
                     ),

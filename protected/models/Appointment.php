@@ -200,8 +200,8 @@ class Appointment extends CActiveRecord
 
         $userid = Yii::app()->user->getId();
         $sql = "SELECT @rownum:=@rownum+1 id,app_id,patient_id,doctor_id,patient_name,
-                    display_id,appointment_date,title,status
-                    from(select app_id,patient_id,user_id doctor_id,patient_name,display_id,appointment_date,title,status
+                    display_id,appointment_date,title,status,patient_state
+                    from(select app_id,patient_id,user_id doctor_id,patient_name,display_id,appointment_date,title,status,patient_state
                         FROM v_appointment_state 
                         WHERE appointment_date>=DATE_SUB(CURDATE(), INTERVAL 0 DAY)
                         and appointment_date<DATE_ADD(CURDATE(), INTERVAL 1 DAY)
@@ -339,6 +339,22 @@ class Appointment extends CActiveRecord
             'sort' => array(
                 'attributes' => array(
                     'patient_id', 'visit_id', 'fullname'
+                )
+            ),
+        ));
+    }
+
+    public function showInvestigate($visit_id)
+    {
+        $sql="SELECT t1.patient_id,t2.visit_id,visit_date,treatment investigate 
+                FROM v_bill_payment t1
+                INNER JOIN visit t2 ON t1.visit_id=t2.visit_id
+                where t1.visit_id=$visit_id";
+
+        return new CSqlDataProvider($sql, array(
+            'sort' => array(
+                'attributes' => array(
+                    'investigate'
                 )
             ),
         ));

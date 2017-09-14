@@ -77,7 +77,7 @@
                 </div>
                 <div style="text-align: center">
                     <strong style="font-family: Khmer OS Muol;font-size: x-large;color:blue;"><?php echo TbHtml::encode($clinic_name);?></strong><br>
-                    <strong style="font-size:large;color:blue;"><?php echo "KE SINOUN HOSPITAL"; ?></strong><br>
+                    <strong style="font-family: 'Times New Roman';font-size:large;color:blue;"><?php echo "KE SINOUN HOSPITAL"; ?></strong><br>
                     <strong style="font-family: 'Khmer OS Battambang';font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_address); ?></strong><br>
                     <strong style="font-family: 'Khmer OS Battambang';font-size:medium;color:blue;"><?php echo TbHtml::encode($clinic_mobile); ?></strong>
                 </div>

@@ -98,7 +98,6 @@ class AppointmentController extends Controller
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-
         $model->title='General Check Up';
 
         if(!Yii::app()->user->checkAccess('appointment.create'))
@@ -126,6 +125,7 @@ class AppointmentController extends Controller
                     $model->status='Waiting';
                     $model->visit_id=0;
                     $model->actual_amount=0;
+
 
                     if ($model->save()) {
                         $app_log->appointment_id=$model->id;
@@ -160,8 +160,21 @@ class AppointmentController extends Controller
             Yii::app()->end();
         }*/
 
+        if(!empty($_GET['patient_id']))
+        {
+            $patient->patient_status = $this->getPatientStatus(@$_GET['patient_id']);
+        }
+
+        /*if(!empty($_POST['patient_id']))
+        {
+            $patient->patient_status = $this->getPatientStatus(@$_POST['patient_id']);
+        }*/
+        //$patient->patient_status = $this->getPatientStatus(@$_GET['patient_id']);
+
+        //$patient->patient_type='New';
+
         $this->render('create',array(
-            'model'=>$model,'patient'=>$patient,'contact'=>$contact,'user'=>$user
+            'model'=>$model,'patient'=>$patient,'contact'=>$contact,'user'=>$user,
         ));
     }
 
@@ -297,6 +310,13 @@ class AppointmentController extends Controller
             $data['div_fullname']=$patient_info['display_name'];
             $data['div_msisdn']=$patient_info['phone_number'];
             $data['status']='success';
+            if(!empty($_POST['patient_id']))
+            {
+                $data['patient_status'] = $this->getPatientStatus(@$_POST['patient_id']);
+            }else{
+                $data['patient_status']='';
+            }
+
             echo CJSON::encode($data);
         }
     }
@@ -562,6 +582,7 @@ class AppointmentController extends Controller
                                 'observation'=>$_POST['Visit']['observation'],
                                 'assessment'=>@$_POST['Visit']['assessment'],
                                 'plan'=>@$_POST['Visit']['plan'],
+                                'diagnosis'=>@$_POST['Visit']['diagnosis'],
                             )
                         );
                         /*if(!empty($_POST['Visit']['sympton']) || !empty($_POST['Visit']['observation']) || !empty($_POST['Visit']['assessment']) ||!empty($_POST['Visit']['plan']))
@@ -1549,5 +1570,18 @@ class AppointmentController extends Controller
         $data['patient_name'] = $rst->patient_name;
 
         return $data;
+    }
+
+    public function getPatientStatus($patient_id)
+    {
+        $patient_info = Patient::model()->findByPk($patient_id);
+        if(date('Y-m-d')>$patient_info->patient_since)
+        {
+            $status='Old Patient';
+        }else{
+            $status='New Patient';
+        }
+
+        return $status;
     }
 }

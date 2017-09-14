@@ -26,12 +26,15 @@
                 array('name'=>'observation',
                        'header'=>'Observation', 
                 ),
-                array('name'=>'assessment',
+                array('name'=>'diagnosis',
+                    'header'=>'Diagnosis',
+                ),
+                /*array('name'=>'assessment',
                        'header'=>'Assessment', 
                 ),
                 array('name'=>'plan',
                        'header'=>'Plan', 
-                ),
+                ),*/
                 array(
                     'class'=>'bootstrap.widgets.TbButtonColumn',
                     //'template'=>'{view}',

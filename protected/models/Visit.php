@@ -126,9 +126,9 @@ class Visit extends CActiveRecord
 
     public function showPatientHis($patient_id)
     {
-        $sql = "select @rownum:=@rownum+1 id,patient_id,visit_id,visit_date,display_id,sympton,observation,assessment,plan
+        $sql = "select @rownum:=@rownum+1 id,patient_id,visit_id,visit_date,display_id,sympton,observation,assessment,plan,diagnosis
             from (    
-                SELECT t1.patient_id,t1.visit_id,visit_date,t2.display_id,sympton,observation,assessment,plan 
+                SELECT t1.patient_id,t1.visit_id,visit_date,t2.display_id,sympton,observation,assessment,plan,diagnosis 
                 FROM visit t1
                 INNER JOIN patient t2 ON t1.patient_id = t2.patient_id
                 inner join appointment t3 on t1.visit_id = t3.visit_id and t3.status='Complete'
