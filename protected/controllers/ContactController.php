@@ -149,7 +149,7 @@ class ContactController extends Controller
                     $patient->contact_id = $model->id;
                     $patient->patient_since = date("Y-m-d");
                     $patient->followup_date = date("Y-m-d");
-                    $patient->reference_by = 'Lux'; //will add this field on interface
+                    $patient->reference_by = 'Samnang'; //will add this field on interface
                     $patient->save();
 
                     $rnd = rand(0, 9999);

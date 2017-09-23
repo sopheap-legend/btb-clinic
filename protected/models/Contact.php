@@ -167,7 +167,14 @@ class Contact extends CActiveRecord
     public function create_display_patient_id($id, $fist_name)
     {
         //$sql="CALL Create_patient_id(:myid, :my_last_name)";
-        $myid = Yii::app()->db->createCommand("SELECT Create_patient_id($id,'$fist_name')");
+		if(utf8_decode($fist_name))
+		{
+			$unicode = 'U';
+		}else{
+			$unicode = 'A';
+		}
+
+        $myid = Yii::app()->db->createCommand("SELECT Create_patient_id($id,'$fist_name','$unicode')");
 
         return $myid->queryScalar();
     }
