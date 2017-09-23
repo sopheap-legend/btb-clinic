@@ -55,8 +55,12 @@
                 'active'=>$this->id =='report',
                 'visible'=> Yii::app()->user->checkAccess('report.index') || Yii::app()->user->checkAccess('invoice.index') || Yii::app()->user->checkAccess('invoice.print') || Yii::app()->user->checkAccess('invoice.delete') || Yii::app()->user->checkAccess('invoice.update') ,
                 'items'=>array(
-                    array('label'=> Yii::t('app','Sale Invoice'),'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/SaleInvoice'),
+                    array('label'=> Yii::t('app','Invoice History'),'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/SaleInvoice'),
                         'active'=>$this->id .'/'. $this->action->id =='report/SaleInvoice',
+                        'visible'=> Yii::app()->user->checkAccess('report.index') || Yii::app()->user->checkAccess('report.print') || Yii::app()->user->checkAccess('invoice.delete') || Yii::app()->user->checkAccess('invoice.update')
+                    ),
+                    array('label'=> Yii::t('app','Lab Result History'),'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/labHis'),
+                        'active'=>$this->id .'/'. $this->action->id =='report/labHis',
                         'visible'=> Yii::app()->user->checkAccess('report.index') || Yii::app()->user->checkAccess('report.print') || Yii::app()->user->checkAccess('invoice.delete') || Yii::app()->user->checkAccess('invoice.update')
                     ),
                     /*array('label'=> Yii::t('app','Sale Daily'), 'icon'=> 'menu-icon fa fa-caret-right', 'url'=>Yii::app()->urlManager->createUrl('report/SaleDaily'),

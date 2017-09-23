@@ -1366,7 +1366,7 @@ class AppointmentController extends Controller
         $clinic_info = Clinic::model()->find();
         $employee_id = RbacUser::model()->findByPk(Yii::app()->user->getId());
         $employee = Employee::model()->get_doctorName($employee_id->employee_id);
-
+        $user_id = Yii::app()->user->getId();
         $cust_info=Appointment::model()->generateInvoice($visit_id);
         $patient_id = Appointment::model()->find("visit_id=:visit_id",array(':visit_id'=>$visit_id));
         $data['Patient_info'] = VSearchPatient::model()->find("patient_id=:patient_id",array(':patient_id'=>$patient_id->patient_id));
@@ -1374,7 +1374,7 @@ class AppointmentController extends Controller
         //$ll='hhh';
         if($data['amount_change']<=0)
         {
-            $sale_id = Payment::model()->CompleteSale($visit_id,@$data['discount_amount']);
+            $sale_id = Payment::model()->CompleteSale($visit_id,$user_id,@$data['discount_amount']);
 
             $data['cust_fullname'] =  $data['Patient_info']->fullname;
             //$data['cust_fullname'] =  'Hello';

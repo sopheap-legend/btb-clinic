@@ -529,4 +529,39 @@ class Report extends CFormModel
         return $dataProvider; // Return as array object
     }
 
+    public function getPatientLab()
+    {
+        $cond = "and (visit_id in (SELECT visit_id FROM v_bill_payment)
+                             or visit_id in (SELECT visit_id FROM v_bloodtest_payment))";
+
+        $sql = "SELECT @rownum:=@rownum+1 id,visit_id,app_id,patient_id,doctor_id,patient_name,
+                    display_id,appointment_date,title,status
+                    from(select visit_id,app_id,patient_id,user_id doctor_id,patient_name,display_id,appointment_date,title,status
+                        FROM v_appointment_state 
+                        WHERE appointment_date>=str_to_date(:from_date,'%d-%m-%Y')
+                        and appointment_date<date_add(str_to_date(:to_date,'%d-%m-%Y'),INTERVAL 1 DAY)
+                        and status = 'Complete'
+                        $cond
+                        ORDER BY appointment_date
+                    )cl,(SELECT @rownum:=0) r";
+        //echo $sql;
+        //$rawData = Yii::app()->db->createCommand($sql);
+        //$rawData->bindParam(':userid', $userid, PDO::PARAM_INT);
+        $rawData = Yii::app()->db->createCommand($sql)->queryAll(true, array(':from_date' => $this->from_date, ':to_date' => $this->to_date));
+
+
+        $dataProvider = new CArrayDataProvider($rawData, array(
+            //'keyField' => 'visit_id',
+            'sort' => array(
+                'attributes' => array(
+                    'id', 'display_id', 'patient_name'
+                ),
+            ),
+            'pagination' => false,
+        ));
+
+        return $dataProvider; // Return as array object
+
+    }
+
 }

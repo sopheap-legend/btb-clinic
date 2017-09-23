@@ -20,7 +20,7 @@ class ReportController extends Controller
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('create', 'update', 'RevenueTab',
-                                    'itemExpiry','SaleItemSummary','Inventory','SaleInvoice'),
+                                    'itemExpiry','SaleItemSummary','Inventory','SaleInvoice','LabHis'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -122,6 +122,19 @@ class ReportController extends Controller
 
         $data['grid_columns'] = ReportColumn::getSaleInvoiceColumns();
         $data['data_provider'] = $data['report']->saleInvoice();
+
+        $this->renderView($data);
+    }
+
+    public function actionLabHis()
+    {
+        $grid_id = 'rpt-sale-invoice-grid';
+        $title = 'Laboratory Result';
+
+        $data = $this->commonData($grid_id,$title,'show');
+
+        $data['grid_columns'] = ReportColumn::getLabColumns();
+        $data['data_provider'] = $data['report']->getPatientLab();
 
         $this->renderView($data);
     }

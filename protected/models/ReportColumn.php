@@ -31,7 +31,7 @@ class ReportColumn extends CModel
                 'header'=>Yii::t('app','Invoice ID'),
                 'value'=>'$data["visit_id"]',
                 'class' => 'yiiwheels.widgets.grid.WhRelationalColumn',
-                'url' => Yii::app()->createUrl('Report/saleInvoiceDetail'),
+                //'url' => Yii::app()->createUrl('Report/saleInvoiceDetail'),
             ),
             array('name'=>'visit_date',
                 'header'=>Yii::t('app','Visit Date'),
@@ -100,6 +100,69 @@ class ReportColumn extends CModel
                             'class'=>'btn btn-xs btn-warning',
                         ),
                         'visible'=>'$data["status"]=="1" && Yii::app()->user->checkAccess("invoice.update")',
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function getLabColumns()
+    {
+        return array(
+            array('name'=>'c',
+                'header'=>Yii::t('app','Invoice ID'),
+                'value'=>'$data["visit_id"]',
+                'class' => 'yiiwheels.widgets.grid.WhRelationalColumn',
+                //'url' => Yii::app()->createUrl('Report/saleInvoiceDetail'),
+            ),
+            array(
+                'name' => 'app_id',
+                'headerHtmlOptions' => array('style' => 'display:none'),
+                'htmlOptions' => array('style' => 'display:none'),
+            ),
+            array(
+                'name' => 'patient_id',
+                'headerHtmlOptions' => array('style' => 'display:none'),
+                'htmlOptions' => array('style' => 'display:none'),
+            ),
+            array(
+                'name' => 'doctor_id',
+                'headerHtmlOptions' => array('style' => 'display:none'),
+                'htmlOptions' => array('style' => 'display:none'),
+            ),
+            //'patient_id',
+            //'patient_name',
+            array(
+                'name' => 'patient_name',
+                'header' => 'Patient Name',
+            ),
+            array(
+                'name' => 'display_id',
+                'header' => 'Patient ID',
+            ),
+            //'appointment_date',
+            array(
+                'name' => 'appointment_date',
+                'header' => 'Visit Date',
+            ),
+            array(
+                'name' => 'title',
+                'header' => 'Title',
+            ),
+            array('class'=>'bootstrap.widgets.TbButtonColumn',
+                //'header'=>'Invoice Detail',
+                'template'=>'<div class="btn-group">{print}</div>',
+                'buttons' => array(
+                    'print' => array(
+                        'label'=>'print',
+                        'icon'=>'glyphicon-print',
+                        'url'=>'Yii::app()->createUrl("appointment/CompletedLab", array("visit_id"=>$data["visit_id"]))',
+                        'options' => array(
+                            'target'=>'_blank',
+                            'title'=>Yii::t('app','Invoice Printing'),
+                            'class'=>'btn btn-xs btn-success',
+                        ),
+                        //'visible'=>'Yii::app()->user->checkAccess("invoice.print")',
                     ),
                 ),
             ),
