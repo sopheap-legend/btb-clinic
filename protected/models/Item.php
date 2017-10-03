@@ -185,7 +185,7 @@ class Item extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        //$criteria->compare('name',$this->name,true);
+        $criteria->compare('name',$this->name,true);
         //$criteria->compare('item_number',$this->item_number,true);
         //$criteria->compare('category_id',$this->category_id);
         //$criteria->compare('supplier_id',$this->supplier_id);

@@ -155,12 +155,12 @@
                     </div>
                 </div>-->
                 
-                <!--<div class="form-group">
+                <div class="form-group">
                     <label class="col-sm-3 control-label" for="RbacUser_receivings"><?php echo Yii::t('app','Transaction'); ?></label>
                     <div class="col-sm-9">
-                        <?php //echo CHtml::activeCheckboxList($user, 'receivings',Authitem::model()->getAuthItemReceiving(), array('separator' => '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;','checkAll' => Yii::t('app','Select All'))); ?>
+                        <?php echo CHtml::activeCheckboxList($user, 'receivings',Authitem::model()->getAuthItemReceiving(), array('separator' => '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;','checkAll' => Yii::t('app','Select All'))); ?>
                     </div>
-                </div>-->
+                </div>
                 
                 <!--<div class="form-group">
                     <label class="col-sm-3 control-label" for="RbacUser_payments"><?php echo Yii::t('app','Payment'); ?></label>

@@ -115,7 +115,7 @@ class EmployeeController extends Controller
                                     }
                                 }*/
 
-                                $assignitems = array('items', 'employees','treatments',
+                                $assignitems = array('items', 'employees','treatments','receivings',
                                     'reports','settings','clinics');
 
                                 foreach ($assignitems as $assignitem) {
@@ -246,7 +246,7 @@ class EmployeeController extends Controller
                             }*/
 
 
-                            $assignitems = array('items', 'employees','treatments',
+                            $assignitems = array('items', 'employees','treatments','receivings',
                                 'reports','settings','clinics');
 
                             foreach ($assignitems as $assignitem) {

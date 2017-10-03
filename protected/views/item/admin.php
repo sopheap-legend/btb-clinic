@@ -95,197 +95,197 @@ $('.search-form form').submit(function(){
                     'type' => 'raw'
                 ),
                 */
-		array('name'=>'item_number',
+		/*array('name'=>'item_number',
                       'header'=>'Item-Code'
                       //'headerHtmlOptions'=>array('class'=>'hidden-480 hidden-xs hidden-md'),
                       //'htmlOptions'=>array('class' => 'hidden-480 hidden-xs hidden-md'),
-                ),  
-                array('name'=>'name',
-                      'header'=>'Name', 
-                      'value' => 'CHtml::link($data->name, Yii::app()->createUrl("item/UpdateImage",array("id"=>$data->primaryKey)))',
-                     'type'  => 'raw',   
-                ),
-                /*
-                array('name'=>'description',
-                      'headerHtmlOptions'=>array('class'=>'hidden-480 hidden-xs'),
-                      'htmlOptions'=>array('class' => 'hidden-480 hidden-xs'),
-                ),
-                 * 
-                */
-                array('name'=>'location',
-                      //'headerHtmlOptions'=>array('class'=>'hidden-480 hidden-xs hidden-md'),
-                      //'htmlOptions'=>array('class' => 'hidden-480 hidden-xs hidden-md'),
-                ),
-               
-		array('name' => 'category_id',
-                      'header'=>'Category',
-                      //'headerHtmlOptions'=>array('class'=>'hidden-480 hidden-xs hidden-md'),  
-                      'value' => '$data->category_id==null? " " : $data->category->name',
-                      //'htmlOptions'=>array('class' => 'hidden-480 hidden-xs hidden-md'),  
-                ),
-                /*
-		array('name'=>'supplier_id',
-                      'value'=>'($data->supplier_id==null || $data->supplier_id==0)? "N/A" : $data->supplier->company_name'
-                ),
-                 * 
-                */
-                /*
-                array('name'=>'cost_price',
-                      'headerHtmlOptions'=>array('class'=>'hidden-480 hidden-xs hidden-md'),
-                      'htmlOptions'=>array('class' => 'hidden-480 hidden-xs hidden-md'),
-                ),
-                 * 
-                */ 
-                /*
-                array('name'=>'unit_price',
-                      'header'=>'Sell-Price',
-                ),
-                 * 
-                */
-                array('name'=>'unit_quantity',
-                    'header'=>'quantity',
-                    //'headerHtmlOptions'=>array('class'=>'hidden-480 hidden-xs hidden-md'),
-                    //'htmlOptions'=>array('class' => 'hidden-480 hidden-xs hidden-md'),  
-                ),
-                array('name'=>'status',
-                    'type'=>'raw',
-                    'value'=>'$data->status==1 ? TbHtml::labelTb("Active", array("color" => TbHtml::LABEL_COLOR_SUCCESS)) : TbHtml::labelTb("De-Activated", array("color" => TbHtml::LABEL_COLOR_WARNING))', 
-                    //'value' => 'TbHtml::labelTb($data->status)',
-                    //'headerHtmlOptions'=>array('class'=>'hidden-480'),
-                    //'htmlOptions'=>array('class' => 'hidden-480'),  
-                ),
-                array('class'=>'bootstrap.widgets.TbButtonColumn',
-                      'template'=>'<div class="hidden-sm hidden-xs btn-group">{detail}{cost}{price}{delete}{undeleted}</div>',
-                      'buttons' => array(
-                          'detail' => array(
-                            'click' => 'updateDialogOpen',   
-                            'label'=>Yii::t('app','Stock'),
-                            'url'=>'Yii::app()->createUrl("Inventory/admin", array("item_id"=>$data->id))',
-                            'options' => array(
-                                'data-toggle' => 'tooltip', 
-                                'data-update-dialog-title' => 'Stock History',
-                                'class'=>'btn btn-xs btn-pink', 
-                                'title'=>'Stock History',
-                              ), 
-                          ),
-                          'cost' => array(
-                            'click' => 'updateDialogOpen',
-                            'label'=>Yii::t('app','Cost'),
-                            'url'=>'Yii::app()->createUrl("Item/CostHistory", array("item_id"=>$data->id))',
-                            'options' => array(
-                                'data-update-dialog-title' => Yii::t('app','Cost History'),
-                                'class'=>'btn btn-xs btn-info',
-                                'title'=>'Cost History',
-                            ),
-                            'visible'=>'Yii::app()->user->checkAccess("item.create") || Yii::app()->user->checkAccess("item.update")',   
-                          ),
-                          'price' => array(
-                            'click' => 'updateDialogOpen',
-                            //'label'=>"<span class='text-info'>" . Yii::t('app','Price') . "</span><i class='icon-info-sign'></i> ",
-                            'label'=>Yii::t('app','Price'),  
-                            'url'=>'Yii::app()->createUrl("Item/PriceHistory", array("item_id"=>$data->id))',
-                            'options' => array(
-                                'data-update-dialog-title' => Yii::t('app','Price History'),
-                                'class'=>'btn btn-xs btn-success',
-                                'title'=>'Price History',
-                            ), 
-                            'visible'=>'Yii::app()->user->checkAccess("item.create") || Yii::app()->user->checkAccess("item.update")',   
-                          ),
-                          /*
-                          'edit' => array(
-                            'label'=>Yii::t('app','Edit Item'),
-                            'url'=>'Yii::app()->createUrl("Item/UpdateImage", array("id"=>$data->id))',  
-                            'icon'=>'bigger-120 ace-icon fa fa-edit',
-                            'visible'=>'Yii::app()->user->checkAccess("item.update")',
-                            'options' => array(
-                                'class' => 'btn btn-xs btn-info',
-                            )
-                          ),
-                           * 
-                          */
-                          'delete' => array(
-                            'label'=>Yii::t('app','Delete Item'),
-                            'icon'=>'bigger-120 glyphicon-trash',
-                            'options' => array(
-                                'class'=>'btn btn-xs btn-danger',
-                             ), 
-                             'visible'=>'$data->status=="1" && Yii::app()->user->checkAccess("item.delete")', 
-                          ),
-                          'undeleted' => array(
-                            'label'=>Yii::t('app','Undo Delete Item'),
-                            'url'=>'Yii::app()->createUrl("Item/UndoDelete", array("id"=>$data->id))',
-                            'icon'=>'bigger-120 glyphicon-refresh',
-                            'options' => array(
-                                'class'=>'btn btn-xs btn-warning btn-undodelete',
-                            ), 
-                            'visible'=>'$data->status=="0" && Yii::app()->user->checkAccess("item.delete")',
-                           ),
-                       ),
-                 ), 
-                 /*
-                 array('class'=>'bootstrap.widgets.TbButtonColumn',
-                      'template'=>'<div class="hidden-md hidden-lg"><div class="inline position-relative">
-                                    <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-cog icon-only bigger-110"></i></button>
-                                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                    <li>{stock}</li><li>{cost1}</li><li>{price}</li><li>{delete1}</li><li>{undeleted1}</li>
-                                    </ul></div></div>',
-                      //'htmlOptions'=>array('class'=>'hidden-sm hidden-xs btn-group'),
-                      'buttons' => array(
-                           'stock' => array(
-                            'click' => 'updateDialogOpen',
-                            'label'=>Yii::t('app','Stock'),
-                            'url'=>'Yii::app()->createUrl("Inventory/admin", array("item_id"=>$data->id))',
-                            'options' => array(
-                                'data-toggle' => 'tooltip', 
-                                'data-update-dialog-title' => 'Stock History',
-                                'class'=>'btn btn-sm btn-pink', 
-                                'title'=>'Stock History',
-                              ), 
-                          ),
-                          'cost1' => array(
-                            'click' => 'updateDialogOpen',
-                            'label'=>Yii::t('app','Cost'),
-                            'url'=>'Yii::app()->createUrl("Item/CostHistory", array("item_id"=>$data->id))',
-                            'options' => array(
-                                'data-update-dialog-title' => Yii::t('app','Cost History'),
-                                'class'=>'btn btn-sm btn-info',
-                                'title'=>'Cost History',
-                            ),
-                            'visible'=>'Yii::app()->user->checkAccess("item.create") || Yii::app()->user->checkAccess("item.update")',   
-                          ),
-                          'price' => array(
-                            'click' => 'updateDialogOpen',
-                            //'label'=>"<span class='text-info'>" . Yii::t('app','Price') . "</span><i class='icon-info-sign'></i> ",
-                            'label'=>Yii::t('app','Price'),  
-                            'url'=>'Yii::app()->createUrl("Item/PriceHistory", array("item_id"=>$data->id))',
-                            'options' => array(
-                                'data-update-dialog-title' => Yii::t('app','Price History'),
-                                'class'=>'btn btn-sm btn-success',
-                                'title'=>'Price History',
-                            ),
-                            'visible'=>'Yii::app()->user->checkAccess("item.create") || Yii::app()->user->checkAccess("item.update")',   
-                          ),
-                          'delete1' => array(
-                            'label'=>Yii::t('app','Delete Item'),  
-                            'url'=>'Yii::app()->createUrl("item/delete/",array("id"=>$data->id))',
-                            'icon'=>'bigger-120 glyphicon-trash',
-                            'options' => array(
-                                'class'=>'btn btn-xs btn-danger',
-                            ), 
-                            'visible'=>'$data->status=="1" && Yii::app()->user->checkAccess("item.delete")',
-                          ),
-                          'undeleted1' => array(
-                            'label'=>Yii::t('app','Undo Delete Item'),
-                            'icon'=>'bigger-120 glyphicon-refresh',
-                            'options' => array(
-                                'class'=>'btn btn-xs btn-warning btn-undodelete',
-                            ), 
-                            'visible'=>'$data->status=="0" && Yii::app()->user->checkAccess("item.delete")',
-                          ),
-                       ),
-                 ),
-                  * 
-                */
+        ),*/
+        array('name'=>'name',
+              'header'=>'Name',
+              'value' => 'CHtml::link($data->name, Yii::app()->createUrl("item/UpdateImage",array("id"=>$data->primaryKey)))',
+             'type'  => 'raw',
+        ),
+        /*
+        array('name'=>'description',
+              'headerHtmlOptions'=>array('class'=>'hidden-480 hidden-xs'),
+              'htmlOptions'=>array('class' => 'hidden-480 hidden-xs'),
+        ),
+         *
+        */
+        array('name'=>'location',
+              //'headerHtmlOptions'=>array('class'=>'hidden-480 hidden-xs hidden-md'),
+              //'htmlOptions'=>array('class' => 'hidden-480 hidden-xs hidden-md'),
+        ),
+
+        array('name' => 'category_id',
+              'header'=>'Category',
+              //'headerHtmlOptions'=>array('class'=>'hidden-480 hidden-xs hidden-md'),
+              'value' => '$data->category_id==null? " " : $data->category->name',
+              //'htmlOptions'=>array('class' => 'hidden-480 hidden-xs hidden-md'),
+        ),
+        /*
+        array('name'=>'supplier_id',
+              'value'=>'($data->supplier_id==null || $data->supplier_id==0)? "N/A" : $data->supplier->company_name'
+        ),
+         *
+        */
+        /*
+        array('name'=>'cost_price',
+              'headerHtmlOptions'=>array('class'=>'hidden-480 hidden-xs hidden-md'),
+              'htmlOptions'=>array('class' => 'hidden-480 hidden-xs hidden-md'),
+        ),
+         *
+        */
+        /*
+        array('name'=>'unit_price',
+              'header'=>'Sell-Price',
+        ),
+         *
+        */
+        array('name'=>'quantity',
+            'header'=>'quantity',
+            //'headerHtmlOptions'=>array('class'=>'hidden-480 hidden-xs hidden-md'),
+            //'htmlOptions'=>array('class' => 'hidden-480 hidden-xs hidden-md'),
+        ),
+        array('name'=>'status',
+            'type'=>'raw',
+            'value'=>'$data->status==1 ? TbHtml::labelTb("Active", array("color" => TbHtml::LABEL_COLOR_SUCCESS)) : TbHtml::labelTb("De-Activated", array("color" => TbHtml::LABEL_COLOR_WARNING))',
+            //'value' => 'TbHtml::labelTb($data->status)',
+            //'headerHtmlOptions'=>array('class'=>'hidden-480'),
+            //'htmlOptions'=>array('class' => 'hidden-480'),
+        ),
+        array('class'=>'bootstrap.widgets.TbButtonColumn',
+              'template'=>'<div class="hidden-sm hidden-xs btn-group">{detail}{cost}{price}{delete}{undeleted}</div>',
+              'buttons' => array(
+                  'detail' => array(
+                    'click' => 'updateDialogOpen',
+                    'label'=>Yii::t('app','Stock'),
+                    'url'=>'Yii::app()->createUrl("Inventory/admin", array("item_id"=>$data->id))',
+                    'options' => array(
+                        'data-toggle' => 'tooltip',
+                        'data-update-dialog-title' => 'Stock History',
+                        'class'=>'btn btn-xs btn-pink',
+                        'title'=>'Stock History',
+                      ),
+                  ),
+                  'cost' => array(
+                    'click' => 'updateDialogOpen',
+                    'label'=>Yii::t('app','Cost'),
+                    'url'=>'Yii::app()->createUrl("Item/CostHistory", array("item_id"=>$data->id))',
+                    'options' => array(
+                        'data-update-dialog-title' => Yii::t('app','Cost History'),
+                        'class'=>'btn btn-xs btn-info',
+                        'title'=>'Cost History',
+                    ),
+                    'visible'=>'Yii::app()->user->checkAccess("item.create") || Yii::app()->user->checkAccess("item.update")',
+                  ),
+                  'price' => array(
+                    'click' => 'updateDialogOpen',
+                    //'label'=>"<span class='text-info'>" . Yii::t('app','Price') . "</span><i class='icon-info-sign'></i> ",
+                    'label'=>Yii::t('app','Price'),
+                    'url'=>'Yii::app()->createUrl("Item/PriceHistory", array("item_id"=>$data->id))',
+                    'options' => array(
+                        'data-update-dialog-title' => Yii::t('app','Price History'),
+                        'class'=>'btn btn-xs btn-success',
+                        'title'=>'Price History',
+                    ),
+                    'visible'=>'Yii::app()->user->checkAccess("item.create") || Yii::app()->user->checkAccess("item.update")',
+                  ),
+                  /*
+                  'edit' => array(
+                    'label'=>Yii::t('app','Edit Item'),
+                    'url'=>'Yii::app()->createUrl("Item/UpdateImage", array("id"=>$data->id))',
+                    'icon'=>'bigger-120 ace-icon fa fa-edit',
+                    'visible'=>'Yii::app()->user->checkAccess("item.update")',
+                    'options' => array(
+                        'class' => 'btn btn-xs btn-info',
+                    )
+                  ),
+                   *
+                  */
+                  'delete' => array(
+                    'label'=>Yii::t('app','Delete Item'),
+                    'icon'=>'bigger-120 glyphicon-trash',
+                    'options' => array(
+                        'class'=>'btn btn-xs btn-danger',
+                     ),
+                     'visible'=>'$data->status=="1" && Yii::app()->user->checkAccess("item.delete")',
+                  ),
+                  'undeleted' => array(
+                    'label'=>Yii::t('app','Undo Delete Item'),
+                    'url'=>'Yii::app()->createUrl("Item/UndoDelete", array("id"=>$data->id))',
+                    'icon'=>'bigger-120 glyphicon-refresh',
+                    'options' => array(
+                        'class'=>'btn btn-xs btn-warning btn-undodelete',
+                    ),
+                    'visible'=>'$data->status=="0" && Yii::app()->user->checkAccess("item.delete")',
+                   ),
+               ),
+         ),
+         /*
+         array('class'=>'bootstrap.widgets.TbButtonColumn',
+              'template'=>'<div class="hidden-md hidden-lg"><div class="inline position-relative">
+                            <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-cog icon-only bigger-110"></i></button>
+                            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+                            <li>{stock}</li><li>{cost1}</li><li>{price}</li><li>{delete1}</li><li>{undeleted1}</li>
+                            </ul></div></div>',
+              //'htmlOptions'=>array('class'=>'hidden-sm hidden-xs btn-group'),
+              'buttons' => array(
+                   'stock' => array(
+                    'click' => 'updateDialogOpen',
+                    'label'=>Yii::t('app','Stock'),
+                    'url'=>'Yii::app()->createUrl("Inventory/admin", array("item_id"=>$data->id))',
+                    'options' => array(
+                        'data-toggle' => 'tooltip',
+                        'data-update-dialog-title' => 'Stock History',
+                        'class'=>'btn btn-sm btn-pink',
+                        'title'=>'Stock History',
+                      ),
+                  ),
+                  'cost1' => array(
+                    'click' => 'updateDialogOpen',
+                    'label'=>Yii::t('app','Cost'),
+                    'url'=>'Yii::app()->createUrl("Item/CostHistory", array("item_id"=>$data->id))',
+                    'options' => array(
+                        'data-update-dialog-title' => Yii::t('app','Cost History'),
+                        'class'=>'btn btn-sm btn-info',
+                        'title'=>'Cost History',
+                    ),
+                    'visible'=>'Yii::app()->user->checkAccess("item.create") || Yii::app()->user->checkAccess("item.update")',
+                  ),
+                  'price' => array(
+                    'click' => 'updateDialogOpen',
+                    //'label'=>"<span class='text-info'>" . Yii::t('app','Price') . "</span><i class='icon-info-sign'></i> ",
+                    'label'=>Yii::t('app','Price'),
+                    'url'=>'Yii::app()->createUrl("Item/PriceHistory", array("item_id"=>$data->id))',
+                    'options' => array(
+                        'data-update-dialog-title' => Yii::t('app','Price History'),
+                        'class'=>'btn btn-sm btn-success',
+                        'title'=>'Price History',
+                    ),
+                    'visible'=>'Yii::app()->user->checkAccess("item.create") || Yii::app()->user->checkAccess("item.update")',
+                  ),
+                  'delete1' => array(
+                    'label'=>Yii::t('app','Delete Item'),
+                    'url'=>'Yii::app()->createUrl("item/delete/",array("id"=>$data->id))',
+                    'icon'=>'bigger-120 glyphicon-trash',
+                    'options' => array(
+                        'class'=>'btn btn-xs btn-danger',
+                    ),
+                    'visible'=>'$data->status=="1" && Yii::app()->user->checkAccess("item.delete")',
+                  ),
+                  'undeleted1' => array(
+                    'label'=>Yii::t('app','Undo Delete Item'),
+                    'icon'=>'bigger-120 glyphicon-refresh',
+                    'options' => array(
+                        'class'=>'btn btn-xs btn-warning btn-undodelete',
+                    ),
+                    'visible'=>'$data->status=="0" && Yii::app()->user->checkAccess("item.delete")',
+                  ),
+               ),
+         ),
+          *
+        */
 	),
 )); ?>
   
