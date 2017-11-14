@@ -380,6 +380,32 @@ class TreatmentCart extends CApplicationComponent
         $this->emptyPayment();
     }
 
+    public function runtime_calculate_payment($visit_id)
+    {
+        $treatment_amount = $this->getCart();
+        $total_amount = 0;
+        foreach ($treatment_amount as $val)
+        {
+            $total_amount +=$val['price']*Yii::app()->session['exchange_rate'];
+        }
+
+        $medicine_amount = $this->getMedicine();
+
+        foreach ($medicine_amount as $val)
+        {
+            $total_amount +=$val['price']*$val['quantity']*Yii::app()->session['exchange_rate'];
+        }
+
+        $bloodtest_fee = VBloodtestPayment::model()->findall("visit_id=:visit_id",array(':visit_id'=>$visit_id));
+        
+        foreach ($bloodtest_fee as $val)
+        {
+            $total_amount +=$val['unit_price']*$val['exchange_rate'];
+        }
+
+        return $total_amount;
+    }
+
 }
 
 ?>

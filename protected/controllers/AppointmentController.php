@@ -650,8 +650,7 @@ class AppointmentController extends Controller
             $data['visit_id'] = $_GET['visit_id'];
             $data['treatment_selected_items'] = Yii::app()->treatmentCart->getCart();
             $data['medicine_selected_items'] = Yii::app()->treatmentCart->getMedicine();
-
-
+            
             $model->actual_amount = $model->sumBill($data['visit_id']);
 
             $chk_lab_detail = LabAnalized::model()->find("visit_id=:visit_id",array(':visit_id'=>$_GET['visit_id']));

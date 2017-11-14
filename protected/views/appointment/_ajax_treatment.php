@@ -1,27 +1,11 @@
 <?php
-    $treatment_amount = Yii::app()->treatmentCart->getCart();
-    $total_amount = 0;
-    foreach ($treatment_amount as $val)
-    {
-        $total_amount +=$val['price']*Yii::app()->session['exchange_rate'];
+    $total_amount = Yii::app()->treatmentCart->runtime_calculate_payment($visit_id);
+    $old_amount = Payment::model()->payment_old_amount($visit_id);
+    if ($old_amount>0){
+        $actual_amount = $old_amount;
+    }else{
+        $actual_amount = $total_amount;
     }
-    
-    $medicine_amount = Yii::app()->treatmentCart->getMedicine();
-    
-    foreach ($medicine_amount as $val)
-    {
-        $total_amount +=$val['price']*$val['quantity']*Yii::app()->session['exchange_rate'];
-    }    
-    //echo $visit_id;
-    $bloodtest_fee = VBloodtestPayment::model()->findall("visit_id=:visit_id",array(':visit_id'=>$visit_id));
-    //$k=0;
-    foreach ($bloodtest_fee as $val)
-    {
-        $total_amount +=$val['unit_price']*$val['exchange_rate'];
-        //echo $val['exchange_rate'];
-        //print_r($val);
-    }
-    //echo $total_amount;
 ?>
 <table class="table table-hover table-condensed">
     <thead>
@@ -160,7 +144,7 @@
         });
         
         $('#show-payment-modal').on('shown.bs.modal', function() {
-            $('#Appointment_actual_amount').val('<?php echo number_format(@$total_amount,4); ?>');
+            $('#Appointment_actual_amount').val('<?php echo number_format(@$actual_amount,4); ?>');
         });
     
         $('#show-payment-modal').on('hidden.bs.modal', function(e) {

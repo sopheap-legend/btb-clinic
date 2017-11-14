@@ -122,10 +122,18 @@ class Payment extends CActiveRecord
             return $myid->queryScalar();
         }
         
-        public function payment_amount()
+        public function payment_old_amount($visit_id)
         {
-            
+            $sql="SELECT IFNULL(amount,0)-IFNULL(discount_amount,0) actual_amount
+				FROM payment t1
+				INNER JOIN  bill t2
+				ON t1.bill_id=t2.bill_id AND visit_id IN (SELECT old_visit_id FROM visit WHERE visit_id=:visit_id)";
+
+			$cmd = Yii::app()->db->createCommand($sql);
+			$cmd->bindParam(":visit_id", $visit_id);
+			return $cmd->queryScalar();
         }
+
         /*public function DeletePayment()
         {
             
