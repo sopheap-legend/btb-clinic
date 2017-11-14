@@ -319,7 +319,7 @@ Yii::app()->clientScript->registerScript('completedConsult', "
             }
         });
         
-        $('.re-visit').on('click', function (e) {
+        /*$('.re-visit').on('click', function (e) {
             e.preventDefault();
             a_href = $(this).attr("href");
             //alert(a_href);
@@ -332,11 +332,11 @@ Yii::app()->clientScript->registerScript('completedConsult', "
                     complete: function() { $('.waiting').hide(); },
                     success: function () {
                         //window.location.href = a_href;
-                        location.reload(); 
+                        location.reload();
                     }
                 });
             }
-        });
+        });*/
         
     });
 

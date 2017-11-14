@@ -66,4 +66,23 @@
 <?php $this->endWidget(); ?>
 
 <?php //$this->renderPartial('/contact/_visited', array('visit'=>$visit,'patient_id'=>18),false,true); ?>
-
+<script language="JavaScript" type="text/javascript">
+    $('.re-visit').on('click', function (e) {
+        e.preventDefault();
+        a_href = $(this).attr("href");
+        //alert(a_href);
+        var ans = confirm("Are you sure you want to submit?");
+        if (ans === true) {
+            $.ajax({
+                type: "POST",
+                url: a_href,
+                beforeSend: function() { $('.waiting').show(); },
+                complete: function() { $('.waiting').hide(); },
+                success: function () {
+                    //window.location.href = a_href;
+                    location.reload();
+                }
+            });
+        }
+    });
+</script>
