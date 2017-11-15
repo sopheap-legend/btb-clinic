@@ -1361,7 +1361,8 @@ class AppointmentController extends Controller
         $total_amount = Appointment::model()->sumBill($visit_id);
         //$data['discount_amount']=Yii::app()->treatmentCart->getAllDiscount($total_amount,$visit_id);
         $data['discount_amount_tmp']=Yii::app()->treatmentCart->getAllDiscount($total_amount,$visit_id);
-        $data['discount_amount'] = $data['discount_amount_tmp'] + ($total_amount-Appointment::model()->get_actual_amount($visit_id));
+        //$data['discount_amount'] = $data['discount_amount_tmp'] + ($total_amount-Appointment::model()->get_actual_amount($visit_id));
+        $data['discount_amount'] = $data['discount_amount_tmp'];
         $clinic_info = Clinic::model()->find();
         $employee_id = RbacUser::model()->findByPk(Yii::app()->user->getId());
         $employee = Employee::model()->get_doctorName($employee_id->employee_id);

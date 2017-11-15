@@ -250,7 +250,8 @@ if (isset($error_message))
                         <td colspan="5" style='text-align:right;'><?php echo TbHtml::b(Yii::t('app','ActualPaid')); ?></td>
                         <td colspan="5" style='text-align:right;'>
                                 <span style="font-size:12px;font-weight:bold">៛
-                                    <?php echo Yii::app()->settings->get('site', 'currencySymbol') . number_format($actual_amount-$discount_amount_tmp,0, '.', ','); ?>
+                                    <?php //echo Yii::app()->settings->get('site', 'currencySymbol') . number_format($actual_amount-$discount_amount_tmp,0, '.', ','); ?>
+                                    <?php echo Yii::app()->settings->get('site', 'currencySymbol') . number_format($total_kh-$discount_amount_tmp,0, '.', ','); ?>
                                 </span>
                         </td>
                     </tr>

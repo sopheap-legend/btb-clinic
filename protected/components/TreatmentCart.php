@@ -324,7 +324,10 @@ class TreatmentCart extends CApplicationComponent
         if($discount_amount_tmp==0 || $discount_amount_tmp=='')
         {
             $discount_amount=Appointment::model()->getPaymentDiscount($visit_id);
-            if(empty($discount_amount))$discount_amount=0;
+            if(empty($discount_amount))
+            {
+                $discount_amount=$total_amount-Appointment::model()->get_actual_amount($visit_id);
+            }//$discount_amount=0;
         }else{
             $discount_amount=$discount_amount_tmp;
         }
