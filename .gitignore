@@ -8,3 +8,5 @@
 /.idea/
 /.idea/workspace.xml
 protected/config/main.php
+
+protected/runtime/application.log
